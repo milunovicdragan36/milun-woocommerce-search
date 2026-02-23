@@ -1,0 +1,40 @@
+
+ /*added to protect transparency of search bar section*/
+/* === SEARCH PANEL === */
+/* Force all parents to be fully opaque (opacity cannot be overridden from child) */
+/* Make the overlay layer actually sit above the whole page */
+.pop_up_menu{
+  z-index: 99998 !important;
+}
+
+/* Inner parts solid too */
+.data-container-menu,
+.wrapper-data-container-menu-data-posts{
+  background-color: #fff;
+ height: auto;
+ max-height: 500px !important;
+  
+}
+.data-container-menu{
+
+   overflow-y: auto;   /* vertical scroll when needed */
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+.notification-container {
+    position: relative; /* VERY IMPORTANT */
+}
+#close-search-flyout-before-title {
+    position: absolute;
+    top: 10px;
+    right: 12%;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.milun-search-thumb {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    margin-right: 10px;
+}

@@ -1,0 +1,37 @@
+#wpfooter{
+	position: relative !important;
+}
+.terms-container div{
+	cursor: pointer;
+}
+
+.pink{
+	background-color: pink;
+	color: white;
+}
+
+.white{
+	background-color: white;
+	color: black;
+}
+/*#milunsearch_bottom {height: 900px; border:2px solid #333; padding:10px;}
+#milunsearch_hide_show{height: 500px; border:2px solid #333; padding:10px;}*/
+div.admin-container{       
+	max-height: 120px !important;
+	overflow: auto;
+	text-align:justify;
+	max-width: 230px;
+ }
+ .search-woo_categories,
+ .term,
+ .search-visibility_of_product,
+ .search-type_of_product,
+ .search-woo_users,
+ .search-sku,
+ .search-title_of_product{
+ 	width: 230px;
+ 	height: 40px;
+ }
+ .milun-plugin-menu{
+  display: none !important;
+} 
