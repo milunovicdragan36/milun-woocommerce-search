@@ -190,8 +190,9 @@ jQuery.getJSON(url, function (livesearchposts_1) {
 
 
 getResultsCategoriesMenu(){
-if (jQuery('.data-categories-container-menu').length > 0) {
+const el = document.querySelector('.data-categories-container-menu');
 
+if (el) {
   var $this =this;
    
        jQuery('.categories').css("display",'none');
@@ -205,13 +206,12 @@ if (jQuery('.data-categories-container-menu').length > 0) {
     
       var customSearchBox =  $this.searchFieldCategoriesMenu.val();
        
-//alert(customSearchBox);
-   
+var post_id = jQuery("#search_post_id").val();   
 
-jQuery.getJSON(liveSearchDataCategories[1].root_url+'/wp-json/namespace/v11/searching_front_cat/'+customSearchBox,function(livesearchcategories){
+jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v12/searching_woo_categories/'+customSearchBox+'/'+post_id,function(livesearchcategories){
  //  jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/searching_empty_cat/'+ customSearchBox,function(empty_categories){
 
-
+console.log(livesearchcategories);
 
 let unique_3 = [...new Map(livesearchcategories.map((m) => [m.term_id, m])).values()];
 
@@ -223,7 +223,7 @@ let unique_3 = [...new Map(livesearchcategories.map((m) => [m.term_id, m])).valu
 var result = unique_3.map(item => 
 `<div>
   
-            <a class='red_color' href="${liveSearchDataCategories[1].root_url}/${item.taxonomy}/${item.slug}">${item.name} ( ${item.count} )</a> 
+            <a class='red_color' href="${liveSearchDataCategories[1].root_url}/${item.taxonomy}/${item.slug}">${item.name}</a> 
 </div>
  
   `
