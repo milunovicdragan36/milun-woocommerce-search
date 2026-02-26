@@ -226,6 +226,8 @@ foreach ($posts as $post) {
 echo '<input type="hidden" id="numberofpostswoo" value="'.esc_attr(get_post_meta($post->ID, 'numberofpostswoo', true)).'" >';
 
                      foreach ($locations as $key =>$value){
+      $search_categories_woo = esc_attr(get_post_meta( $post->ID,"search_categories_woo",true));
+               
        $full_width_form = esc_attr(get_post_meta( $post->ID,"full_width_form",true));
        $standard_form = esc_attr(get_post_meta( $post->ID,"standard_form",true));
    
@@ -335,7 +337,7 @@ if($search_categories!='1' && $searchposts_in_title_after=='1' && $standard_form
                       '.'<p id="wrapper_of_my_menu">'.$items.'</p>';  
 }                     
 if (
-    $search_categories != '1' &&
+    $search_categories_woo != '1' &&
     $searchposts_in_title_before == '1' &&
     $standard_form != '1' &&
     $full_width_form == '1'
@@ -397,7 +399,69 @@ if (
     return $popup 
                       .'<p id="wrapper_of_my_menu">'.$items.'</p>';
 }
+if (
+    $search_categories_woo == '1' &&
+    $searchposts_in_title_before == '1' &&
+    $standard_form != '1' &&
+    $full_width_form == '1'
+) {
 
+    // OPTIONAL: limit to one menu location (recommended)
+    // Change 'primary' to your theme menu location slug if needed.
+    if ( isset($args) && isset($args->theme_location) && $args->theme_location !== 'primary' ) {
+        return $items;
+    }
+
+    // Prevent duplicates if menu renders multiple times (desktop/mobile/sticky)
+    static $search_popup_added = false;
+    if ( $search_popup_added ) {
+        return $items;
+    }
+    $search_popup_added = true;
+
+    $popup = '
+        <div id="for-searching-5"></div>
+
+        <div class="pop_up_menu">
+            <div class="notification-container dismiss">
+
+             
+                    <div class="search_menu" style="background-color:transparent;">
+
+                      <span class="dashicons dashicons-no-alt closeFilePanel"
+                      id="close-search-flyout-before-title"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+                        <input type="text"
+                               class="search-term-menu" style="border: 1px solid #000000;"
+                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                    </div>
+
+        <div class="wrapper-data-container-menu-data-posts">
+<div class="data-categories-container-menu"></div>
+<div class="data-container-menu"></div>
+<div class="data-posts-inc-menu"></div>
+
+<div class="data-menu-posts-btn"></div>
+<div class="no-data-menu"></div>
+                      
+                    </div>
+
+            </div>
+        </div>
+
+        <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-title"
+              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              role="button"
+              tabindex="0"></span>
+    ';
+
+    // Append popup + icon to the existing menu items
+    return $popup 
+                      .'<p id="wrapper_of_my_menu">'.$items.'</p>';
+}
 
 }  
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
