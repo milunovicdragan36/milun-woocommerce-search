@@ -211,20 +211,13 @@ var post_id = jQuery("#search_post_id").val();
 jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v12/searching_woo_categories/'+customSearchBox+'/'+post_id,function(livesearchcategories){
  //  jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/searching_empty_cat/'+ customSearchBox,function(empty_categories){
 
-console.log(livesearchcategories);
-
-let unique_3 = [...new Map(livesearchcategories.map((m) => [m.term_id, m])).values()];
 
 
 
-
-
-
-var result = unique_3.map(item => 
+var result = livesearchcategories.map(item => 
 `<div>
   
-            <a class='red_color' href="${liveSearchDataCategories[1].root_url}/${item.taxonomy}/${item.slug}">${item.name}</a> 
-</div>
+<a class='red_color' href="${MilunSearch.root_url}/product-category/${item.slug}">${item.name}</a></div>
  
   `
 ).join('')

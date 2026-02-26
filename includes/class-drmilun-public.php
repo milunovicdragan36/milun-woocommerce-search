@@ -191,6 +191,14 @@ wp_localize_script(
     )
 );
 
+wp_localize_script(
+    'menu-public',
+    'MilunSearch',
+    [
+        'root_url' => home_url()
+    ]
+);
+
 // For searching in menus
 wp_register_script(
     'show-result-public',
