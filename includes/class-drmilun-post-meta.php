@@ -2726,12 +2726,21 @@ if($category->name!="" && $category->slug!="uncategorized"){
 
 
    $sanitized_checkbox_full_width_form = $full_width_form ==1? $this->dmsfp_prefix_sanitize_input($full_width_form, 1): '';
+   
+    $pop_up_form = esc_attr(get_post_meta( get_the_ID(),"pop_up_form", true));
+
+
+   $sanitized_checkbox_pop_up_form = $pop_up_form ==1? $this->dmsfp_prefix_sanitize_input($pop_up_form, 1): '';
+ 
    ?>
 <p>
       <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" value="1" name="standard_form" <?php checked(esc_attr($sanitized_checkbox_standard_form), 1 ); ?>><?php esc_html_e("Standard form","milun-search"); ?></label>
  </p>
  <p>
       <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="full_width_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_full_width_form), 1 ); ?>><?php esc_html_e("Full width form","milun-search"); ?></label>
+ </p>
+ <p>
+      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="pop_up_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_pop_up_form), 1 ); ?>><?php esc_html_e("Pop up form","milun-search"); ?></label>
  </p>
 <?php
 
@@ -3631,16 +3640,23 @@ if(isset($_POST[ 'standard_form' ]))  // && sanitize_text_field(wp_unslash($_POS
 }
 */
 if(isset($_POST[ 'standard_form' ]) && sanitize_text_field(wp_unslash($_POST['standard_form']))) {
-           delete_post_meta( $post_id, 'full_width_form' );
+          delete_post_meta( $post_id, 'full_width_form' );
+           delete_post_meta( $post_id, 'pop_up_form' );
            update_post_meta( $post_id, 'standard_form', 1);
 
 } 
 if(isset($_POST[ 'full_width_form' ]) && sanitize_text_field(wp_unslash($_POST['full_width_form']))) {
            delete_post_meta( $post_id, 'standard_form' );
+           delete_post_meta( $post_id, 'pop_up_form' );
            update_post_meta( $post_id, 'full_width_form', 1);
 
 } 
+if(isset($_POST[ 'pop_up_form' ]) && sanitize_text_field(wp_unslash($_POST['pop_up_form']))) {
+           delete_post_meta( $post_id, 'standard_form' );
+           delete_post_meta( $post_id, 'full_width_form' );
+           update_post_meta( $post_id, 'pop_up_form', 1);
 
+} 
 
 
 if(isset($_POST[ 'search_by_woo_title' ]))  // && sanitize_text_field(wp_unslash($_POST['search_by_woo_title']))) {
