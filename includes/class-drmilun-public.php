@@ -109,6 +109,15 @@ class MMSDD_Drmilun_Public {
 	    'search_results' => __( 'Search Results', 'searching-for-posts' ),
 	    'not_found_data' =>  __( 'We could not find any categories for your search. You can give it another try with different criteria.', 'searching-for-posts' )
 	 );
+     wp_register_script(
+    'pop-up-search-bar',
+    plugin_dir_url( __FILE__ ) . '../public/js/pop_up_search_bar.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'pop-up-search-bar' );
 /*
 	   $translation_array_for_posts = array(
 	    'search_results' => __( 'Search Results', 'searching-for-posts' ),
