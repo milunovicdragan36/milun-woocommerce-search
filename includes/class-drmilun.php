@@ -135,7 +135,6 @@ class MMSDD_Drmilun {
 		 */
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-drmilun-search-post.php'; 
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-drmilun-woo-widget.php'; 
 				require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-drmilun-widget.php'; 
 		
 		/**
