@@ -168,16 +168,15 @@ foreach ($posts as $post) {
 <?php
 }
    $search_categories_woo = esc_attr(get_post_meta( @$post->ID,"search_categories_woo", true)); 
-$search_tags = esc_attr(get_post_meta( @$post->ID,"search_tags", true)); 
  
  $popup = '
         <div id="for-searching-4"></div>
 
-        <div class="pop_up_menu">
+        <div class="pop_up_widget">
             <div class="notification-container dismiss">
 
              
-                    <div class="search_menu" style="background-color:transparent;">
+                    <div class="search_widget" style="background-color:transparent;">
 
                       <span class="dashicons dashicons-no-alt closeFilePanel"
                       id="close-search-flyout-before-title"
@@ -185,17 +184,17 @@ $search_tags = esc_attr(get_post_meta( @$post->ID,"search_tags", true));
                       role="button"
                       tabindex="0"></span>
                         <input type="text"
-                               class="search-term-menu" style="border: 1px solid #000000;"
+                               class="search-term-widget" style="border: 1px solid #000000;"
                                placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
                     </div>
 
-        <div class="wrapper-data-container-menu-data-posts">
+        <div class="wrapper-data-container-widget-data-posts">
 
-<div class="data-container-menu"></div>
-<div class="data-posts-inc-menu"></div>
+<div class="data-container-widget"></div>
+<div class="data-posts-inc-widget"></div>
 
-<div class="data-menu-posts-btn"></div>
-<div class="no-data-menu"></div>
+<div class="data-widget-posts-btn"></div>
+<div class="no-data-widget"></div>
                       
                     </div>
 
