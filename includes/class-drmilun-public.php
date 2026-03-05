@@ -235,6 +235,11 @@ wp_enqueue_script( 'show-result-public' );
     
    wp_enqueue_script( 'search-loop-menu' );
 
+   //for search loop in menu		
+     wp_register_script( 'show-result-widget', plugin_dir_url( __FILE__ ) . '../public/js/show_result_in_widget.js', array("jquery" ),'1.0', true );
+    
+   wp_enqueue_script( 'show-result-widget' );
+
  }
 
 }
