@@ -127,17 +127,17 @@ $posts = get_posts(['post_type' =>"sfp_search_post"]);
                         
 foreach ($posts as $post) {
     $search_by_title = esc_attr(get_post_meta( $post->ID,"search_by_title", true));
-   $search_by_excerpt = esc_attr(get_post_meta( $post->ID,"search_by_excerpt", true));
    $search_by_content = esc_attr(get_post_meta( $post->ID,"search_by_content", true));
    $search_categories = esc_attr(get_post_meta( $post->ID,"search_categories", true));
-   
+   $full_width_form = esc_attr(get_post_meta( $post->ID,"full_width_form",true));
+        $standard_form = esc_attr(get_post_meta( $post->ID,"standard_form",true));
+              $pop_up_form = esc_attr(get_post_meta( $post->ID,"pop_up_form",true));
+ 
    ?>
 <input type='hidden' id="search_post_id" value="<?php echo esc_attr($post->ID); ?>">
 <input type='hidden' id="search_by_title" value="<?php echo esc_attr($search_by_title); ?>" >
-<input type='hidden' id="search_by_excerpt" value="<?php echo esc_attr($search_by_excerpt); ?>" >
 <input type='hidden' id="search_by_content" value="<?php echo esc_attr($search_by_content); ?>" >
 <input type='hidden' id="search_categories" value="<?php echo esc_attr($search_categories); ?>" >
-<input type='hidden' id="search_tags" value="<?php echo esc_attr($search_tags); ?>" >
 
 <?php
 
@@ -152,7 +152,6 @@ foreach ($posts as $post) {
            ?>
 <input type='hidden' id="search_post_id" value="<?php echo esc_attr($post->ID); ?>">
 <input type='hidden' id="search_by_title" value="<?php echo esc_attr($search_by_title); ?>" >
-<input type='hidden' id="search_by_excerpt" value="<?php echo esc_attr($search_by_excerpt); ?>" >
 <input type='hidden' id="search_by_content" value="<?php echo esc_attr($search_by_content); ?>" >
 
 
@@ -172,7 +171,7 @@ foreach ($posts as $post) {
  $popup = '
         <div id="for-searching-4"></div>
 
-        <div class="pop_up_widget">
+        <div class="pop_up_for_widget">
             <div class="notification-container dismiss">
 
              
@@ -211,18 +210,72 @@ foreach ($posts as $post) {
 
 $form = '';
 
-if($search_categories_woo=='1' && is_front_page()){
+    if (
+    $search_categories_woo == '1' &&
+    $standard_form != '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_front_page()
+) {
+ $popup = '
+        <div id="for-searching-5"></div>
+
+        <div class="pop_up_widget milun-popup-center">
+            <div class="notification-container dismiss">
+
+             
+                    <div class="search_widget" style="background-color:transparent;">
+
+                      <span class="dashicons dashicons-no-alt closeFilePanel"
+                      id="close-search-flyout-before-title"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+                        <input type="text"
+                               class="search-term-widget" style="border: 1px solid #000000;"
+                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                    </div>
+
+        <div class="wrapper-data-container-widget-data-posts">
+<div class="data-categories-container-widget"></div>
+<div class="data-container-widget"></div>
+<div class="data-posts-inc-widget"></div>
+
+<div class="data-widget-posts-btn"></div>
+<div class="no-data-widget"></div>
+                      
+                    </div>
+
+            </div>
+        </div>
+
+        <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-title"
+              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              role="button"
+              tabindex="0"></span>
+    ';
+
+   
+
+
+
                     echo esc_attr(@$args['before_widget']);
-    //if ( @$title ) {
-      echo esc_attr(@$args['before_title']) .'<div class="my_wrapper_widget">
-                        <p><b>'.esc_attr(@$title).'</b></p>
+
+   
+
+    
+           echo esc_attr(@$args['before_widget']);
+    
+  
                        
-                    '.$popup. esc_attr(@$args['after_title']);
-   // }
+                      echo $popup;
+                     
+   
 
     
 
-    echo esc_attr(@$args['after_widget']);              
+    echo esc_attr(@$args['after_widget']);  
+
                       
  }
  if($search_categories_woo!='1'&& is_front_page()){

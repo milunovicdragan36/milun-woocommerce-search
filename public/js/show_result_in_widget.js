@@ -23,10 +23,8 @@ class Live_Search_Widget{
   constructor(){
      this.searchFieldProductsWidget = jQuery(".search-term-widget");
  this.searchFieldCategoriesWidget = jQuery(".search-term-widget");
-  this.searchFieldTagsWidget = jQuery(".search-term-widget");
   this.searchCategoriesAdmin =jQuery("#search_categories");
 
-  this.searchTagsAdmin =jQuery("#search_tags");
     
 
      this.post_id = jQuery("#search_post_id");
@@ -57,7 +55,6 @@ this.count = 0;
             
      //this.searchFieldWoo = jQuery(".search-term-woo");
      //this.searchFieldWidget = jQuery(".search-term-widget-woo");
-     this.searchFieldWidgetWoo = jQuery(".search-term-widget-woo");
      this.isSpinnerVisible = false;
      this.typingTimer;
      
