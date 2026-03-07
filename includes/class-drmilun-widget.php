@@ -257,25 +257,19 @@ $form = '';
 
    
 
-
-
-                    echo esc_attr(@$args['before_widget']);
-
-   
-
-    
-           echo esc_attr(@$args['before_widget']);
-    
-  
+      echo esc_attr(@$args['before_widget']);
+    //if ( @$title ) {
+      echo esc_attr(@$args['before_title']) .'<div class="my_wrapper_widget">
+                        <p><b>'.esc_attr(@$title).'</b></p>
                        
-                      echo $popup;
-                     
-   
+                      '.$popup
+                      . esc_attr(@$args['after_title']);
+   // }
 
     
 
-    echo esc_attr(@$args['after_widget']);  
-
+    echo esc_attr(@$args['after_widget']); 
+ 
                       
  }
  if($search_categories_woo!='1'&& is_front_page()){
