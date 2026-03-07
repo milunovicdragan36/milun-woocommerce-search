@@ -1,269 +1,332 @@
-function debounce(fn, delay) {
-  let t = null;
-  return function () {
-    const ctx = this;
-    const args = arguments;
-    clearTimeout(t);
-    t = setTimeout(function () {
-      fn.apply(ctx, args);
-    }, delay);
-  };
+window.milunShowResultWidget = function(livesearchposts_1){
+ // console.log(livesearchposts_1);
+
+var livesearchposts_1 = livesearchposts_1;
+
+
+if (livesearchposts_1.length==0) {
+
+    document.getElementsByClassName('no-data-widget')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
+
+        jQuery('.data-widget-posts-btn').css('display','none');
+   
+                jQuery('.data-container-widget').css('display','none');
+
+
+
 }
 
-jQuery(document).ready(function () {
-  document.getElementsByTagName("html")[0].style.visibility = "visible";
-jQuery('.my_wrapper').css('display','block');
+var load_post_number =  parseInt(jQuery("#numberofpostswoo").val());
+var custom_word_of_number_of_posts = '';   
+if(parseInt(jQuery("#numberofpostswoo").val()) == 1){
+  custom_word_of_number_of_posts = 'post';
+}else{
+  custom_word_of_number_of_posts = 'posts';
+}
 
+
+//livesearchposts_1.length=parseInt(jQuery("#numberofpostswoo").val());
+let maxPosts = parseInt(jQuery("#numberofpostswoo").val());
+
+  livesearchposts_2 = livesearchposts_1.slice(0, maxPosts);
+
+var number_of_words_in_posts_2=parseInt(jQuery("#numberofwordsinposts").val());
+
+jQuery(function() {
+  jQuery(".data-container-widget div.body").after("<div class='line_below_post'></div>");
+  jQuery(".data-container-widget div.line_below_post").last().remove();
+
+});
+jQuery('.data-container-widget-inc').css('display','none');
+   document.getElementsByClassName('data-container-widget')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?'<div class="title">'+
+    item.post_title+ `
+<div class='body'><img src=`+item.thumb +` class='milun-search-thumb'>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
+ liveSearchDataPosts[0].read_more+`</a></div><br>`
+    
+ : item.post_title == undefined ? ``:`<div class="title">`+item.post_title+`</div><div class='body'>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
+ liveSearchDataPosts[0].read_more+`</a></div><br>`
+ ).join(" ")
+;
+ 
+document.getElementsByClassName('data-widget-posts-btn')[0].innerHTML=
+'<div class="background_color_of_load_more_button_widget">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ custom_word_of_number_of_posts+'</div><div id="no_more_posts_widget"></div>';
+var hasChild = document.getElementsByClassName('data-container-widget')[0];
+if(hasChild===null){
+    document.getElementsByClassName('no-data-widget')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
+}else{
+ 
+}
+  var $button = jQuery('.background_color_of_load_more_button_widget');
+
+var $counter = jQuery('.counter');
+//var un_length =$counter.val( parseInt($counter.val())+ parseInt(jQuery("#numberofpostswoo").val())); // `parseInt` converts the `value` from a string to a number
+  var number = parseInt($counter.val());
+var v = parseInt(jQuery("#numberofpostswoo").val());
+
+var find_element = parseInt(jQuery("#numberofpostswoo").val());
+$button.click(function(){
+jQuery('.data-container-widget').css('display','none');
+
+find_element+=parseInt(jQuery("#numberofpostswoo").val());
+
+
+
+if(find_element> parseInt(jQuery("#numberofpostswoo").val())){
+
+
+
+var hasChild = document.getElementsByClassName('data-container-widget');
+if(hasChild!==null){
+  jQuery('.data-container-widget').css('display','block');
+
+     jQuery('.data-container-widget-inc').css('display','none');
+  jQuery('.no-data-widget').css('display','none');
+
+livesearchposts_2 = livesearchposts_1.slice(0, find_element);
+ 
+if (livesearchposts_2.length==0) {
+
+    document.getElementsByClassName('no-data-widget')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
+
+        jQuery('.data-widget-posts-btn').css('display','none');
+   
+                jQuery('.data-container-widget').css('display','none');
+
+
+
+}else{
+jQuery(function() {
+  jQuery(".data-container-widget div.body").after("<div class='line_below_post'></div>");
+  jQuery(".data-container-widget div.line_below_post").last().remove();
 
 });
 
 
-class Live_Search_Widget{
-  
-  constructor(){
-     this.searchFieldProductsWidget = jQuery(".search-term-widget");
- this.searchFieldCategoriesWidget = jQuery(".search-term-widget");
-  this.searchCategoriesAdmin =jQuery("#search_categories");
 
-    
+    document.getElementsByClassName('data-container-widget')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?  '<div class="title">'+
+    item.post_title+ `
+<div class='body'><img src=`+item.thumb +` class='milun-search-thumb'>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
+ liveSearchDataPosts[0].read_more+`</a></div><br>`
 
-     this.post_id = jQuery("#search_post_id");
-     this.numberofposts = jQuery("#numberofposts");
-     this.search_categories = jQuery("#search_categories");
-this.count = 0;
- this.number_of_words_in_posts = jQuery("#numberofwordsinposts");
+ : item.post_title.rendered == undefined ? ``:`<div class="title 2">`+item.post_title.rendered+`</div><div class='body'>` + item.post_content.rendered.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
+ liveSearchDataPosts[0].read_more+`</a></div><br>`
+ ).join(" ")+`<input type="hidden" style="display:none;" class="counter" value="0"/>`;
 
-      const $this = this; 
-   
-      this.post_type_featured_image =    jQuery('[id^=post_type_featured_image_shortcode_]');
+
+document.getElementsByClassName('data-posts-inc-widget').innerHTML='<input type="hidden" class="counter" value="0"/>'+
+'<div class="background_color_of_load_more_button_widget">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ 1+'</div><div id="no_more_posts_widget"></div>';
+}
  
-      this.post_type_featured_image1 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-1);
-       this.post_type_featured_image2 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-2);
-       this.post_type_featured_image3 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-3);
-       this.post_type_featured_image4 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-4);
-       this.post_type_featured_image5 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-5);
-       this.post_type_featured_image6 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-6);
-       this.post_type_featured_image7 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-7);
-       this.post_type_featured_image8 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-8);
-       this.post_type_featured_image9 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-10);
-       this.post_type_featured_image10 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-11);
-       this.post_type_featured_image11 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-12);
-       this.post_type_featured_image12 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-13);
-       this.post_type_featured_image13 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-14);
-       this.post_type_featured_image14 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-15);
-       this.post_type_featured_image15 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-16);
-            
-     //this.searchFieldWoo = jQuery(".search-term-woo");
-     //this.searchFieldWidget = jQuery(".search-term-widget-woo");
-     this.isSpinnerVisible = false;
-     this.typingTimer;
-     
-     this.isOverlayOpen = false;
-     this.template_no_posts;
-     this.resultsDiv = jQuery(".search-term-widget");
-     this.isSpinnerVisible = false;
-     this.previousValue;
-     this.timeout;
-     this.i = 0;
+
+var count = 0;
+
+var number_minus = find_element -parseInt(jQuery("#numberofpostswoo").val());
+if(parseInt(jQuery("#numberofpostswoo").val())==1){
+if(jQuery(".data-container-widget div").slice(number_minus).last().position()==undefined){
+           jQuery('.data-container-widget').animate({scrollTop: jQuery(".data-container-widget div.body").slice(find_element).first().position()}, 500);
+}else{
+     //  let eTop =jQuery(".data-container-widget div").slice(number_minus).first();// jQuery('.data-posts-inc-widget').children('div').eq(find_element).position();
+           jQuery('.data-container-widget').animate({scrollTop: jQuery(".data-container-widget div.body").slice(find_element).first().position()}, 500);
+
+}
+
+
+
+
+
+
+
+}else{
+var $container = jQuery(".data-container-widget");
+
+var startIndexNew = number_minus;
+var $target = jQuery(".data-container-widget div.title").eq(startIndexNew);
+
+if ($target.length) {
+  var offset = 60; // try 8, 12, 20...
+  var top = $target.position().top + $container.scrollTop() - offset;
+  $container.animate({ scrollTop: Math.max(0, top) }, 500);
+}
+/*
+if(jQuery(".data-container-widget div").slice(number_minus).first().position()==undefined){
+            jQuery('.data-container-widget').animate({scrollTop: jQuery(".data-container-widget div.body").slice(find_element).first().position()}, 500);
+
+}else{
+          jQuery('.data-container-widget').animate({scrollTop: jQuery(".data-container-widget div.body").slice(find_element).first().position()}, 500);
+
+}
+          jQuery(".data-container-widget div").slice(number_minus).first();
+*/
+
+}
+
+
+
+}else{
+
+
+
+
+document.getElementsByClassName('data-posts-inc-widget').innerHTML='<input type="hidden" class="counter" value="0"/>'+
+'<div class="background_color_of_load_more_button_widget">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ 1+'</div></div><div id="no_more_posts_widget"></div>';
+
+
+var count = 0;
+var number_minus = number - parseInt($counter.val());
+var p = jQuery(".last_div_for_scrolling_"+find_element).slice(number_minus).first();
+
+       let eTop = jQuery('.data-posts-inc-widget').children('div').eq(find_element).position();
+
+
+
+        var top = jQuery('.data-posts-inc-widget div:last').offset().top;
+   
+            let children = jQuery('.data-posts-inc-widget div')[0];
            
-this.searchFieldProductsWidget.on(
-  "keyup",
-  debounce(this.getResultsProductsWidget.bind(this), 400)
-);
-
-this.searchFieldCategoriesWidget.on(
-  "keyup",
-  debounce(this.getResultsCategoriesWidget.bind(this), 400)
-);
-
-  
-           jQuery('.no-data').css('display','none');
-          
-
-jQuery(".data-categories-container").css("display",'none');
-jQuery(".data-container").css("display",'none');
-
-  jQuery('.data-posts-inc-widget').css('display','none');
-
- 
-  jQuery('.no_more_posts_widget').css("display",'none');
-    jQuery('.data-posts-btn').css("display",'none');
-
-    jQuery('.background_color_of_load_more_button_widget').css("display",'none');
-
-
- 
-  jQuery('.data-posts-inc-widget').css('display','none');
-
-
-
-
-
-
-
-        jQuery('.no-data-widget').css('display','none');
-
-jQuery(".wrapper-data-container-widget-data-posts").css("display",'none');
-
-
- jQuery(".data-search_categories-container-widget").css("display",'none');
-  jQuery(".data-tags-container-widget").css("display",'none');
-
-  jQuery('.data-container-widget-inc').css('display','none');
-
-  jQuery(".data-container-widget").css("display",'none');
-
-      jQuery('.data-widget-posts-btn').css("display",'none');
-
-
-    }
-
-
- 
+               
+ jQuery('.wrapper-data-container-widget-data-posts').scrollTop(eTop );
    
 
-getResultsProductsWidget(){
- 
-jQuery(".wrapper-data-container-widget-data-posts").css("display",'block');
-  jQuery(".data-search_categories-container-widget").css("display",'block');
-
-  jQuery(".data-container-widget").css("display",'block');
-    jQuery(".data-button").css("display","none");
-  jQuery('.no_more_posts_widget').css("display",'none');
-           jQuery('.no-data-widget').css('display','none');
-
- // jQuery(".data-categories-container").removeClass("hid");
-
-let counter = 1;
- jQuery(".search-term-widget").addClass("loadinggif");
-        jQuery('.data-widget-posts-btn').css('display','block');
-
-
-var find_element = 1;
-
-var categories =this.search_categories.val();
-var customSearchBox =this.searchFieldProductsWidget.val();
-var number_of_words_in_posts_2 = this.number_of_words_in_posts.val();
-var search_post_id_title = jQuery("#search_post_id_title").val();
-var number_of_posts = parseInt(jQuery("#numberofposts").val());
-var post_id = jQuery("#search_post_id").val();
-var search_by_woo_title = jQuery('#search_by_woo_title').val();
+jQuery('.wrapper-data-container-widget-data-posts').animate({
 
 
 
-// Get rest base from either "new" or "old" localized structure
-const root =
-  (window.liveSearchDataPosts && window.liveSearchDataPosts.root_url) ||
-  (Array.isArray(window.liveSearchDataPosts) &&
-    window.liveSearchDataPosts[1] &&
-    window.liveSearchDataPosts[1].root_url);
+    }, 3000);
+          jQuery(".last_div_for_scrolling_"+find_element).slice(number_minus).first();
 
 
-if (!root) {
-  console.warn("liveSearchDataPosts missing on this page", window.liveSearchDataPosts);
-  jQuery(".search-term-widget").removeClass("loadinggif");
-  return;
-}
-
-const base = root.replace(/\/?$/, "/");
-
-const url =
-  base +
-  "namespacewoo/v11/search_products/" +
-  encodeURIComponent(customSearchBox) +
-  "/" +
-  encodeURIComponent(post_id);
-
-jQuery.getJSON(url, function (livesearchposts_1) {
-  console.log(livesearchposts_1);
-  if (typeof window.milunShowResult === "function") {
-    window.milunShowResult(livesearchposts_1);
-  }
-});
 
 
 }
 
 
 
-getResultsCategoriesWidget(){
-const el = document.querySelector('.data-categories-container-widget');
+var count = 0;
+var number_minus = number - parseInt($counter.val());
+var p = jQuery(".last_div_for_scrolling_"+find_element).slice(number_minus).first();
 
-if (el) {
-  var $this =this;
+       let eTop = jQuery('.data-posts-inc-widget').children('div').eq(find_element).position();
+
+ 
+
+jQuery(".data-posts-inc-widget").click(function() {
+
+        var top = jQuery('.data-posts-inc-widget div:last').offset().top;
    
-       jQuery('.categories').css("display",'none');
-        jQuery('.category_and_tag_empty').css("display",'none');
-      jQuery('.category_and_tag').css("display",'none');
+            let children = jQuery('.data-posts-inc-widget div')[0];
+           
+               
+ jQuery('.wrapper-data-container-widget-data-posts').scrollTop(eTop );
+   
 
- jQuery(".data-categories-container-widget").css("display",'block').after("<div class='line_below_cat_tag'></div>");
-  
+jQuery('.wrapper-data-container-widget-data-posts').animate({
 
 
+
+    }, 3000);
     
-      var customSearchBox =  $this.searchFieldCategoriesWidget.val();
-       
-var post_id = jQuery("#search_post_id").val();   
-
-jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v12/searching_woo_categories/'+customSearchBox+'/'+post_id,function(livesearchcategories){
- //  jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/searching_empty_cat/'+ customSearchBox,function(empty_categories){
+          jQuery(".last_div_for_scrolling_"+find_element).slice(number_minus).first();
 
 
 
-
-var result = livesearchcategories.map(item => 
-`<div>
-  
-<a class='red_color' href="${MilunSearch.root_url}/product-category/${item.slug}">${item.name}</a></div>
+});
  
-  `
-).join('')
-  
-
-$this.count++;
-
-
-if($this.count>1){
-    jQuery(".category-shortcode-label").remove();
 
 }
 
-
-if (result.length==0) {
-  jQuery(".category-widget-label").remove();
-
-
-    document.getElementsByClassName('data-categories-container-widget')[0].innerHTML =liveSearchDataCategories[0].not_found_data;
-
-
- 
-}else {
-
-     
-
-
-    document.getElementsByClassName('data-categories-container-widget')[0].innerHTML =result;
-
-}
-
-
+/*
+const result_5 = result_4.reduce((accumulator, current) => {
+  let exists = accumulator.find(item => {
+    return item.post_name === current.slug
   });
-}
-}
-}
+  if(!exists) { 
+    accumulator = accumulator.concat(current);
+  }
+  return accumulator;
+}, []);
+*/
 
 
 
+const myText = document.getElementById('no_more_posts_widget');
+
+alert('find_element '+find_element);
+alert('livesearchposts_1.length '+livesearchposts_1.length);
+
+if(find_element == livesearchposts_1.length || find_element> livesearchposts_1.length){
+    
+const myInsertText = '<div class="red_color_no_more_posts_widget">No more posts !</div>';
+myText.innerHTML = myInsertText;
+jQuery('.background_color_of_load_more_button_widget').css('display','none');
+}
+
+
+var hasChildmyText = document.getElementById('no_more_posts_widget');
+if(hasChildmyText!==null){
+ }else{
+
+ }
+ 
+/*
+result_2.map(item =>  item.featured_image  ?
+ ` <div class='last_div_for_scrolling_`+find_element+`'>
+        <a href=${item.slug}>${item.title ? item.title.rendered : item.post_title}</a>
+
+    <img src=${item.featured_image} class="image_size">
+           <p>${item.content ? item.content.rendered.substring(0, number_of_words_in_posts_2) : item.post_content.substring(0, number_of_words_in_posts_2)}</p>
+<a href=`+item.slug+`>`+liveSearchDataPosts[0].read_more+`</a>
+  </div> ` :  ` <div class='last_div_for_scrolling_`+find_element+`'>
+      
+        ${item.title ? item.title.rendered : item.post_title}
+                   <p>${item.content ? item.content.rendered.substring(0, number_of_words_in_posts_2) : item.post_content.substring(0, number_of_words_in_posts_2)}</p>
+<a href=`+item.slug+`>`+liveSearchDataPosts[0].read_more+`</a>
+  </div>
+  
+  `) ? result_2.length = v +=parseInt(jQuery("#numberofpostswoo").val()):result_2.length = parseInt(jQuery("#numberofpostswoo").val());
+
+//cpt_images_2.map(item => item.title.rendered) ? cpt_images_2.length = v +=parseInt(jQuery("#numberofpostswoo").val()):cpt_images_2.length = parseInt(jQuery("#numberofpostswoo").val());
+
+var for_counting = result_2.length;
+
+var result_1 = result_2.map(item =>  item.featured_image  ?
+ ` <div class='last_div_for_scrolling_`+find_element
++`'>
+        <a href=${item.slug}>${item.title ? item.title.rendered : item.post_title}</a>
+
+    <img src=${item.featured_image} class="image_size">
+           <p>${item.content ? item.content.rendered.substring(0, number_of_words_in_posts_2): item.post_content.substring(0, number_of_words_in_posts_2)}</p>
+
+  </div> `
 
    
 
 
+   :` <div class='last_div_for_scrolling_`+find_element+`'>
+        <a href=${item.slug}>${item.title ? item.title.rendered : item.post_title}</a>
+                   <p>${item.content ? item.content.rendered : item.post_content}</p>
+<a href=`+item.slug+`>`+liveSearchDataPosts[0].read_more+`</a>
+  </div>
+  
+  `
 
+
+
+  
 
 
  
+).join("");
+*/
+// console.log('result '+result_2.length);
+ // console.log('result_1 '+livesearchposts_1.length);
 
 
 
-var liveSearchWidget = new Live_Search_Widget();
 
+  //  document.getElementsByClassName('data-container-widget')[0].innerHTML =result_1;
+ 
+ //return;
+//}
+
+});
+}

@@ -234,7 +234,22 @@ wp_register_script(
 
 wp_enqueue_script( 'show-result-public' );
 
-		
+
+// For searching in widget
+wp_register_script(
+    'show-result-widget',
+    plugin_dir_url( __FILE__ ) . '../public/js/show_result_in_widget.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'show-result-widget' );
+
+ wp_register_script( 'widget-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-widget.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
+    
+   wp_enqueue_script( 'widget-public-woo' );
+
  wp_register_script( 'shortcode-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-shortcode.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
     
    wp_enqueue_script( 'shortcode-public-woo' );

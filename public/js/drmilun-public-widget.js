@@ -16,6 +16,7 @@ jQuery('.my_wrapper').css('display','block');
 
 
 });
+   alert('ok');
 
 
 class Live_Search_Widget{
@@ -126,7 +127,7 @@ jQuery(".wrapper-data-container-widget-data-posts").css("display",'none');
    
 
 getResultsProductsWidget(){
- 
+
 jQuery(".wrapper-data-container-widget-data-posts").css("display",'block');
   jQuery(".data-search_categories-container-widget").css("display",'block');
 
@@ -179,8 +180,8 @@ const url =
 
 jQuery.getJSON(url, function (livesearchposts_1) {
   console.log(livesearchposts_1);
-  if (typeof window.milunShowResult === "function") {
-    window.milunShowResult(livesearchposts_1);
+  if (typeof window.milunShowResultWidget === "function") {
+    window.milunShowResultWidget(livesearchposts_1);
   }
 });
 
