@@ -125,7 +125,72 @@ foreach ( $post_types_3  as $post_type ) {
 
 $posts = get_posts(['post_type' =>"sfp_search_post"]);
                         
+                        
 foreach ($posts as $post) {
+            $custom = get_post_meta( esc_attr($post->ID) );
+             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
+             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
+             $color = $color_of_background;
+        
+?>
+    <style type="text/css">
+
+   .my_wrapper,
+   .child_widget{
+
+background-color: white;
+
+border-left-width: 3px !important;
+
+    
+    border-width: 3px;
+border-color:<?php echo esc_attr($color); ?>!important;
+border-style: solid;
+}
+                
+               .search_widget{
+  background-color:<?php echo esc_attr($color); ?>;
+}
+
+     
+               .wrapper-data-container-widget-data-posts{
+    border-color: <?php echo esc_attr($color); ?>!important;
+
+     border-top-style: solid !important;
+border-top-width: 3px !important;
+border-top-color:<?php echo esc_attr($color); ?>;
+
+    width:100% !important;
+
+
+}
+
+                .data-widget-posts-btn{
+                    background-color:<?php echo esc_attr($color); ?> !important;
+                    color:white;
+                        border-radius: 8px;
+                            text-align: center;
+
+
+                }
+                
+             .search-term-widget{
+                
+                border-color: <?php echo esc_attr($color); ?>!important;
+             }
+            
+               .line_below_cat_tag,
+                .line_below_post{
+                    border-color:<?php echo esc_attr($color); ?>!important;
+
+                }
+            .background_color_of_load_more_button_widget{
+                                cursor: pointer;
+  background-color:<?php echo esc_attr($color_for_load_more_text); ?>;
+
+            }
+               </style>
+               <?php     
     $search_by_title = esc_attr(get_post_meta( $post->ID,"search_by_title", true));
    $search_by_content = esc_attr(get_post_meta( $post->ID,"search_by_content", true));
    $search_categories = esc_attr(get_post_meta( $post->ID,"search_categories", true));
@@ -142,8 +207,11 @@ foreach ($posts as $post) {
 <?php
 
                       $custom = get_post_meta( esc_attr($post->ID) );
-           
-             $background_color_of_load_more_button = ( isset( $custom['background_color_of_load_more_button_widget'][0] ) ) ? esc_attr($custom['background_color_of_load_more_button_widget'][0]) : '#fff';   
+                                 
+
+            $custom = get_post_meta( esc_attr($post->ID) );
+             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
+      
              $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? esc_attr($custom['color_of_text'][0]) : '#000';
               $color_for_load_more_text = ( isset( $custom['color_for_load_more_text'][0] ) ) ? esc_attr($custom['color_for_load_more_text'][0]) : '#FFA500';
             
@@ -201,7 +269,7 @@ foreach ($posts as $post) {
         </div>
 
         <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title"
+              id="pop_up_search_widget"
               aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
               role="button"
               tabindex="0"></span>
