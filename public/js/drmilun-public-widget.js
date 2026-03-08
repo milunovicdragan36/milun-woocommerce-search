@@ -16,7 +16,7 @@ jQuery('.my_wrapper').css('display','block');
 
 
 });
-   alert('ok');
+   
 
 
 class Live_Search_Widget{
@@ -117,7 +117,7 @@ jQuery(".wrapper-data-container-widget-data-posts").css("display",'none');
 
   jQuery(".data-container-widget").css("display",'none');
 
-      jQuery('.data-widget-posts-btn').css("display",'none');
+      jQuery('.data-widget-posts-btn').css("display",'block');
 
 
     }

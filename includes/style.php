@@ -32,7 +32,7 @@ border-top-color:<?php echo esc_attr($color_for_load_more_text); ?>;
 
                 .data-widget-posts-btn{
                     background-color:<?php echo esc_attr($color_for_load_more_text); ?> !important;
-                    color:white;
+                    color:black;
 
                 }
                 

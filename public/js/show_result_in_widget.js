@@ -47,7 +47,7 @@ jQuery('.data-container-widget-inc').css('display','none');
  liveSearchDataPosts[0].read_more+`</a></div><br>`
  ).join(" ")
 ;
- 
+console.log(document.getElementsByClassName('data-widget-posts-btn'));
 document.getElementsByClassName('data-widget-posts-btn')[0].innerHTML=
 '<div class="background_color_of_load_more_button_widget">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ custom_word_of_number_of_posts+'</div><div id="no_more_posts_widget"></div>';
 var hasChild = document.getElementsByClassName('data-container-widget')[0];
@@ -147,16 +147,7 @@ if ($target.length) {
   var top = $target.position().top + $container.scrollTop() - offset;
   $container.animate({ scrollTop: Math.max(0, top) }, 500);
 }
-/*
-if(jQuery(".data-container-widget div").slice(number_minus).first().position()==undefined){
-            jQuery('.data-container-widget').animate({scrollTop: jQuery(".data-container-widget div.body").slice(find_element).first().position()}, 500);
 
-}else{
-          jQuery('.data-container-widget').animate({scrollTop: jQuery(".data-container-widget div.body").slice(find_element).first().position()}, 500);
-
-}
-          jQuery(".data-container-widget div").slice(number_minus).first();
-*/
 
 }
 
@@ -234,17 +225,7 @@ jQuery('.wrapper-data-container-widget-data-posts').animate({
 
 }
 
-/*
-const result_5 = result_4.reduce((accumulator, current) => {
-  let exists = accumulator.find(item => {
-    return item.post_name === current.slug
-  });
-  if(!exists) { 
-    accumulator = accumulator.concat(current);
-  }
-  return accumulator;
-}, []);
-*/
+
 
 
 
@@ -266,67 +247,7 @@ if(hasChildmyText!==null){
  }else{
 
  }
- 
-/*
-result_2.map(item =>  item.featured_image  ?
- ` <div class='last_div_for_scrolling_`+find_element+`'>
-        <a href=${item.slug}>${item.title ? item.title.rendered : item.post_title}</a>
 
-    <img src=${item.featured_image} class="image_size">
-           <p>${item.content ? item.content.rendered.substring(0, number_of_words_in_posts_2) : item.post_content.substring(0, number_of_words_in_posts_2)}</p>
-<a href=`+item.slug+`>`+liveSearchDataPosts[0].read_more+`</a>
-  </div> ` :  ` <div class='last_div_for_scrolling_`+find_element+`'>
-      
-        ${item.title ? item.title.rendered : item.post_title}
-                   <p>${item.content ? item.content.rendered.substring(0, number_of_words_in_posts_2) : item.post_content.substring(0, number_of_words_in_posts_2)}</p>
-<a href=`+item.slug+`>`+liveSearchDataPosts[0].read_more+`</a>
-  </div>
-  
-  `) ? result_2.length = v +=parseInt(jQuery("#numberofpostswoo").val()):result_2.length = parseInt(jQuery("#numberofpostswoo").val());
-
-//cpt_images_2.map(item => item.title.rendered) ? cpt_images_2.length = v +=parseInt(jQuery("#numberofpostswoo").val()):cpt_images_2.length = parseInt(jQuery("#numberofpostswoo").val());
-
-var for_counting = result_2.length;
-
-var result_1 = result_2.map(item =>  item.featured_image  ?
- ` <div class='last_div_for_scrolling_`+find_element
-+`'>
-        <a href=${item.slug}>${item.title ? item.title.rendered : item.post_title}</a>
-
-    <img src=${item.featured_image} class="image_size">
-           <p>${item.content ? item.content.rendered.substring(0, number_of_words_in_posts_2): item.post_content.substring(0, number_of_words_in_posts_2)}</p>
-
-  </div> `
-
-   
-
-
-   :` <div class='last_div_for_scrolling_`+find_element+`'>
-        <a href=${item.slug}>${item.title ? item.title.rendered : item.post_title}</a>
-                   <p>${item.content ? item.content.rendered : item.post_content}</p>
-<a href=`+item.slug+`>`+liveSearchDataPosts[0].read_more+`</a>
-  </div>
-  
-  `
-
-
-
-  
-
-
- 
-).join("");
-*/
-// console.log('result '+result_2.length);
- // console.log('result_1 '+livesearchposts_1.length);
-
-
-
-
-  //  document.getElementsByClassName('data-container-widget')[0].innerHTML =result_1;
- 
- //return;
-//}
 
 });
 }

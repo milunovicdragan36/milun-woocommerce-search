@@ -120,3 +120,7 @@ body.milun-popup-lock {
   object-fit: cover;
   margin-right: 10px;
 }
+/*////////////////*/
+.wrapper-data-container-widget-data-posts{
+max-height: 100px !important;
+}
