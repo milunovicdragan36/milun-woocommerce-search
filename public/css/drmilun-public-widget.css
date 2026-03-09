@@ -122,9 +122,25 @@ body.milun-popup-lock {
 }
 /*/////////for spinner///////*/
 .loadinggif{
-   padding-right: 40px !important;
+   padding-right: 60px !important;
     background-image: url("../images/animated_loader_gif_20.gif");
     background-repeat: no-repeat;
-    background-position: right 10px center;
+    background-position: right 30px center;
     background-size: 18px 18px;
+}
+
+.closeFilePanel{
+  padding-right: 20px;
+  padding-top: 10px;
+font-size: 30px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+.closeFilePanel:hover{
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
 }

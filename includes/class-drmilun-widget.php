@@ -189,6 +189,11 @@ border-top-color:<?php echo esc_attr($color); ?>;
   background-color:<?php echo esc_attr($color_for_load_more_text); ?>;
 
             }
+.closeFilePanel{
+    color:<?php echo esc_attr($color); ?>!important;
+
+}
+            
                </style>
                <?php     
     $search_by_title = esc_attr(get_post_meta( $post->ID,"search_by_title", true));
