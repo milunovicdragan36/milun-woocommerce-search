@@ -172,5 +172,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }, true);
 });
 
+/*******************spinner***********************/
+
+
 
 

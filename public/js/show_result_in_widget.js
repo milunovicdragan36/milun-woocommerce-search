@@ -47,9 +47,9 @@ jQuery('.data-container-widget-inc').css('display','none');
  liveSearchDataPosts[0].read_more+`</a></div><br>`
  ).join(" ")
 ;
-console.log(document.getElementsByClassName('data-widget-posts-btn'));
 document.getElementsByClassName('data-widget-posts-btn')[0].innerHTML=
 '<div class="background_color_of_load_more_button_widget">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ custom_word_of_number_of_posts+'</div><div id="no_more_posts_widget"></div>';
+jQuery(".search-term-widget").removeClass("loadinggif");
 var hasChild = document.getElementsByClassName('data-container-widget')[0];
 if(hasChild===null){
     document.getElementsByClassName('no-data-widget')[0].innerHTML =liveSearchDataPosts[0].not_found_data;

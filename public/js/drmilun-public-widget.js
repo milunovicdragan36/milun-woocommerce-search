@@ -127,6 +127,7 @@ jQuery(".wrapper-data-container-widget-data-posts").css("display",'none');
    
 
 getResultsProductsWidget(){
+ jQuery(".search-term-menu").addClass("loadinggif");
 
 jQuery(".wrapper-data-container-widget-data-posts").css("display",'block');
   jQuery(".data-search_categories-container-widget").css("display",'block');
@@ -139,8 +140,8 @@ jQuery(".wrapper-data-container-widget-data-posts").css("display",'block');
  // jQuery(".data-categories-container").removeClass("hid");
 
 let counter = 1;
- jQuery(".search-term-widget").addClass("loadinggif");
-        jQuery('.data-widget-posts-btn').css('display','block');
+
+jQuery('.data-widget-posts-btn').css('display','block');
 
 
 var find_element = 1;

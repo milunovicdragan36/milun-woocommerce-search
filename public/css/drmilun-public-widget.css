@@ -120,5 +120,11 @@ body.milun-popup-lock {
   object-fit: cover;
   margin-right: 10px;
 }
-/*////////////////*/
-
+/*/////////for spinner///////*/
+.loadinggif{
+   padding-right: 40px !important;
+    background-image: url("../images/animated_loader_gif_20.gif");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px 18px;
+}

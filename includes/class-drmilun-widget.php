@@ -298,10 +298,11 @@ $form = '';
                       aria-label="Close Search"
                       role="button"
                       tabindex="0"></span>
-                        <input type="text"
+                      
+                          <input type="text"
                                class="search-term-widget" style="border: 1px solid #000000;"
                                placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
-                    </div>
+                       </div>
 
         <div class="wrapper-data-container-widget-data-posts">
 <div class="data-categories-container-widget"></div>
