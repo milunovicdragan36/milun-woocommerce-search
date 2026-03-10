@@ -443,6 +443,12 @@ $files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts
 }
 /////////////////the end of woo content search//////////////////////
 
+// for featured images and price
+foreach ( $files_record as $row ) {
+   $row->thumb = $this->miluse_thumb_for_product_or_variation( $row->ID );
+$row->price = wc_get_product( $row->ID )->get_price();
+
+   }
 //ratings
  $ratings =$wpdb->get_results( $wpdb->prepare("SELECT * FROM wp_posts
 
