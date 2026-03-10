@@ -124,7 +124,7 @@ add_action( 'rest_api_init', [$this,'namespace_register_admin_search_empty_post_
 public function sfp_register_and_save_meta_boxes(){
     add_action( 'save_post', [$this,'sfp_save_woo_meta_boxes'] );
 
-    add_action( 'add_meta_boxes', [$this,'sfp_add_meta_boxes'] );
+   add_action( 'add_meta_boxes', [$this,'sfp_add_meta_boxes'] );
 }
 
 
@@ -599,6 +599,7 @@ function namespace_register_woo_search_route_rat() {
 function search_empty_woo_categories() {
     register_rest_route('namespacecatwoo/v1', '/search_empty/(?P<s>[a-zA-Z0-9-]+)/', [
         'methods' => \WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
         'callback' => [$this,'namespace_ajax_search_3_empty_woo']
     ]);
 }
@@ -3434,7 +3435,7 @@ if(isset($_POST[ "remove_searchposts_in_title_before_".$key ]) ) {
 
  
 
-
+/*
 global $wpdb;
    $posts = get_posts(['post_type'=>'sfp_search_post']);
 
@@ -3499,6 +3500,11 @@ $wpdb->get_results("DELETE pm
 
 
 }
+*/
+
+
+
+
                   $locations = get_theme_mod( 'nav_menu_locations' );
 if(!empty($locations)){
    $new_key = [];
@@ -3549,8 +3555,8 @@ else if(isset($_POST[ 'WooFormMenus']) && sanitize_text_field($_POST[ 'WooFormMe
   }
 
 
-}
 
+}
 
 
 

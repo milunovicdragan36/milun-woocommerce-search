@@ -135,7 +135,7 @@ class MMSDD_Drmilun {
 		 */
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-drmilun-search-post.php'; 
-				require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-drmilun-widget.php'; 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-drmilun-widget.php'; 
 		
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -183,11 +183,8 @@ class MMSDD_Drmilun {
 
 	   $plugin_admin = new MMSDD_Drmilun_Admin( $this->dmsfp_get_searching_for_posts(), $this->get_version() );
 
-       $plugin_woo_search_post = new MMSDD_Drmilun_Search_Post($this->dmsfp_get_searching_for_posts(), $this->get_version());
-       /*
-       $plugin_search_post = new MMSDD_Drmilun_Search_Post($this->dmsfp_get_searching_for_posts(), $this->get_version());
-*/
-       $plugin_meta = new MMSDD_Drmilun_Meta($this->dmsfp_get_searching_for_posts(), $this->get_version());
+      $plugin_woo_search_post = new MMSDD_Drmilun_Search_Post($this->dmsfp_get_searching_for_posts(), $this->get_version());
+      $plugin_meta = new MMSDD_Drmilun_Meta($this->dmsfp_get_searching_for_posts(), $this->get_version());
 
 
         new MMSDD_Drmilun_Ajax_Save_Post_Meta($this->dmsfp_get_searching_for_posts(), $this->get_version());
@@ -201,11 +198,7 @@ class MMSDD_Drmilun {
 
 	   $this->loader->dmsfp_add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
         
-//       $this->loader->dmsfp_add_action( 'admin_menu', $plugin_search_post, 'bobcares_plugin_top_menu' ); 
-
-//     $this->loader->dmsfp_add_action( 'init', $plugin_woo_search_post, 'woo_new_form_for_searching' ); 
-
-	  
+  
 	   $this->loader->dmsfp_add_action( 'init', $plugin_meta, 'sfp_register_and_save_meta_boxes' ); 
         
 	   $this->loader->dmsfp_add_filter( 'manage_search_post_posts_columns',$plugin_woo_search_post, 'smashing_search_post_columns' ); 

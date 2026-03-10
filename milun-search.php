@@ -31,6 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 
+
 //require  'templates/my_custom_template.html';
 /**
  * Currently plugin version.

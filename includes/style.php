@@ -54,68 +54,7 @@ padding: 3px;
 
 */
                </style>
-                 <style type="text/css">
-
-   .my_wrapper,
-   .child_widget{
-
-background-color: white;
-
-border-left-width: 3px !important;
-
-    
-    border-width: 3px;
-border-color:<?php echo esc_attr($color); ?>!important;
-border-style: solid;
-}
-                
-               .search_widget{
-  background-color:<?php echo esc_attr($color); ?>;
-}
-
-     
-               .wrapper-data-container-widget-data-posts{
-    border-color: <?php echo esc_attr($color); ?>!important;
-
-     border-top-style: solid !important;
-border-top-width: 3px !important;
-border-top-color:<?php echo esc_attr($color); ?>;
-
-    width:100% !important;
-
-
-}
-
-                .data-widget-posts-btn{
-                    background-color:<?php echo esc_attr($color); ?> !important;
-                    color:white;
-                        border-radius: 8px;
-                            text-align: center;
-
-
-                }
-                
-             .search-term-widget{
-                
-                border-color: <?php echo esc_attr($color); ?>!important;
-             }
-            
-               .line_below_cat_tag,
-                .line_below_post{
-                    border-color:<?php echo esc_attr($color); ?>!important;
-
-                }
-            .background_color_of_load_more_button_widget{
-                                cursor: pointer;
-  background-color:<?php echo esc_attr($color_for_load_more_text); ?>;
-
-            }
-.closeFilePanel{
-    color:<?php echo esc_attr($color); ?>!important;
-
-}
-            
-               </style>
+                 
                 <style type="text/css">
                    #open-search-flyout,
     #open-search-flyout::before {

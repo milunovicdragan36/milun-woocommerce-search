@@ -131,9 +131,8 @@ foreach ($posts as $post) {
              $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
              $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
              $color = $color_of_background;
-        
-?>
-    <style type="text/css">
+ ?>
+ <style type="text/css">
 
    .my_wrapper,
    .child_widget{
@@ -184,18 +183,21 @@ border-top-color:<?php echo esc_attr($color); ?>;
                     border-color:<?php echo esc_attr($color); ?>!important;
 
                 }
+                    
+               
             .background_color_of_load_more_button_widget{
                                 cursor: pointer;
-  background-color:<?php echo esc_attr($color_for_load_more_text); ?>;
+  background-color:<?php echo esc_attr($color); ?>;
 
             }
 .closeFilePanel{
     color:<?php echo esc_attr($color); ?>!important;
 
 }
-            
+          
                </style>
-               <?php     
+ <?php
+   
     $search_by_title = esc_attr(get_post_meta( $post->ID,"search_by_title", true));
    $search_by_content = esc_attr(get_post_meta( $post->ID,"search_by_content", true));
    $search_categories = esc_attr(get_post_meta( $post->ID,"search_categories", true));
@@ -289,6 +291,7 @@ $form = '';
     $full_width_form != '1' &&
     $pop_up_form == '1' && is_front_page()
 ) {
+  
  $popup = '
         <div id="for-searching-5"></div>
 
