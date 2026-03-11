@@ -144,3 +144,7 @@ font-size: 30px;
     box-shadow: none !important;
     border: none !important;
 }
+.milun-search-thumb{
+  float: left;
+  margin-right: 10px;
+}
