@@ -142,6 +142,7 @@ jQuery(".wrapper-data-container-widget-data-posts").css("display",'block');
 let counter = 1;
 
 jQuery('.data-widget-posts-btn').css('display','block');
+jQuery('.line_below_cat_tag').css('display','none');
 
 
 var find_element = 1;

@@ -180,7 +180,8 @@ border-top-color:<?php echo esc_attr($color); ?>;
             
                .line_below_cat_tag,
                 .line_below_post{
-                    border-color:<?php echo esc_attr($color); ?>!important;
+                    border: 1px dotted <?php echo esc_attr($color); ?>!important;
+
 
                 }
                     
