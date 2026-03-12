@@ -48,9 +48,14 @@ add_action( 'rest_api_init', [$this,'search_type_products']);
  add_action( 'rest_api_init', [$this,'search_products_with_ratings_two_words']);
 
  /*FOR WOO CATEGORIES FRONT END*/
-     add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories'] );
       add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories_zero'] );
+     add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories'] );
+     add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories_and_half'] );
+     add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories_two_words'] );
+    add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories_double_two_words'] );
 
+     add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories_two_words_and_half'] );
+          add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories_three_words'] );
      add_action( "rest_api_init", [$this,'namespace_register_search_empty_woo_categories'] );
 
 
@@ -141,7 +146,18 @@ public function sfp_add_meta_boxes() {
  
    
 }
-
+function namespace_register_search_woo_categories_zero() {
+      register_rest_route(
+        'namespacewoo/v12',
+        '/searching_woo_categories//(?P<id>\d+)',
+        [
+            'methods'             => WP_REST_Server::READABLE, // GET
+            'callback'            => [ $this, 'namespace_searching_woo_categories' ],
+            'permission_callback' => '__return_true',
+            'args'                => $this->namespace_get_search_args(), // <-- no extra []
+        ]
+    );
+}
 function namespace_register_search_woo_categories() {
       register_rest_route(
         'namespacewoo/v12',
@@ -155,10 +171,10 @@ function namespace_register_search_woo_categories() {
     );
 }
 
-function namespace_register_search_woo_categories_zero() {
+function namespace_register_search_woo_categories_and_half() {
       register_rest_route(
         'namespacewoo/v12',
-        '/searching_woo_categories//(?P<id>\d+)',
+        '/searching_woo_categories/(?P<s>[a-zA-Z0-9-]+)%20/(?P<id>\d+)',
         [
             'methods'             => WP_REST_Server::READABLE, // GET
             'callback'            => [ $this, 'namespace_searching_woo_categories' ],
@@ -167,6 +183,56 @@ function namespace_register_search_woo_categories_zero() {
         ]
     );
 }
+
+function namespace_register_search_woo_categories_two_words() {
+      register_rest_route(
+        'namespacewoo/v12',
+        '/searching_woo_categories/(?P<s>[a-zA-Z0-9-]+)%20(?P<se>[a-zA-Z0-9-]+)/(?P<id>\d+)',
+        [
+            'methods'             => WP_REST_Server::READABLE, // GET
+            'callback'            => [ $this, 'namespace_searching_woo_categories' ],
+            'permission_callback' => '__return_true',
+            'args'                => $this->namespace_get_search_args_two_words(), // <-- no extra []
+        ]
+    );
+} 
+function namespace_register_search_woo_categories_double_two_words() {
+      register_rest_route(
+        'namespacewoo/v12',
+        '/searching_woo_categories/(?P<s>[a-zA-Z0-9-]+)(?P<s>[a-zA-Z0-9-]+)%20(?P<se>[a-zA-Z0-9-]+)/(?P<id>\d+)',
+        [
+            'methods'             => WP_REST_Server::READABLE, // GET
+            'callback'            => [ $this, 'namespace_searching_woo_categories' ],
+            'permission_callback' => '__return_true',
+            'args'                => $this->namespace_get_search_args_two_words(), // <-- no extra []
+        ]
+    );
+} 
+function namespace_register_search_woo_categories_two_words_and_half() {
+      register_rest_route(
+        'namespacewoo/v12',
+        '/searching_woo_categories/(?P<s>[a-zA-Z0-9-]+)%20(?P<s>[a-zA-Z0-9-]+)%20/(?P<id>\d+)',
+        [
+            'methods'             => WP_REST_Server::READABLE, // GET
+            'callback'            => [ $this, 'namespace_searching_woo_categories' ],
+            'permission_callback' => '__return_true',
+            'args'                => $this->namespace_get_search_args(), // <-- no extra []
+        ]
+    );
+}
+function namespace_register_search_woo_categories_three_words() {
+      register_rest_route(
+        'namespacewoo/v12',
+        '/searching_woo_categories/(?P<s>[a-zA-Z0-9-]+)%20(?P<se>[a-zA-Z0-9-]+)%20(?P<ses>[a-zA-Z0-9-]+)/(?P<id>\d+)',
+        [
+            'methods'             => WP_REST_Server::READABLE, // GET
+            'callback'            => [ $this, 'namespace_searching_woo_categories' ],
+            'permission_callback' => '__return_true',
+            'args'                => $this->namespace_get_search_args_sentence_three_words(), // <-- no extra []
+        ]
+    );
+}
+
 
 
 function namespace_register_search_empty_woo_categories() {

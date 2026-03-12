@@ -33,7 +33,7 @@ add_action( "rest_api_init", [$this,'namespace_register_search_post_types_two_wo
 add_action( "rest_api_init", [$this,'namespace_register_search_post_types_three_words_widget'] );
 add_action( 'rest_api_init', [$this,'namespace_register_search_route']);
    
-
+/*for front end categories*/ 
 
 
 
@@ -448,7 +448,6 @@ $post_types = get_post_types( $args, $output, $operator );
 }
 }
 }
-
 
 
 function miluse_get_rest_featured_image( $object, $field_name, $request ) {
