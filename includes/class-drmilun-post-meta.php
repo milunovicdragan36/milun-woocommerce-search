@@ -49,7 +49,9 @@ add_action( 'rest_api_init', [$this,'search_type_products']);
 
  /*FOR WOO CATEGORIES FRONT END*/
      add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories'] );
-  add_action( "rest_api_init", [$this,'namespace_register_search_empty_woo_categories'] );
+      add_action( "rest_api_init", [$this,'namespace_register_search_woo_categories_zero'] );
+
+     add_action( "rest_api_init", [$this,'namespace_register_search_empty_woo_categories'] );
 
 
     add_action( 'rest_api_init', [$this,'namespace_register_search_route']);
@@ -153,6 +155,18 @@ function namespace_register_search_woo_categories() {
     );
 }
 
+function namespace_register_search_woo_categories_zero() {
+      register_rest_route(
+        'namespacewoo/v12',
+        '/searching_woo_categories//(?P<id>\d+)',
+        [
+            'methods'             => WP_REST_Server::READABLE, // GET
+            'callback'            => [ $this, 'namespace_searching_woo_categories' ],
+            'permission_callback' => '__return_true',
+            'args'                => $this->namespace_get_search_args(), // <-- no extra []
+        ]
+    );
+}
 
 
 function namespace_register_search_empty_woo_categories() {

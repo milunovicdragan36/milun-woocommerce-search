@@ -185,6 +185,15 @@ jQuery.getJSON(url, function (livesearchposts_1) {
   if (typeof window.milunShowResultWidget === "function") {
     window.milunShowResultWidget(livesearchposts_1);
   }
+  
+if (livesearchposts_1.length==0) {
+  jQuery(".data-container-widget").css("display","block");
+
+    document.getElementsByClassName('data-container-widget')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
+
+
+ 
+}
 });
 
 
@@ -202,8 +211,11 @@ if (el) {
         jQuery('.category_and_tag_empty').css("display",'none');
       jQuery('.category_and_tag').css("display",'none');
 
- jQuery(".data-categories-container-widget").css("display",'block').after("<div class='line_below_cat_tag'></div>");
-  
+  setTimeout(function () {
+    jQuery(".data-categories-container-widget")
+        .css("display", "block")
+        .after("<div class='line_below_cat_tag'></div>");
+}, 1000);
 
 
     
@@ -212,7 +224,6 @@ if (el) {
 var post_id = jQuery("#search_post_id").val();   
 
 jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v12/searching_woo_categories/'+customSearchBox+'/'+post_id,function(livesearchcategories){
- //  jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/searching_empty_cat/'+ customSearchBox,function(empty_categories){
 
 
 
