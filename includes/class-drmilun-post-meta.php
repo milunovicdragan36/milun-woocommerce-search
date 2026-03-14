@@ -2893,10 +2893,13 @@ if($category->name!="" && $category->slug!="uncategorized"){
  <?php
    global $wpdb;
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$meta_value_word = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_key ='numberofwordsinposts' AND meta_value !=''");
+//$meta_value_word = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_key ='numberofwordsinposts' AND meta_value !=''");
+$numberofwordsinposts =  esc_attr(get_post_meta( get_the_ID(), 'numberofwordsinposts', true ));
+
 ?>
 <p>
-      <label style="font-size:15px;"><input type="number" id="numberofwordsinposts" name="numberofwordsinposts" min="7" max="80" value="<?php echo esc_attr( @$meta_value_word[0]->meta_value ? @$meta_value_word[0]->meta_value :7);  ?>"><?php esc_html_e("Number of words to show in posts","milun-search"); ?></label>
+      <label style="font-size:15px;"><input type="number" id="numberofwordsinposts" name="numberofwordsinposts" min="7" max="30" value="<?php echo esc_attr(@$numberofwordsinposts); ?>" 
+><?php esc_html_e("Number of words to show in posts","milun-search"); ?></label>
  </p>            
 
   <?php 
@@ -3659,10 +3662,15 @@ if(isset($_POST[ 'search_categories_woo' ]) && sanitize_text_field($_POST[ 'sear
 if(isset($_POST[ 'numberofpostswoo' ]) && sanitize_text_field($_POST[ 'numberofpostswoo' ])  ) {
     update_post_meta( $post_id, 'numberofpostswoo', $_POST[ 'numberofpostswoo' ] );
 } else {
-    add_post_meta( $post_id, 'numberofpostswoo', 4 );
+    add_post_meta( $post_id, 'numberofpostswoo', 8 );
 }
 
 
+if(isset($_POST[ 'numberofwordsinposts' ]) && sanitize_text_field($_POST[ 'numberofwordsinposts' ])  ) {
+    update_post_meta( $post_id, 'numberofwordsinposts', $_POST[ 'numberofwordsinposts' ] );
+} else {
+    add_post_meta( $post_id, 'numberofwordsinposts', 7 );
+}
 
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
