@@ -189,6 +189,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
             .background_color_of_load_more_button_widget{
                                 cursor: pointer;
   background-color:<?php echo esc_attr($color); ?>;
+    border-radius: 10px;
 
             }
 .closeFilePanel{
