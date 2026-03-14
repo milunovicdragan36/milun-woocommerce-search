@@ -22,7 +22,7 @@ class MILUSE_Drmilun_Widget extends \WP_Widget {
       'customize_selective_refresh' => true,
       'show_instance_in_rest'       => true,
     );
-    parent::__construct( 'searching', esc_html__( 'Milun Search', 'milun-search'), $widget_ops);
+    parent::__construct( 'searching', esc_html__( 'Milun Woo Search', 'milun-search'), $widget_ops);
            add_action( "rest_api_init", [$this,'miluse_search_categories'] );
  ////*front end rest api routes*////////////
 add_action( "rest_api_init", [$this,'miluse_search_categories'] );
