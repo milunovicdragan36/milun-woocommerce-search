@@ -329,8 +329,10 @@ float:left;
 }
 
 /* RESULTS AREA */
-.pop_up_menu.milun-popup-center
+.pop_up_menu.milun-popup-center,
+.pop_up_before_loop.milun-popup-center,
 .wrapper-data-container-menu-data-posts,
+.wrapper-data-container-before-loop-data-posts,
 .wrapper-data-container-widget-data-posts{
   padding:15px;
   overflow:auto;
@@ -340,6 +342,94 @@ float:left;
 body.milun-popup-lock{
   overflow:hidden;
 }
+
+
+/* ROOT */
+.pop_up_before_loop.milun-popup-center{
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  pointer-events: none;
+}
+
+/* DARK BACKGROUND */
+.pop_up_before_loop.milun-popup-center::before{
+  content:"";
+  position: fixed;
+  inset:0;
+  background:rgba(0,0,0,0.75);
+  opacity:0;
+  transition:opacity .25s ease;
+}
+
+/* =====================================================
+   FORCE CENTER MODAL
+   (overrides any old sliding CSS)
+===================================================== */
+.pop_up_before_loop.milun-popup-center .notification-container{
+
+  position: fixed !important;
+
+  top:50% !important;
+  left:50% !important;
+
+  right:auto !important;
+  bottom:auto !important;
+
+  width:min(720px,92vw) !important;
+  max-height:85vh !important;
+  height:auto !important;
+
+  background:#ffffff;
+  border-radius:14px;
+  box-shadow:0 25px 60px rgba(0,0,0,.45);
+
+  transform:translate(-50%,-50%) scale(.92) !important;
+  opacity:0;
+
+  transition:
+    transform .25s ease,
+    opacity .25s ease;
+
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* OPEN STATE */
+.pop_up_before_loop.milun-popup-center.is-open{
+  pointer-events:auto;
+}
+
+.pop_up_before_loop.milun-popup-center.is-open::before{
+  opacity:1;
+}
+
+.pop_up_before_loop.milun-popup-center.is-open
+.notification-container{
+  transform:translate(-50%,-50%) scale(1) !important;
+  opacity:1;
+}
+
+/* =====================================================
+   SEARCH HEADER
+===================================================== */
+.pop_up_before_loop.milun-popup-center .search_menu{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:15px;
+  border-bottom:1px solid rgba(0,0,0,.12);
+}
+
+/* SEARCH INPUT */
+.pop_up_before_loop.milun-popup-center .search-term-menu{
+  width:100%;
+  padding:10px 12px;
+  border-radius:8px;
+  outline:none;
+}
+
 
 /* for pop up in widget */
 /* =====================================================

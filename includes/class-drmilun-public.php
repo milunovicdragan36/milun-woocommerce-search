@@ -63,8 +63,10 @@ class MMSDD_Drmilun_Public {
 		wp_enqueue_style( 'drmilun-public-menu', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-menu.css', array(), '1.0', 'all' );
 
         wp_enqueue_style( 'drmilun-public-widget', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-widget.css', array(), '1.0', 'all' );
+        
+        wp_enqueue_style( 'drmilun-public-before-loop', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-before-loop.css', array(), '1.0', 'all' );
 
-
+        
 		wp_enqueue_style( 'drmilun-public', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public.css', array(), '1.0', 'all' );
 
 		wp_enqueue_style("dashicons" );
@@ -133,6 +135,18 @@ wp_enqueue_script( 'pop-up-search-bar' );
 );
 
 wp_enqueue_script( 'pop-up-for-widget' );
+
+
+/* pop up search bar before loop */
+     wp_register_script(
+    'pop-up-before-loop',
+    plugin_dir_url( __FILE__ ) . '../public/js/pop_up_before_loop.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'pop-up-before-loop' );
 /*
 	   $translation_array_for_posts = array(
 	    'search_results' => __( 'Search Results', 'searching-for-posts' ),
@@ -243,6 +257,20 @@ wp_register_script(
     '1.0',
     true
 );
+
+wp_enqueue_script( 'show-result-widget' );
+
+// For searching in widget
+wp_register_script(
+    'show-result-before-loop',
+    plugin_dir_url( __FILE__ ) . '../public/js/search_loop_in_before_loop.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'show-result-before-loop' );
+
 
 wp_enqueue_script( 'show-result-widget' );
 
