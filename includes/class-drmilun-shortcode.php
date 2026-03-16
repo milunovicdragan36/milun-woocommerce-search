@@ -30,16 +30,93 @@ add_action('woocommerce_before_shop_loop', [$this,'milun_render_search_form'], 5
 
 }
 function milun_render_search_form() {
-   $posts = get_posts(['post_type' =>"sfp_search_post"]);
-                             
-                       
+   
+  $posts = get_posts(['post_type' =>"sfp_search_post"]);
+                        
+                        
 foreach ($posts as $post) {
+           
+            $custom = get_post_meta( esc_attr($post->ID) );
+            $search_form_before_loop = ( isset( $custom['search_form_before_loop'][0] ) ) ? $custom['search_form_before_loop'][0] : false;
+
+             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
+             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
+             $color = $color_of_background;
+ ?>
+ <style type="text/css">
+
+   .my_wrapper,
+   .child_before-loop{
+
+background-color: white;
+
+border-left-width: 3px !important;
+
+    
+    border-width: 3px;
+border-color:<?php echo esc_attr($color); ?>!important;
+border-style: solid;
+}
+                
+               .search_before-loop{
+  background-color:<?php echo esc_attr($color); ?>;
+}
+
+     
+               .wrapper-data-container-before-loop-data-posts{
+    border-color: <?php echo esc_attr($color); ?>!important;
+
+     border-top-style: solid !important;
+border-top-width: 3px !important;
+border-top-color:<?php echo esc_attr($color); ?>;
+
+    width:100% !important;
+
+
+}
+
+                .data-before-loop-posts-btn{
+                    background-color:<?php echo esc_attr($color); ?> !important;
+                    color:white;
+                        border-radius: 8px;
+                            text-align: center;
+
+
+                }
+                
+             .search-term-before-loop{
+                
+                border-color: <?php echo esc_attr($color); ?>!important;
+             }
+            
+               .line_below_cat_tag,
+                .line_below_post{
+                    border: 1px dotted <?php echo esc_attr($color); ?>!important;
+
+
+                }
+                    
+               
+            .background_color_of_load_more_button_before-loop{
+                                cursor: pointer;
+  background-color:<?php echo esc_attr($color); ?>;
+    border-radius: 10px;
+
+            }
+.closeFilePanel{
+    color:<?php echo esc_attr($color); ?>!important;
+
+}
+          
+               </style>
+ <?php
    $search_categories_woo = esc_attr(get_post_meta( $post->ID,"search_categories_woo",true));
                
        $full_width_form = esc_attr(get_post_meta( $post->ID,"full_width_form",true));
         $standard_form = esc_attr(get_post_meta( $post->ID,"standard_form",true));
               $pop_up_form = esc_attr(get_post_meta( $post->ID,"pop_up_form",true));
   if (
+    $search_form_before_loop == '1' &&
     $search_categories_woo == '1' &&
     $standard_form != '1' &&
     $full_width_form != '1' &&

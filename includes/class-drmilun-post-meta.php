@@ -2680,17 +2680,27 @@ if($nav_menu->term_id==@$menu[0]->meta_value){
    <?php esc_attr($nav_menu->name); ?> 
     <?php
          }   endforeach;
-
-  
-        
- ?>
-
-
-               
+?>
+         
 
 
 </p>
 <?php
+
+
+
+  $search_form_before_loop = esc_attr(get_post_meta( get_the_ID(),"search_form_before_loop", true));
+
+
+$sanitized_checkbox_search_form_before_loop= $search_form_before_loop==1? $this->dmsfp_prefix_sanitize_input($search_form_before_loop, 1): ''; 
+
+             
+ ?>
+   
+<p>
+      <label style="font-size:15px;"><input type="checkbox" value="1" name="search_form_before_loop" <?php checked(esc_attr($sanitized_checkbox_search_form_before_loop), 1 ); ?>><?php esc_html_e("Display search form before loop","milun-search"); ?></label>
+ </p>
+ <?php
         //Display how many of posts is in a current category
    $search_categories_woo = esc_attr(get_post_meta( get_the_ID(),"search_categories_woo", true));
 
@@ -3650,7 +3660,12 @@ else if(isset($_POST[ 'WooFormMenus']) && sanitize_text_field($_POST[ 'WooFormMe
 add_post_meta( $post_id, 'search_post_id_woo', $post_id);
 
  
-
+// Checks for input and saves - save checked as yes and unchecked at no
+if(isset($_POST[ 'search_form_before_loop' ]) && sanitize_text_field($_POST[ 'search_form_before_loop' ])  ) {
+    update_post_meta( $post_id, 'search_form_before_loop', $_POST[ 'search_form_before_loop' ] );
+} else {
+    update_post_meta( $post_id, 'search_form_before_loop', false );
+}   
 // Checks for input and saves - save checked as yes and unchecked at no
 if(isset($_POST[ 'search_categories_woo' ]) && sanitize_text_field($_POST[ 'search_categories_woo' ])  ) {
     update_post_meta( $post_id, 'search_categories_woo', $_POST[ 'search_categories_woo' ] );
