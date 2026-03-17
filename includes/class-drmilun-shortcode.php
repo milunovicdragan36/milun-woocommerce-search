@@ -46,7 +46,7 @@ foreach ($posts as $post) {
  <style type="text/css">
 
    .my_wrapper,
-   .child_before-loop{
+   .child_before_loop{
 
 background-color: white;
 
@@ -97,7 +97,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
                 }
                     
                
-            .background_color_of_load_more_button_before-loop{
+            .background_color_of_load_more_button_before_loop{
                                 cursor: pointer;
   background-color:<?php echo esc_attr($color); ?>;
     border-radius: 10px;
@@ -124,7 +124,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
 ) {
  $popup = '
         <div class="pop_up_before_loop milun-popup-center">
-            <div class="notification-container dismiss">
+            <div class="notification-container">
 
              
                     <div class="search_before_loop" style="background-color:transparent;">
