@@ -2346,7 +2346,7 @@ function namespace_searching_woo_categories($request){
     $woo_categories = $wpdb->get_results(
     $wpdb->prepare(
         "
-        SELECT DISTINCT t.*
+       SELECT DISTINCT t.*, tt.count
         FROM {$wpdb->terms} AS t
         INNER JOIN {$wpdb->term_taxonomy} AS tt
             ON t.term_id = tt.term_id

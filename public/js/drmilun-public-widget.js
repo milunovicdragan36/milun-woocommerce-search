@@ -231,7 +231,7 @@ jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v12/searching_
 var result = livesearchcategories.map(item => 
 `<div>
   
-<a class='red_color' href="${MilunSearch.root_url}/product-category/${item.slug}">${item.name}</a></div>
+<a class='red_color' href="${MilunSearch.root_url}/product-category/${item.slug}">${item.name} ( ${item.count} )</a></div>
  
   `
 ).join('')
