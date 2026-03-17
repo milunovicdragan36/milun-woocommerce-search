@@ -286,12 +286,11 @@ border-top-color:<?php echo esc_attr($color); ?>;
 
 
 $form = '';
-
     if (
     $search_categories_woo == '1' &&
     $standard_form != '1' &&
     $full_width_form != '1' &&
-    $pop_up_form == '1' && is_front_page()
+    $pop_up_form == '1' && is_front_page() || is_shop() || is_product_category() || is_product_tag()
 ) {
   
  $popup = '
@@ -351,9 +350,11 @@ $form = '';
  
                       
  }
- if($search_categories_woo!='1'&& is_front_page()){
-                       
-                     
+ else if(
+ $search_categories_woo != '1' &&
+    $standard_form != '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_front_page() || is_shop() || is_product_category() || is_product_tag()    ){              
 
 
                         echo esc_attr(@$args['before_widget']);
@@ -368,6 +369,7 @@ $form = '';
     
 
     echo esc_attr(@$args['after_widget']);  
+    
  }
               
 
