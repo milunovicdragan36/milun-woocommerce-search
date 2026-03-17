@@ -260,19 +260,6 @@ wp_register_script(
 
 wp_enqueue_script( 'show-result-widget' );
 
-// For searching in widget
-wp_register_script(
-    'show-result-before-loop',
-    plugin_dir_url( __FILE__ ) . '../public/js/search_loop_in_before_loop.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
-    '1.0',
-    true
-);
-
-wp_enqueue_script( 'show-result-before-loop' );
-
-
-wp_enqueue_script( 'show-result-widget' );
 
 // Pass WooCommerce currency to JS
 wp_localize_script(
@@ -283,6 +270,41 @@ wp_localize_script(
     )
 );
 
+
+
+// For searching in before loop
+wp_register_script(
+    'search-loop-before-loop',
+    plugin_dir_url( __FILE__ ) . '../public/js/search_loop_in_before_loop.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'search-loop-before-loop' );
+// For searching in before loop
+wp_register_script(
+    'show-result-before-loop',
+    plugin_dir_url( __FILE__ ) . '../public/js/show_result_before_loop.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'show-result-before-loop' );
+
+
+// Pass WooCommerce currency to JS
+wp_localize_script(
+    'show-result-before-loop',
+    'milunBeforeLoopData',
+    array(
+        'currency_symbol' => get_woocommerce_currency_symbol(),
+    )
+);
+
+
+
  wp_register_script( 'widget-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-widget.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
     
    wp_enqueue_script( 'widget-public-woo' );
@@ -291,22 +313,41 @@ wp_localize_script(
     
    wp_enqueue_script( 'shortcode-public-woo' );
 
+
+
    // Great for getting Rest Api data on the front end
    wp_localize_script( 'shortcode-public-woo', 'liveSearchDataPosts',[$translation_array_for_products,
             array( 'root_url' => get_rest_url())]);
 
      wp_localize_script( 'shortcode-public-woo', 'liveSearchDataCategories',[$translation_array_for_categories,
             array( 'root_url' => get_rest_url())]);
-	//for search loop in menu		
-     wp_register_script( 'search-loop-menu', plugin_dir_url( __FILE__ ) . '../public/js/search_loop_in_menu.js', array("jquery" ),'1.0', true );
+
+ //search bar before loop           
+ wp_register_script( 'before-loop-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-before-loop.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
+    
+   wp_enqueue_script( 'before-loop-public-woo' );
+
+
+
+   // Great for getting Rest Api data on the front end
+   wp_localize_script( 'before-loop-public-woo', 'liveSearchDataPosts',[$translation_array_for_products,
+            array( 'root_url' => get_rest_url())]);
+
+     wp_localize_script( 'before-loop-public-woo', 'liveSearchDataCategories',[$translation_array_for_categories,
+            array( 'root_url' => get_rest_url())]);
+
+
+
+            //for search loop in menu		
+    wp_register_script( 'search-loop-menu', plugin_dir_url( __FILE__ ) . '../public/js/search_loop_in_menu.js', array("jquery" ),'1.0', true );
     
    wp_enqueue_script( 'search-loop-menu' );
 
    
    //for search loop in menu		
-     wp_register_script( 'show-result-widget', plugin_dir_url( __FILE__ ) . '../public/js/show_result_in_widget.js', array("jquery" ),'1.0', true );
+   //  wp_register_script( 'show-result-widget', plugin_dir_url( __FILE__ ) . '../public/js/show_result_in_widget.js', array("jquery" ),'1.0', true );
     
-   wp_enqueue_script( 'show-result-widget' );
+   //wp_enqueue_script( 'show-result-widget' );
 
  }
 

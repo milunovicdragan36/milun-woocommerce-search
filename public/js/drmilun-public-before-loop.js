@@ -22,9 +22,9 @@ jQuery('.my_wrapper').css('display','block');
 class Live_Search_Before_Loop{
   
   constructor(){
-     this.searchFieldProductsBeforeLoop = jQuery(".search-term-before_loop");
- this.searchFieldCategoriesBeforeLoop = jQuery(".search-term-before_loop");
-  this.searchFieldTagsBeforeLoop = jQuery(".search-term-before_loop");
+     this.searchFieldProductsBeforeLoop = jQuery(".search-term-before-loop");
+ this.searchFieldCategoriesBeforeLoop = jQuery(".search-term-before-loop");
+  this.searchFieldTagsBeforeLoop = jQuery(".search-term-before-loop");
   this.searchCategoriesAdmin =jQuery("#search_categories");
 
   this.searchTagsAdmin =jQuery("#search_tags");
@@ -57,27 +57,27 @@ this.count = 0;
        this.post_type_featured_image15 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-16);
             
      //this.searchFieldWoo = jQuery(".search-term-woo");
-     //this.searchFieldbefore_loop = jQuery(".search-term-before_loop-woo");
-     this.searchFieldBeforeLoopWoo = jQuery(".search-term-before_loop-woo");
+     //this.searchFieldbefore-loop = jQuery(".search-term-before-loop-woo");
+     this.searchFieldBeforeLoopWoo = jQuery(".search-term-before-loop-woo");
      this.isSpinnerVisible = false;
      this.typingTimer;
      
      this.isOverlayOpen = false;
      this.template_no_posts;
-     this.resultsDiv = jQuery(".search-term-before_loop");
+     this.resultsDiv = jQuery(".search-term-before-loop");
      this.isSpinnerVisible = false;
      this.previousValue;
      this.timeout;
      this.i = 0;
            
-this.searchFieldProductsbefore_loop.on(
+this.searchFieldProductsBeforeLoop.on(
   "keyup",
-  debounce(this.getResultsProductsbefore_loop.bind(this), 400)
+  debounce(this.getResultsProductsBeforeLoop.bind(this), 400)
 );
 
-this.searchFieldCategoriesbefore_loop.on(
+this.searchFieldCategoriesBeforeLoop.on(
   "keyup",
-  debounce(this.getResultsCategoriesbefore_loop.bind(this), 400)
+  debounce(this.getResultsCategoriesBeforeLoop.bind(this), 400)
 );
 
   
@@ -87,17 +87,17 @@ this.searchFieldCategoriesbefore_loop.on(
 jQuery(".data-categories-container").css("display",'none');
 jQuery(".data-container").css("display",'none');
 
-  jQuery('.data-posts-inc-before_loop').css('display','none');
+  jQuery('.data-posts-inc-before-loop').css('display','none');
 
  
-  jQuery('.no_more_posts_before_loop').css("display",'none');
+  jQuery('.no_more_posts_before-loop').css("display",'none');
     jQuery('.data-posts-btn').css("display",'none');
 
-    jQuery('.background_color_of_load_more_button_before_loop').css("display",'none');
+    jQuery('.background_color_of_load_more_button_before-loop').css("display",'none');
 
 
  
-  jQuery('.data-posts-inc-before_loop').css('display','none');
+  jQuery('.data-posts-inc-before-loop').css('display','none');
 
 
 
@@ -105,19 +105,19 @@ jQuery(".data-container").css("display",'none');
 
 
 
-        jQuery('.no-data-before_loop').css('display','none');
+        jQuery('.no-data-before-loop').css('display','none');
 
-jQuery(".wrapper-data-container-before_loop-data-posts").css("display",'none');
+jQuery(".wrapper-data-container-before-loop-data-posts").css("display",'none');
 
 
- jQuery(".data-search_categories-container-before_loop").css("display",'none');
-  jQuery(".data-tags-container-before_loop").css("display",'none');
+ jQuery(".data-search_categories-container-before-loop").css("display",'none');
+  jQuery(".data-tags-container-before-loop").css("display",'none');
 
-  jQuery('.data-container-before_loop-inc').css('display','none');
+  jQuery('.data-container-before-loop-inc').css('display','none');
 
-  jQuery(".data-container-before_loop").css("display",'none');
+  jQuery(".data-container-before-loop").css("display",'none');
 
-      jQuery('.data-before_loop-posts-btn').css("display",'block');
+      jQuery('.data-before-loop-posts-btn').css("display",'block');
 
 
     }
@@ -126,29 +126,29 @@ jQuery(".wrapper-data-container-before_loop-data-posts").css("display",'none');
  
    
 
-getResultsProductsbefore_loop(){
- jQuery(".search-term-before_loop").addClass("loadinggif");
+getResultsProductsBeforeLoop(){
+ jQuery(".search-term-before-loop").addClass("loadinggif");
 
-jQuery(".wrapper-data-container-before_loop-data-posts").css("display",'block');
-  jQuery(".data-search_categories-container-before_loop").css("display",'block');
+jQuery(".wrapper-data-container-before-loop-data-posts").css("display",'block');
+  jQuery(".data-search_categories-container-before-loop").css("display",'block');
 
-  jQuery(".data-container-before_loop").css("display",'block');
+  jQuery(".data-container-before-loop").css("display",'block');
     jQuery(".data-button").css("display","none");
-  jQuery('.no_more_posts_before_loop').css("display",'none');
-           jQuery('.no-data-before_loop').css('display','none');
+  jQuery('.no_more_posts_before-loop').css("display",'none');
+           jQuery('.no-data-before-loop').css('display','none');
 
  // jQuery(".data-categories-container").removeClass("hid");
 
 let counter = 1;
 
-jQuery('.data-before_loop-posts-btn').css('display','block');
+jQuery('.data-before-loop-posts-btn').css('display','block');
 jQuery('.line_below_cat_tag').css('display','none');
 
 
 var find_element = 1;
 
 var categories =this.search_categories.val();
-var customSearchBox =this.searchFieldProductsbefore_loop.val();
+var customSearchBox =this.searchFieldProductsBeforeLoop.val();
 var number_of_words_in_posts_2 = this.number_of_words_in_posts.val();
 var search_post_id_title = jQuery("#search_post_id_title").val();
 var number_of_posts = parseInt(jQuery("#numberofposts").val());
@@ -167,7 +167,7 @@ const root =
 
 if (!root) {
   console.warn("liveSearchDataPosts missing on this page", window.liveSearchDataPosts);
-  jQuery(".search-term-before_loop").removeClass("loadinggif");
+  jQuery(".search-term-before-loop").removeClass("loadinggif");
   return;
 }
 
@@ -187,9 +187,9 @@ jQuery.getJSON(url, function (livesearchposts_1) {
   }
   
 if (livesearchposts_1.length==0) {
-  jQuery(".data-container-before_loop").css("display","block");
+  jQuery(".data-container-before-loop").css("display","block");
 
-    document.getElementsByClassName('data-container-before_loop')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
+    document.getElementsByClassName('data-container-before-loop')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
 
 
  
@@ -202,7 +202,7 @@ if (livesearchposts_1.length==0) {
 
 
 getResultsCategoriesBeforeLoop(){
-const el = document.querySelector('.data-categories-container-before_loop');
+const el = document.querySelector('.data-categories-container-before-loop');
 
 if (el) {
   var $this =this;
@@ -212,7 +212,7 @@ if (el) {
       jQuery('.category_and_tag').css("display",'none');
 
   setTimeout(function () {
-    jQuery(".data-categories-container-before_loop")
+    jQuery(".data-categories-container-before-loop")
         .css("display", "block")
         .after("<div class='line_below_cat_tag'></div>");
 }, 1000);
@@ -247,10 +247,10 @@ if($this.count>1){
 
 
 if (result.length==0) {
-  jQuery(".category-before_loop-label").remove();
+  jQuery(".category-before-loop-label").remove();
 
 
-    document.getElementsByClassName('data-categories-container-before_loop')[0].innerHTML =liveSearchDataCategories[0].not_found_data;
+    document.getElementsByClassName('data-categories-container-before-loop')[0].innerHTML =liveSearchDataCategories[0].not_found_data;
 
 
  
@@ -259,7 +259,7 @@ if (result.length==0) {
      
 
 
-    document.getElementsByClassName('data-categories-container-before_loop')[0].innerHTML =result;
+    document.getElementsByClassName('data-categories-container-before-loop')[0].innerHTML =result;
 
 }
 
