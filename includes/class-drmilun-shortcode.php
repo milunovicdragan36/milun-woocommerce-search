@@ -375,7 +375,7 @@ echo '<input type="hidden" id="numberofpostswoo" value="'.esc_attr(get_post_meta
 
    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
 //added
-if($search_categories!='1' && $searchposts_in_title_after=='1' && $standard_form != '1' && $full_width_form =='1'){
+if($search_categories_woo!='1' && $searchposts_in_title_after=='1' && $standard_form != '1' && $full_width_form =='1'){
         return $items .'
 <span class="dashicons dashicons-search" id="open-search-flyout" aria-label="Search" role="button" tabindex="0"></span>
 
@@ -388,7 +388,7 @@ if($search_categories!='1' && $searchposts_in_title_after=='1' && $standard_form
                       ';  
 }    
 
-             if($search_categories=='1' && $searchposts_in_title_after=='1' && $standard_form == '1' && $full_width_form !='1'){
+             if($search_categories_woo=='1' && $searchposts_in_title_after=='1' && $standard_form == '1' && $full_width_form !='1'){
         return $items .= '<div class="my_wrapper" style="max-height:70px !important;">
 <div class="search_menu">
 <input type="text" class="search-term-menu"  placeholder="'.__("Search...","milun-search") .'"/></div>     
@@ -402,7 +402,7 @@ if($search_categories!='1' && $searchposts_in_title_after=='1' && $standard_form
 </div>
                       ';  
 }                     
-      if($search_categories!='1'&& $searchposts_in_title_after=='1'  && $standard_form == '1' && $full_width_form !='1'){
+      if($search_categories_woo!='1'&& $searchposts_in_title_after=='1'  && $standard_form == '1' && $full_width_form !='1'){
         return $items .= '<div class="my_wrapper" style="max-height:70px !important;">
 <div class="search_menu">
 <input type="text" class="search-term-menu"  placeholder="'.__("Search...","milun-search") .'"/></div>     
@@ -416,7 +416,7 @@ if($search_categories!='1' && $searchposts_in_title_after=='1' && $standard_form
                       ';  
 } 
 
-  if($search_categories=='1' && $searchposts_in_title_before=='1'  && $standard_form == '1' && $full_width_form !='1'){
+  if($search_categories_woo=='1' && $searchposts_in_title_before=='1'  && $standard_form == '1' && $full_width_form !='1'){
         return '<div class="my_wrapper" style="max-height:70px !important;">
 <div class="search_menu">
 <input type="text" class="search-term-menu"  placeholder="'.__("Search...","milun-search") .'"/></div>     
@@ -430,7 +430,7 @@ if($search_categories!='1' && $searchposts_in_title_after=='1' && $standard_form
 </div>
                       '.$items;  
 }                     
-      if($search_categories!='1'&& $searchposts_in_title_before=='1'  && $standard_form == '1' && $full_width_form !='1'){
+      if($search_categories_woo!='1'&& $searchposts_in_title_before=='1'  && $standard_form == '1' && $full_width_form !='1'){
         return '<div class="my_wrapper" style="max-height:70px !important;">
 <div class="search_menu">
 <input type="text" class="search-term-menu"  placeholder="'.__("Search...","milun-search") .'"/></div>     
@@ -445,14 +445,14 @@ if($search_categories!='1' && $searchposts_in_title_after=='1' && $standard_form
 }
 
                  
-      if($search_categories!='1'&& $searchposts_in_title_after=='1'  && $standard_form == '1' && $full_width_form !='1'){
+      if($search_categories_woo!='1'&& $searchposts_in_title_after=='1'  && $standard_form == '1' && $full_width_form !='1'){
         return $items .= '
 <span class="dashicons dashicons-search"></span>
 
                       ';  
 } 
 
-  if($search_categories=='1' && $searchposts_in_title_before=='1'  && $standard_form != '1' && $full_width_form =='1'){
+  if($search_categories_woo=='1' && $searchposts_in_title_before=='1'  && $standard_form != '1' && $full_width_form =='1'){
         return '<div class="pop_up_menu"><div class="notification-container dismiss">
           </div>  
         <div class="my_wrapper">
