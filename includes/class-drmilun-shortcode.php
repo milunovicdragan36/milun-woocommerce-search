@@ -374,106 +374,9 @@ echo '<input type="hidden" id="numberofpostswoo" value="'.esc_attr(get_post_meta
   // return "search_categories =". $search_categories ." searchposts_in_title_after =". $searchposts_in_title_after ." standard_form =". $standard_form ." full_width_form =". $full_width_form;        
 
    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
-//added
-if($search_categories_woo!='1' && $searchposts_in_title_after=='1' && $standard_form != '1' && $full_width_form =='1'){
-        return $items .'
-<span class="dashicons dashicons-search" id="open-search-flyout" aria-label="Search" role="button" tabindex="0"></span>
 
-<div id="search-flyout" aria-hidden="true">
-<span class="dashicons dashicons-dismiss" id="close-search-flyout" aria-label="Close Search" role="button" tabindex="0"></span>
-  <div class="search-flyout-inner">
-    <input type="text" class="search-term-menu" placeholder="Search..." />
-  </div>
-</div>
-                      ';  
-}    
-
-             if($search_categories_woo=='1' && $searchposts_in_title_after=='1' && $standard_form == '1' && $full_width_form !='1'){
-        return $items .= '<div class="my_wrapper" style="max-height:70px !important;">
-<div class="search_menu">
-<input type="text" class="search-term-menu"  placeholder="'.__("Search...","milun-search") .'"/></div>     
- <div class="child_menu">
-<div class="wrapper-data-container-menu-data-posts">
-
-<div class="data-categories-container-menu"></div>
-<div class="data-container-menu data-container-2 hid"></div><div class="data-container-menu-2"></div><div class="data-menu-posts-btn"></div><div class="data-posts-inc"></div><div class="no-data-menu"></div>
-</div>
-</div>
-</div>
-                      ';  
-}                     
-      if($search_categories_woo!='1'&& $searchposts_in_title_after=='1'  && $standard_form == '1' && $full_width_form !='1'){
-        return $items .= '<div class="my_wrapper" style="max-height:70px !important;">
-<div class="search_menu">
-<input type="text" class="search-term-menu"  placeholder="'.__("Search...","milun-search") .'"/></div>     
- <div class="child_menu">
-<div class="wrapper-data-container-menu-data-posts">
-
-<div class="data-container-menu data-container-2 hid"></div><div class="data-container-menu-2"></div><div class="data-menu-posts-btn"></div><div class="data-posts-inc"></div><div class="no-data-menu"></div>
-</div>
-</div>
-</div>
-                      ';  
-} 
-
-  if($search_categories_woo=='1' && $searchposts_in_title_before=='1'  && $standard_form == '1' && $full_width_form !='1'){
-        return '<div class="my_wrapper" style="max-height:70px !important;">
-<div class="search_menu">
-<input type="text" class="search-term-menu"  placeholder="'.__("Search...","milun-search") .'"/></div>     
- <div class="child_menu">
-<div class="wrapper-data-container-menu-data-posts">
-
-<div class="data-categories-container-menu"></div>
-<div class="data-container-menu data-container-2 hid"></div><div class="data-container-menu-2"></div><div class="data-menu-posts-btn"></div><div class="data-posts-inc"></div><div class="no-data-menu"></div>
-</div>
-</div>
-</div>
-                      '.$items;  
-}                     
-      if($search_categories_woo!='1'&& $searchposts_in_title_before=='1'  && $standard_form == '1' && $full_width_form !='1'){
-        return '<div class="my_wrapper" style="max-height:70px !important;">
-<div class="search_menu">
-<input type="text" class="search-term-menu"  placeholder="'.__("Search...","milun-search") .'"/></div>     
- <div class="child_menu">
-<div class="wrapper-data-container-menu-data-posts">
-
-<div class="data-container-menu data-container-2 hid"></div><div class="data-container-menu-2"></div><div class="data-menu-posts-btn"></div><div class="data-posts-inc"></div><div class="no-data-menu"></div>
-</div>
-</div>
-</div>
-                      '.$items;  
-}
-
-                 
-      if($search_categories_woo!='1'&& $searchposts_in_title_after=='1'  && $standard_form == '1' && $full_width_form !='1'){
-        return $items .= '
-<span class="dashicons dashicons-search"></span>
-
-                      ';  
-} 
-
-  if($search_categories_woo=='1' && $searchposts_in_title_before=='1'  && $standard_form != '1' && $full_width_form =='1'){
-        return '<div class="pop_up_menu"><div class="notification-container dismiss">
-          </div>  
-        <div class="my_wrapper">
-<div class="search_menu">
-<input type="text" class="search-term-menu"  placeholder="'.__("Search...","milun-search") .'"/></div> <span class="dashicons dashicons-search" id="showFilePanel"></span>    
- <div class="child_menu">
-<div class="wrapper-data-container-menu-data-posts">
-
-<div class="data-container-menu data-container-2"></div><div class="data-container-menu-2"></div><div class="data-menu-posts-btn"></div><div class="data-posts-inc"></div><div class="no-data-menu"></div>
-</div>
-</div>
-</div>
-</div>
-<span class="dashicons dashicons-no-alt" id="closeFilePanel"></span></div>
-
-
-
-                      '.'<p id="wrapper_of_my_menu">'.$items.'</p>';  
-}                     
 if (
-    $search_categories_woo != '1' &&
+    $search_categories_woo == '1' &&
     $searchposts_in_title_before == '1' &&
     $standard_form != '1' &&
     $full_width_form == '1'&&
@@ -492,33 +395,30 @@ if (
         return $items;
     }
     $search_popup_added = true;
-
-    $popup = '
-        <div id="for-searching-4"></div>
-
-        <div class="pop_up_menu">
-            <div class="notification-container dismiss">
+ $before_title_full_width = '
+        <div class="before_title_full_width">
+            <div class="notification-container_full_width">
 
              
-                    <div class="search_menu" style="background-color:transparent;">
+                    <div class="search_before_title_full_width" style="background-color:transparent;">
 
-                      <span class="dashicons dashicons-no-alt closeFilePanel"
-                      id="close-search-flyout-before-title"
+                      <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                      id="close-search-flyout-before-title_full_width"
                       aria-label="Close Search"
                       role="button"
                       tabindex="0"></span>
                         <input type="text"
-                               class="search-term-menu" style="border: 1px solid #000000;"
+                               class="search-term-before_title_full_width" style="border: 1px solid #000000;"
                                placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
                     </div>
 
-        <div class="wrapper-data-container-menu-data-posts">
+        <div class="wrapper-data-container-before_title_full_width-data-posts">
+<div class="data-categories-container-menu"></div>
+<div class="data-container-before_title_full_width"></div>
+<div class="data-posts-inc-before_title_full_width"></div>
 
-<div class="data-container-menu"></div>
-<div class="data-posts-inc-menu"></div>
-
-<div class="data-menu-posts-btn"></div>
-<div class="no-data-menu"></div>
+<div class="data-before_title_full_width-posts-btn"></div>
+<div class="no-data-before_title_full_width"></div>
                       
                     </div>
 
@@ -526,14 +426,14 @@ if (
         </div>
 
         <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title"
+              id="open-search-flyout-before-title_full_width"
               aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
               role="button"
               tabindex="0"></span>
     ';
 
     // Append popup + icon to the existing menu items
-    return $popup 
+    return $before_title_full_width 
                       .'<p id="wrapper_of_my_menu">'.$items.'</p>';
 }
 if (
@@ -561,7 +461,7 @@ if (
         <div id="for-searching-5"></div>
 
         <div class="pop_up_menu">
-            <div class="notification-container dismiss">
+            <div class="notification-container">
 
              
                     <div class="search_menu" style="background-color:transparent;">
@@ -572,7 +472,7 @@ if (
                       role="button"
                       tabindex="0"></span>
                         <input type="text"
-                               class="search-term-menu" style="border: 1px solid #000000;"
+                               class="search-term-menu-full-width" style="border: 1px solid #000000;"
                                placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
                     </div>
 

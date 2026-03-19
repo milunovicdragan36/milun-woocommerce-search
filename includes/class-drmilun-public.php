@@ -65,6 +65,8 @@ class MMSDD_Drmilun_Public {
         wp_enqueue_style( 'drmilun-public-widget', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-widget.css', array(), '1.0', 'all' );
         
         wp_enqueue_style( 'drmilun-public-before-loop', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-before-loop.css', array(), '1.0', 'all' );
+ 
+        wp_enqueue_style( 'before-title-full-width', plugin_dir_url( __FILE__ ) . '../public/css/before-title-full-width.css', array(), '1.0', 'all' );
 
         
 		wp_enqueue_style( 'drmilun-public', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public.css', array(), '1.0', 'all' );
@@ -147,6 +149,18 @@ wp_enqueue_script( 'pop-up-for-widget' );
 );
 
 wp_enqueue_script( 'pop-up-before-loop' );
+
+
+/* full widt before title */
+     wp_register_script(
+    'before-title-full-width',
+    plugin_dir_url( __FILE__ ) . '../public/js/before-title-full-width.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'before-title-full-width' );
 /*
 	   $translation_array_for_posts = array(
 	    'search_results' => __( 'Search Results', 'searching-for-posts' ),
