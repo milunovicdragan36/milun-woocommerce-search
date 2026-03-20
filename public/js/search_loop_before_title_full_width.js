@@ -1,6 +1,6 @@
-jQuery('.pop_up_menu').css('display','none');
+jQuery('.pop_up_widget').css('display','none');
 jQuery('#open-search-flyout-before-title').click(function() {
-  jQuery('.pop_up_menu').css('display','block');
+  jQuery('.pop_up_widget').css('display','block');
 });
 
 
@@ -28,7 +28,7 @@ jQuery('.notification-container').css("display",'none');
 
 function updateSearchWidth() {
 
-    var input = document.querySelector('.search-term-menu');
+    var input = document.querySelector('.search-term-widget');
     if (!input) return;
 
     var w = window.innerWidth;
@@ -37,7 +37,7 @@ function updateSearchWidth() {
     input.style.maxWidth = '80%';
     input.style.boxSizing = 'border-box';
 
-    var input = document.querySelector('.wrapper-data-container-menu-data-posts');
+    var input = document.querySelector('.wrapper-data-container-widget-data-posts');
     if (!input) return;
 
     var w = window.innerWidth;
@@ -171,6 +171,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (flyout.classList.contains('active')) positionFlyoutFromIcon();
   }, true);
 });
+
+/*******************spinner***********************/
+
 
 
 

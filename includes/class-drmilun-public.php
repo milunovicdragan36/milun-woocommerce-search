@@ -399,21 +399,6 @@ wp_localize_script(
    wp_enqueue_script( 'before-loop-public-woo' );
 
 
-
-   // Great for getting Rest Api data on the front end
-   wp_localize_script( 'before-loop-public-woo', 'liveSearchDataPosts',[$translation_array_for_products,
-            array( 'root_url' => get_rest_url())]);
-
-     wp_localize_script( 'before-loop-public-woo', 'liveSearchDataCategories',[$translation_array_for_categories,
-            array( 'root_url' => get_rest_url())]);
-
-
-
-            //for search loop in menu		
-    wp_register_script( 'search-loop-menu', plugin_dir_url( __FILE__ ) . '../public/js/search_loop_in_menu.js', array("jquery" ),'1.0', true );
-    
-   wp_enqueue_script( 'search-loop-menu' );
-
    
    //for search loop in menu		
    //  wp_register_script( 'show-result-widget', plugin_dir_url( __FILE__ ) . '../public/js/show_result_in_widget.js', array("jquery" ),'1.0', true );
