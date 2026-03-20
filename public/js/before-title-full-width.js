@@ -3,20 +3,27 @@ jQuery(document).ready(function ($) {
     var $open = $('#open-search-flyout-before-title_full_width');
     var $close = $('#close-search-flyout-before-title_full_width');
     var $input = $('.search-term-before_title_full_width');
-    var scrollTop = 0;
 
-    /* Optional but recommended:
-       move panel directly under body to avoid z-index/overflow issues */
+    var scrollTop = 0;
+    var scrollbarWidth = 0;
+
+    /* Move panel directly under body to avoid z-index/overflow issues */
     if ($panel.length && $panel.parent()[0] !== document.body) {
         $('body').append($panel);
     }
 
     function openPanel() {
-        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+        scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+        $('html, body').addClass('milun-search-open');
+
+        $('body').css({
+            top: -scrollTop + 'px',
+            'padding-right': scrollbarWidth + 'px'
+        });
 
         $panel.addClass('active');
-        $('html, body').addClass('milun-search-open');
-        $('body').css('top', -scrollTop + 'px');
 
         setTimeout(function () {
             $input.trigger('focus');
@@ -26,7 +33,11 @@ jQuery(document).ready(function ($) {
     function closePanel() {
         $panel.removeClass('active');
         $('html, body').removeClass('milun-search-open');
-        $('body').css('top', '');
+
+        $('body').css({
+            top: '',
+            'padding-right': ''
+        });
 
         window.scrollTo(0, scrollTop);
     }

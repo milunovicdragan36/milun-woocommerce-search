@@ -279,72 +279,76 @@ $meta_value = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_
    
   ?>
    <input type="hidden" id="numberofposts" name="numberofposts" min="3" max="15" value="<?php echo esc_attr( @$meta_value[0]->meta_value ? @$meta_value[0]->meta_value :3);  ?>">
+<?php
+$posts = get_posts(['post_type' =>"sfp_search_post"]);
+                        
+                        
+foreach ($posts as $post) {
+            $custom = get_post_meta( esc_attr($post->ID) );
+             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
+             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
+             $color = $color_of_background;
+ ?>
+ <style type="text/css">
+#open-search-flyout-before-title_full_width{
+      color:<?php echo esc_attr($color); ?>!important;
 
-
-<style>
-  
- 
-       .notification-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  max-width:95%;
-
- 
-
-
-  transform: translateX(100%);
-  -webkit-transform: translateX(100%);
 }
 
-.selected {
-  animation: slide-in 0.5s forwards;
-  -webkit-animation: slide-in 0.5s forwards;
+                
+               .search_before_title_full_width{
+  background-color:<?php echo esc_attr($color); ?>;
 }
 
-.dismiss {
-  animation: slide-out 0.5s forwards;
-  -webkit-animation: slide-out 0.5s forwards;
+     
+               .wrapper-data-container-before_title_full_width-data-posts{
+    border-color: <?php echo esc_attr($color); ?>!important;
+
+     border-top-style: solid !important;
+border-top-width: 3px !important;
+border-top-color:<?php echo esc_attr($color); ?>;
+
+    width:100% !important;
+
+
 }
 
-@keyframes slide-in {
-  0% {
-    -webkit-transform: translateX(100%);
-  }
-  100% {
-    -webkit-transform: translateX(0%);
-  }
-}
+                .data-before_title_full_width-posts-btn{
+                    background-color:<?php echo esc_attr($color); ?> !important;
+                    color:white;
+                        border-radius: 8px;
+                            text-align: center;
 
-@-webkit-keyframes slide-in {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
 
-@keyframes slide-out {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
+                }
+                
+             .search-term-before_title_full_width{
+                
+                border-color: <?php echo esc_attr($color); ?>!important;
+             }
+            
+               .line_below_cat_tag,
+                .line_below_post{
+                    border: 1px dotted <?php echo esc_attr($color); ?>!important;
 
-@-webkit-keyframes slide-out {
-  0% {
-    -webkit-transform: translateX(0%);
-  }
-  100% {
-    -webkit-transform: translateX(100%);
-  }
-}         
-       
-</style>
+
+                }
+                    
+               
+            .background_color_of_load_more_button_before_title_full_width{
+                                cursor: pointer;
+  background-color:<?php echo esc_attr($color); ?>;
+    border-radius: 10px;
+
+            }
+.closeFilePanel_full_width{
+    color:<?php echo esc_attr($color); ?>!important;
+
+}
+          
+               </style>
  <?php
+}
    $posts = get_posts(['post_type' =>"sfp_search_post"]);
                              
                        

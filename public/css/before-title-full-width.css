@@ -1,6 +1,26 @@
+/* Prevent horizontal shift caused by flyout */
 html,
 body {
     overflow-x: hidden;
+}
+
+/* Lock scrolling when search is open */
+html.milun-search-open,
+body.milun-search-open {
+    overflow: hidden !important;
+    height: 100% !important;
+    overscroll-behavior: none;
+}
+
+/* Strong scroll lock (desktop + mobile) */
+body.milun-search-open {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+
+    /* IMPORTANT: prevents layout jump when scrollbar disappears */
+    top: 0; /* JS will override this dynamically */
 }
 
 .before_title_full_width {
@@ -58,13 +78,20 @@ body {
 }
 
 /* Close icon */
-.closeFilePanel_full_width {
+.closeFilePanel_full_width{
+  padding-right: 20px;
+  padding-top: 10px;
+font-size: 30px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
     cursor: pointer;
-    font-size: 26px;
-    width: 26px;
-    height: 26px;
-    line-height: 26px;
-    flex-shrink: 0;
+}
+.closeFilePanel_full_width:hover{
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
 /* Remove black hover if theme adds it */

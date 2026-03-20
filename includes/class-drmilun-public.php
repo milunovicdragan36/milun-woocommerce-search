@@ -251,6 +251,44 @@ wp_localize_script(
     ]
 );
 
+// For full width search form before title 
+wp_register_script(
+    'main-full-width-before-title',
+    plugin_dir_url( __FILE__ ) . '../public/js/main-full-width-before-title.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'main-full-width-before-title' );
+
+// Great for getting Rest Api data on the front end (Posts)
+wp_localize_script(
+    'main-full-width-before-title',
+    'liveSearchDataPosts',
+    array(
+        'root_url' => esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_products,
+    )
+);
+
+// Great for getting Rest Api data on the front end (Categories)
+wp_localize_script(
+    'main-full-width-before-title',
+    'liveSearchDataCategories',
+    array(
+        'root_url' => esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_categories,
+    )
+);
+
+wp_localize_script(
+    'main-full-width-before-title',
+    'MilunSearch',
+    [
+        'root_url' => home_url()
+    ]
+);
 // For searching in menus
 wp_register_script(
     'show-result-public',
@@ -284,7 +322,26 @@ wp_localize_script(
     )
 );
 
+// For searching before title full width
+wp_register_script(
+    'show-result-before-title-full-width',
+    plugin_dir_url( __FILE__ ) . '../public/js/show_result_before_title_full_width.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
 
+wp_enqueue_script( 'show-result-before-title-full-width' );
+
+
+// Pass WooCommerce currency to JS
+wp_localize_script(
+    'show-result-before-title-full-width',
+    'milunBeforeTitleFullWidth',
+    array(
+        'currency_symbol' => get_woocommerce_currency_symbol(),
+    )
+);
 
 // For searching in before loop
 wp_register_script(
