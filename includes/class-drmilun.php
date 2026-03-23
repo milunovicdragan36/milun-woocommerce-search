@@ -74,7 +74,8 @@ class MMSDD_Drmilun {
 		$this->dmsfp_define_admin_hooks();
 		$this->dmsfp_define_public_hooks();
 
-	}
+}
+
 
 	/**
 	 * Load the required dependencies for this plugin.
@@ -92,6 +93,7 @@ class MMSDD_Drmilun {
 	 * @since    1.0.0
 	 * @access   private
 	 */
+
 	private function dmsfp_load_dependencies() {
 
 		/**
@@ -181,8 +183,6 @@ class MMSDD_Drmilun {
 	private function dmsfp_define_admin_hooks() {
         
 
-	   $plugin_admin = new MMSDD_Drmilun_Admin( $this->dmsfp_get_searching_for_posts(), $this->get_version() );
-
       $plugin_woo_search_post = new MMSDD_Drmilun_Search_Post($this->dmsfp_get_searching_for_posts(), $this->get_version());
       $plugin_meta = new MMSDD_Drmilun_Meta($this->dmsfp_get_searching_for_posts(), $this->get_version());
 
@@ -194,12 +194,12 @@ class MMSDD_Drmilun {
 
        new MMSDD_Drmilun_Shortcode($this->dmsfp_get_searching_for_posts(), $this->get_version());
 
-	   $this->loader->dmsfp_add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+$plugin_admin = new MMSDD_Drmilun_Admin();
+$this->loader->dmsfp_add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+$this->loader->dmsfp_add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-	   $this->loader->dmsfp_add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-        
-  
-	   $this->loader->dmsfp_add_action( 'init', $plugin_meta, 'sfp_register_and_save_meta_boxes' ); 
+
+$this->loader->dmsfp_add_action( 'init', $plugin_meta, 'sfp_register_and_save_meta_boxes' ); 
         
 	   $this->loader->dmsfp_add_filter( 'manage_search_post_posts_columns',$plugin_woo_search_post, 'smashing_search_post_columns' ); 
 

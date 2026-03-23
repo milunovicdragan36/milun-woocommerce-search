@@ -6,66 +6,95 @@ jQuery(document).ready(function ($) {
 
     var scrollTop = 0;
     var scrollbarWidth = 0;
+    var isAdmin = $('body').hasClass('wp-admin');
 
-    /* Move panel directly under body to avoid z-index/overflow issues */
     if ($panel.length && $panel.parent()[0] !== document.body) {
         $('body').append($panel);
     }
 
-    function openPanel() {
-        scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
-        scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    function focusInputSafely() {
+        if (!$input.length) {
+            return;
+        }
 
+        var inputEl = $input.get(0);
+
+        try {
+            inputEl.focus({ preventScroll: true });
+        } catch (err) {
+            inputEl.focus();
+        }
+    }
+
+ function openPanel() {
+    // Save scroll position and scrollbar width
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+    scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+/*
+    // Only apply styles in frontend (not in admin)
+    if (!isAdmin) {
+        // Lock scroll and apply padding-right only in frontend
         $('html, body').addClass('milun-search-open');
 
         $('body').css({
-            top: -scrollTop + 'px',
-            'padding-right': scrollbarWidth + 'px'
+            top: -scrollTop + 'px', // Scroll lock (only frontend)
+            'padding-right': scrollbarWidth + 'px' // Compensate for scrollbar width
         });
 
-        $panel.addClass('active');
-
+        // Focus the input field safely (with prevent scroll)
         setTimeout(function () {
-            $input.trigger('focus');
+            focusInputSafely();
         }, 500);
     }
+*/
+    // Always show the panel (both in frontend and admin)
+    $panel.addClass('active');
+}
+
 
     function closePanel() {
         $panel.removeClass('active');
-        $('html, body').removeClass('milun-search-open');
 
-        $('body').css({
-            top: '',
-            'padding-right': ''
-        });
+        if (!isAdmin) {
+            $('html, body').removeClass('milun-search-open');
 
-        window.scrollTo(0, scrollTop);
+            $('body').css({
+                top: '',
+                'padding-right': ''
+            });
+
+            window.scrollTo(0, scrollTop);
+        }
     }
 
-    /* Open */
     $open.on('click', function (e) {
         e.preventDefault();
-        openPanel();
+        e.stopPropagation();
+       openPanel();
     });
 
-    /* Close */
     $close.on('click', function (e) {
         e.preventDefault();
+        e.stopPropagation();
         closePanel();
     });
 
-    /* ESC close */
     $(document).on('keydown', function (e) {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' && $panel.hasClass('active')) {
             closePanel();
         }
     });
 
-    /* Prevent touch scroll on mobile when panel is open */
+    $panel.on('click', function (e) {
+        if ($(e.target).is('.notification-container_full_width')) {
+            closePanel();
+        }
+    });
+
     document.addEventListener(
         'touchmove',
         function (e) {
-            if (document.body.classList.contains('milun-search-open')) {
+            if (!isAdmin && document.body.classList.contains('milun-search-open')) {
                 e.preventDefault();
             }
         },

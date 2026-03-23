@@ -1,3 +1,4 @@
+/*
 #wpfooter{
 	position: relative !important;
 }
@@ -16,6 +17,7 @@
 }
 /*#milunsearch_bottom {height: 900px; border:2px solid #333; padding:10px;}
 #milunsearch_hide_show{height: 500px; border:2px solid #333; padding:10px;}*/
+/*
 div.admin-container{       
 	max-height: 120px !important;
 	overflow: auto;
@@ -34,4 +36,96 @@ div.admin-container{
  }
  .milun-plugin-menu{
   display: none !important;
-} 
+}*/ 
+/*no jumping*/
+/* Keep menu stable */
+.before_title_full_width {
+    position: relative;
+    list-style: none;
+}
+
+/* Search icon */
+#open-search-flyout-before-title_full_width {
+    cursor: pointer;
+}
+
+/* Hidden by default */
+.notification-container_full_width {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.35);
+    overflow-y: auto;
+}
+
+/* Show popup */
+.notification-container_full_width.milun-search-open {
+    display: block;
+}
+
+/* Popup box */
+.search_before_title_full_width {
+    position: relative;
+    max-width: 700px;
+    margin: 80px auto 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 6px;
+}
+
+/* Results wrapper */
+.wrapper-data-container-before_title_full_width-data-posts {
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.before_title_full_width {
+    display: inline-block;
+}
+
+.notification-container_full_width {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(0, 0, 0, 0.35);
+    overflow-y: auto;
+}
+
+.notification-container_full_width.milun-search-open {
+    display: block;
+}
+
+.search_before_title_full_width {
+    position: relative;
+    max-width: 700px;
+    margin: 80px auto 0 auto;
+    padding: 15px;
+    background: #fff !important;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.wrapper-data-container-before_title_full_width-data-posts {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.before_title_full_width {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+body.wp-admin.milun-search-open {
+    overflow: auto !important;
+    height: auto !important;
+    position: static !important;
+}
