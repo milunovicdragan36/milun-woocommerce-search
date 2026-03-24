@@ -30,7 +30,8 @@ add_action('woocommerce_before_shop_loop', [$this,'milun_render_search_form'], 5
 
 }
 function milun_render_search_form() {
-   
+
+  
   $posts = get_posts(['post_type' =>"sfp_search_post"]);
                         
                         
@@ -43,6 +44,64 @@ foreach ($posts as $post) {
              $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
              $color = $color_of_background;
  ?>
+  <style type="text/css">
+#open-search-flyout-before-loop_full_width{
+      color:<?php echo esc_attr($color); ?>!important;
+
+}
+
+                
+               .search_before_loop_full_width{
+  background-color:<?php echo esc_attr($color); ?>;
+}
+
+     
+               .wrapper-data-container-before_loop_full_width-data-posts{
+    border-color: <?php echo esc_attr($color); ?>!important;
+
+     border-top-style: solid !important;
+border-top-width: 3px !important;
+border-top-color:<?php echo esc_attr($color); ?>;
+
+    width:100% !important;
+
+
+}
+
+                .data-before_loop_full_width-posts-btn{
+                    background-color:<?php echo esc_attr($color); ?> !important;
+                    color:white;
+                        border-radius: 8px;
+                            text-align: center;
+
+
+                }
+                
+             .search-term-before_loop_full_width{
+                
+                border-color: <?php echo esc_attr($color); ?>!important;
+             }
+            
+               .line_below_cat_tag,
+                .line_below_post{
+                    border: 1px dotted <?php echo esc_attr($color); ?>!important;
+
+
+                }
+                    
+               
+            .background_color_of_load_more_button_before_title_full_width{
+                                cursor: pointer;
+  background-color:<?php echo esc_attr($color); ?>;
+    border-radius: 10px;
+
+            }
+.closeFilePanel_full_width{
+    color:<?php echo esc_attr($color); ?>!important;
+
+}
+          
+               </style>
  <style type="text/css">
 
    .my_wrapper,
@@ -161,6 +220,49 @@ border-top-color:<?php echo esc_attr($color); ?>;
 
     // Append popup + icon to the existing menu items
     echo $popup; 
+}else if (
+    $search_form_before_loop == '1' &&
+    $search_categories_woo == '1' &&
+    $standard_form != '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1'
+) {
+ $before_loop_full_width = '
+    <div class="before_loop_full_width">
+        <div class="notification-container_full_width">
+            <div class="search_before_loop_full_width" style="background-color:transparent;">
+
+                <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                      id="close-search-flyout-before-loop_full_width"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+
+                <input type="text"
+                       class="search-term-before_loop_full_width"
+                       style="border: 1px solid #000000;"
+                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+            </div>
+
+            <div class="wrapper-data-container-before_loop_full_width-data-posts">
+                <div class="data-categories-container-menu"></div>
+                <div class="data-container-before_loop_full_width"></div>
+                <div class="data-posts-inc-before_loop_full_width"></div>
+                <div class="data-before_loop_full_width-posts-btn"></div>
+                <div class="no-data-before_loop_full_width"></div>
+            </div>
+        </div>
+    </div>
+
+    <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-loop_full_width"
+
+          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          role="button"
+          tabindex="0"></span>
+';
+    // Append popup + icon to the existing menu items
+  echo $before_loop_full_width; 
 }
 }}
 

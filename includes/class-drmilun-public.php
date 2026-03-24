@@ -68,7 +68,8 @@ class MMSDD_Drmilun_Public {
  
         wp_enqueue_style( 'before-title-full-width', plugin_dir_url( __FILE__ ) . '../public/css/before-title-full-width.css', array(), '1.0', 'all' );
 
-        
+        wp_enqueue_style( 'before-loop-full-width', plugin_dir_url( __FILE__ ) . '../public/css/before-loop-full-width.css', array(), '1.0', 'all' );
+
 		wp_enqueue_style( 'drmilun-public', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public.css', array(), '1.0', 'all' );
 
 		wp_enqueue_style("dashicons" );
@@ -161,6 +162,19 @@ wp_enqueue_script( 'pop-up-before-loop' );
 );
 
 wp_enqueue_script( 'before-title-full-width' );
+
+/* full widt before main loop */
+     wp_register_script(
+    'before-loop-full-width',
+    plugin_dir_url( __FILE__ ) . '../public/js/before-loop-full-width.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'before-loop-full-width' );
+
+
 /*
 	   $translation_array_for_posts = array(
 	    'search_results' => __( 'Search Results', 'searching-for-posts' ),
@@ -289,6 +303,47 @@ wp_localize_script(
         'root_url' => home_url()
     ]
 );
+
+
+
+// For full width search form before main loop 
+wp_register_script(
+    'main-full-width-before-loop',
+    plugin_dir_url( __FILE__ ) . '../public/js/main-full-width-before-loop.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'main-full-width-before-loop' );
+
+// Great for getting Rest Api data on the front end (Posts)
+wp_localize_script(
+    'main-full-width-before-loop',
+    'liveSearchDataPosts',
+    array(
+        'root_url' => esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_products,
+    )
+);
+
+// Great for getting Rest Api data on the front end (Categories)
+wp_localize_script(
+    'main-full-width-before-loop',
+    'liveSearchDataCategories',
+    array(
+        'root_url' => esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_categories,
+    )
+);
+
+wp_localize_script(
+    'main-full-width-before-loop',
+    'MilunSearch',
+    [
+        'root_url' => home_url()
+    ]
+);
 // For searching in menus
 wp_register_script(
     'show-result-public',
@@ -333,11 +388,20 @@ wp_register_script(
 
 wp_enqueue_script( 'show-result-before-title-full-width' );
 
+// For searching before main loop full width
+wp_register_script(
+    'show-result-before-loop-full-width',
+    plugin_dir_url( __FILE__ ) . '../public/js/show_result_before_loop_full_width.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
 
+wp_enqueue_script( 'show-result-before-loop-full-width' );
 // Pass WooCommerce currency to JS
 wp_localize_script(
-    'show-result-before-title-full-width',
-    'milunBeforeTitleFullWidth',
+    'show-result-before-loop-full-width',
+    'milunBeforeLoopFullWidth',
     array(
         'currency_symbol' => get_woocommerce_currency_symbol(),
     )

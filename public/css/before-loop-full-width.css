@@ -1,0 +1,199 @@
+/* Prevent horizontal shift caused by flyout */
+html,
+body {
+    overflow-x: hidden;
+}
+
+/* Lock scrolling when search is open */
+html.milun-search-open,
+body.milun-search-open {
+    overflow: hidden !important;
+    height: 100% !important;
+    overscroll-behavior: none;
+}
+
+/* Strong scroll lock (desktop + mobile) */
+body.milun-search-open {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+
+    /* IMPORTANT: prevents layout jump when scrollbar disappears */
+    top: 0; /* JS will override this dynamically */
+}
+
+.before_loop_full_width {
+    position: relative;
+    display: inline-block;
+}
+
+/* Open icon */
+#open-search-flyout-before-loop_full_width {
+    cursor: pointer;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+}
+/* Main flyout panel */
+.notification-container_full_width {
+    position: fixed;
+    top: 20px;
+    right: -80%;
+    width: 80%;
+    max-width: 80%;
+    min-height: 100px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #ffffff;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 8px 0 0 8px;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.15);
+
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+
+    transition: right 0.5s ease, opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Open state */
+.notification-container_full_width.active {
+    right: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Search row */
+.search_before_loop_full_width {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background-color: transparent;
+}
+
+/* Close icon */
+.closeFilePanel_full_width{
+  padding-right: 20px;
+  padding-top: 10px;
+font-size: 30px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+.closeFilePanel_full_width:hover{
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Remove black hover if theme adds it */
+.closeFilePanel_full_width:hover,
+.closeFilePanel_full_width:focus,
+#open-search-flyout-before-loop_full_width:hover,
+#open-search-flyout-before-loop_full_width:focus {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Input */
+.search-term-before_loop_full_width {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+/* Results wrapper */
+.wrapper-data-container-before_loop_full_width-data-posts {
+    margin-top: 18px;
+    width: 100%;
+}
+
+/* Inner result containers */
+.data-categories-container-menu,
+.data-container-before_loop_full_width,
+.data-posts-inc-before_loop_full_width,
+.data-before_loop_full_width-posts-btn,
+.no-data-before_loop_full_width {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Lock whole page scroll when open */
+html.milun-search-open,
+body.milun-search-open {
+    overflow: hidden !important;
+    height: 100% !important;
+    overscroll-behavior: none;
+}
+
+body.milun-search-open {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .notification-container_full_width {
+        top: 10px;
+        width: 80%;
+        max-width: 80%;
+        padding: 15px;
+        max-height: 92vh;
+    }
+
+    .search-term-before_loop_full_width {
+        height: 40px;
+        font-size: 15px;
+    }
+}
+
+/* PRODUCT IMAGE */
+.milun-search-thumb {
+  width: 85px;
+  height: 85px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+/*/////////for spinner///////*/
+.loadinggif{
+   padding-right: 60px !important;
+    background-image: url("../images/animated_loader_gif_20.gif");
+    background-repeat: no-repeat;
+    background-position: right 30px center;
+    background-size: 18px 18px;
+}
+
+.closeFilePanel{
+  padding-right: 20px;
+  padding-top: 10px;
+font-size: 30px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+.closeFilePanel:hover{
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+.milun-search-thumb{
+  float: left;
+  margin-right: 10px;
+}
