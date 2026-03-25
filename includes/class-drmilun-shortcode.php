@@ -229,7 +229,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
 ) {
  $before_loop_full_width = '
     <div class="before_loop_full_width">
-        <div class="notification-container_full_width">
+        <div class="notification-container_before_loop_full_width">
             <div class="search_before_loop_full_width" style="background-color:transparent;">
 
                 <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
@@ -255,8 +255,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
     </div>
 
     <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-loop_full_width"
-
+              id="open-before-loop_full_width"
           aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
           role="button"
           tabindex="0"></span>

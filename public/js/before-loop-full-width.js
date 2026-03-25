@@ -1,8 +1,8 @@
 jQuery(document).ready(function ($) {
-    var $panel = $('.notification-container_full_width');
-    var $open = $('#open-search-flyout-before-loop_full_width');
+    var $panel = $('.notification-container_before_loop_full_width');
+    var $open = $('#open-before-loop_full_width');
     var $close = $('#close-search-flyout-before-loop_full_width');
-    var $input = $('.search-term-before-loop_full_width');
+    var $input = $('.search-term-before_loop_full_width');
 
     var scrollTop = 0;
     var scrollbarWidth = 0;
@@ -26,35 +26,25 @@ jQuery(document).ready(function ($) {
         }
     }
 
- function openPanel() {
-    // Save scroll position and scrollbar width
-    scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
-    scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-/*
-    // Only apply styles in frontend (not in admin)
-    if (!isAdmin) {
-        // Lock scroll and apply padding-right only in frontend
-        $('html, body').addClass('milun-search-open');
+    function openPanel() {
+      /*  // Save scroll position and scrollbar width
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+        scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
-        $('body').css({
-            top: -scrollTop + 'px', // Scroll lock (only frontend)
-            'padding-right': scrollbarWidth + 'px' // Compensate for scrollbar width
+        // Calculate the position of the open icon and place the panel below it
+        var iconOffset = $open.offset();
+        $panel.css({
+            top: iconOffset.top + $open.outerHeight(), // Position below the button
+            left: iconOffset.left
         });
-
-        // Focus the input field safely (with prevent scroll)
-        setTimeout(function () {
-            focusInputSafely();
-        }, 500);
-    }
 */
-    // Always show the panel (both in frontend and admin)
-    $panel.addClass('active');
-}
-
+        // Always show the panel (both in frontend and admin)
+        $panel.addClass('active');
+    }
 
     function closePanel() {
         $panel.removeClass('active');
-
+/*
         if (!isAdmin) {
             $('html, body').removeClass('milun-search-open');
 
@@ -64,13 +54,13 @@ jQuery(document).ready(function ($) {
             });
 
             window.scrollTo(0, scrollTop);
-        }
+        }*/
     }
 
     $open.on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-       openPanel();
+        openPanel();
     });
 
     $close.on('click', function (e) {
@@ -86,7 +76,7 @@ jQuery(document).ready(function ($) {
     });
 
     $panel.on('click', function (e) {
-        if ($(e.target).is('.notification-container_full_width')) {
+        if ($(e.target).is('.notification-container_before_loop_full_width')) {
             closePanel();
         }
     });
