@@ -283,14 +283,46 @@ border-top-color:<?php echo esc_attr($color); ?>;
               role="button"
               tabindex="0"></span>
     ';
+$widget_full_width = '
+    <div class="widget_full_width">
+        <div class="notification-container_widget_full_width">
+            <div class="search_widget_full_width" style="background-color:transparent;">
 
+                <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                      id="close-search-flyout-widget_full_width"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+
+                <input type="text"
+                       class="search-term-widget_full_width"
+                       style="border: 1px solid #000000;"
+                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+            </div>
+
+            <div class="wrapper-data-container-widget_full_width-data-posts">
+                <div class="data-categories-container-menu"></div>
+                <div class="data-container-widget_full_width"></div>
+                <div class="data-posts-inc-widget_full_width"></div>
+                <div class="data-widget_full_width-posts-btn"></div>
+                <div class="no-data-widget_full_width"></div>
+            </div>
+        </div>
+    </div>
+
+    <span class="dashicons dashicons-search"
+              id="open-widget_full_width"
+          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          role="button"
+          tabindex="0"></span>
+';
 
 $form = '';
     if (
     $search_categories_woo == '1' &&
     $standard_form != '1' &&
     $full_width_form != '1' &&
-    $pop_up_form == '1' && is_front_page() || is_shop() || is_product_category() || is_product_tag()
+    $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
   
  $popup = '
@@ -354,7 +386,7 @@ $form = '';
  $search_categories_woo != '1' &&
     $standard_form != '1' &&
     $full_width_form != '1' &&
-    $pop_up_form == '1' && is_front_page() || is_shop() || is_product_category() || is_product_tag()    ){              
+    $pop_up_form == '1' &&  is_shop() || is_product_category() || is_product_tag()    ){              
 
 
                         echo esc_attr(@$args['before_widget']);
@@ -363,6 +395,60 @@ $form = '';
                         <p><b>'.esc_attr(@$title).'</b></p>
                        
                       '.$popup
+                      . esc_attr(@$args['after_title']);
+   // }
+
+    
+
+    echo esc_attr(@$args['after_widget']);  
+    
+ }else if(
+  
+ $search_categories_woo == '1' &&
+    $standard_form != '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' &&  is_shop() || is_product_category() || is_product_tag()    ){              
+ $widget_full_width = '
+    <div class="widget_full_width">
+        <div class="notification-container_widget_full_width">
+            <div class="search_widget_full_width" style="background-color:transparent;">
+
+                <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                      id="close-search-flyout-widget_full_width"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+
+                <input type="text"
+                       class="search-term-widget_full_width"
+                       style="border: 1px solid #000000;"
+                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+            </div>
+
+            <div class="wrapper-data-container-widget_full_width-data-posts">
+                <div class="data-categories-container-menu"></div>
+                <div class="data-container-widget_full_width"></div>
+                <div class="data-posts-inc-widget_full_width"></div>
+                <div class="data-widget_full_width-posts-btn"></div>
+                <div class="no-data-widget_full_width"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <span class="dashicons dashicons-search"
+              id="open-widget_full_width"
+          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          role="button"
+          tabindex="0"></span>
+';
+    // Append popup + icon to the existing menu items
+                        echo esc_attr(@$args['before_widget']);
+    //if ( @$title ) {
+      echo esc_attr(@$args['before_title']) .'<div class="my_wrapper_widget">
+                        <p><b>'.esc_attr(@$title).'</b></p>
+                       
+                      '.$widget_full_width
                       . esc_attr(@$args['after_title']);
    // }
 
