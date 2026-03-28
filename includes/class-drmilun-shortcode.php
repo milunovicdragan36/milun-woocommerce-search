@@ -467,7 +467,7 @@ foreach ($posts as $post) {
                   echo '<input type="hidden" id="numberofpostswoo" value="'.esc_attr(get_post_meta($post->ID, 'numberofpostswoo', true)).'" >';
 
                      foreach ($locations as $key =>$value){
-                     
+       print_r($key);              
 
       $search_categories_woo = esc_attr(get_post_meta( $post->ID,"search_categories_woo",true));
                
@@ -533,11 +533,11 @@ $before_title_full_width = '
     // ALWAYS return items (for ALL menus)
     
             // Add the search icon HTML to the menu
-$header_like_locations = ['primary', 'header', 'main-header'];
+//$header_like_locations = ['primary', 'header', 'main-header'];
 
 if (
     !empty($menu_args->theme_location) &&
-    in_array($menu_args->theme_location, $header_like_locations, true)
+    in_array($menu_args->theme_location, [$key], true)
 ) {                  return $before_title_full_width . $items;
 
     }
