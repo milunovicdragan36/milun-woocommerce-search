@@ -305,9 +305,9 @@ foreach ($posts as $post) {
 
 
 
-function miluse_render_subtitle($items,$args_1) {
+function miluse_render_subtitle($items,$menu_args) {
     
-  $args = array(
+  $args_2 = array(
    'public'   => true,
    '_builtin' => false,
 );
@@ -315,10 +315,10 @@ function miluse_render_subtitle($items,$args_1) {
 $output = 'names'; // 'names' or 'objects' (default: 'names')
 $operator = 'and'; // 'and' or 'or' (default: 'and')
 
-$post_types_1 = get_post_types( $args, $output, $operator );
+$post_types_1 = get_post_types( $args_2, $output, $operator );
 
 
-$args = array(
+$args_3 = array(
    'public'   => true,
    '_builtin' => true,
 );
@@ -326,7 +326,7 @@ $args = array(
 $output = 'names'; // 'names' or 'objects' (default: 'names')
 $operator = 'and'; // 'and' or 'or' (default: 'and')
 
-$post_types_2 = get_post_types( $args, $output, $operator );
+$post_types_2 = get_post_types( $args_3, $output, $operator );
 
 
 
@@ -463,9 +463,12 @@ foreach ($posts as $post) {
 <?php 
 }
                   $locations = get_theme_mod( 'nav_menu_locations' );
-echo '<input type="hidden" id="numberofpostswoo" value="'.esc_attr(get_post_meta($post->ID, 'numberofpostswoo', true)).'" >';
+
+                  echo '<input type="hidden" id="numberofpostswoo" value="'.esc_attr(get_post_meta($post->ID, 'numberofpostswoo', true)).'" >';
 
                      foreach ($locations as $key =>$value){
+                     
+
       $search_categories_woo = esc_attr(get_post_meta( $post->ID,"search_categories_woo",true));
                
        $full_width_form = esc_attr(get_post_meta( $post->ID,"full_width_form",true));
@@ -479,8 +482,10 @@ echo '<input type="hidden" id="numberofpostswoo" value="'.esc_attr(get_post_meta
   // return "search_categories =". $search_categories ." searchposts_in_title_after =". $searchposts_in_title_after ." standard_form =". $standard_form ." full_width_form =". $full_width_form;        
 
    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
+  // target multiple possible menu locations
+ 
 
-if (
+    if (
     $search_categories_woo == '1' &&
     $searchposts_in_title_before == '1' &&
     $standard_form != '1' &&
@@ -488,18 +493,56 @@ if (
     $pop_up_form != '1'
 ) {
 
-    // OPTIONAL: limit to one menu location (recommended)
-    // Change 'primary' to your theme menu location slug if needed.
-    if ( isset($args) && isset($args->theme_location) && $args->theme_location !== 'primary' ) {
-        return $items;
+$before_title_full_width = '
+    <div class="before_title_full_width">
+        <div class="notification-container_full_width">
+            <div class="search_before_title_full_width" style="background-color:transparent;">
+
+                <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                      id="close-search-flyout-before-title_full_width"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+
+                <input type="text"
+                       class="search-term-before_title_full_width"
+                       style="border: 1px solid #000000;"
+                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+            </div>
+
+            <div class="wrapper-data-container-before_title_full_width-data-posts">
+                <div class="data-categories-container-menu"></div>
+                <div class="data-container-before_title_full_width"></div>
+                <div class="data-posts-inc-before_title_full_width"></div>
+                <div class="data-before_title_full_width-posts-btn"></div>
+                <div class="no-data-before_title_full_width"></div>
+            </div>
+        </div>
+    </div>
+
+    <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-title_full_width"
+
+          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          role="button"
+          tabindex="0"></span>
+';
+     // Single menu location array
+  // ONLY modify primary menu
+
+    // ALWAYS return items (for ALL menus)
+    
+            // Add the search icon HTML to the menu
+$header_like_locations = ['primary', 'header', 'main-header'];
+
+if (
+    !empty($menu_args->theme_location) &&
+    in_array($menu_args->theme_location, $header_like_locations, true)
+) {                  return $before_title_full_width . $items;
+
     }
 
-    // Prevent duplicates if menu renders multiple times (desktop/mobile/sticky)
-    static $search_popup_added = false;
-    if ( $search_popup_added ) {
-        return $items;
-    }
-    $search_popup_added = true;
+   
     /*
 $before_title_full_width = '
     <div class="before_title_full_width">
@@ -537,44 +580,11 @@ $before_title_full_width = '
 
 return $before_title_full_width . $items;
 */
-$before_title_full_width = '
-    <div class="before_title_full_width">
-        <div class="notification-container_full_width">
-            <div class="search_before_title_full_width" style="background-color:transparent;">
 
-                <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
-                      id="close-search-flyout-before-title_full_width"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-
-                <input type="text"
-                       class="search-term-before_title_full_width"
-                       style="border: 1px solid #000000;"
-                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
-            </div>
-
-            <div class="wrapper-data-container-before_title_full_width-data-posts">
-                <div class="data-categories-container-menu"></div>
-                <div class="data-container-before_title_full_width"></div>
-                <div class="data-posts-inc-before_title_full_width"></div>
-                <div class="data-before_title_full_width-posts-btn"></div>
-                <div class="no-data-before_title_full_width"></div>
-            </div>
-        </div>
-    </div>
-
-    <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title_full_width"
-
-          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
-          role="button"
-          tabindex="0"></span>
-';
-
-return $before_title_full_width . $items;
 }
-if (
+    // target multiple possible menu locations
+
+    if (
     $search_categories_woo == '1' &&
     $searchposts_in_title_before == '1' &&
     $standard_form != '1' &&
@@ -582,18 +592,9 @@ if (
     $pop_up_form != '1'
 ) {
 
-    // OPTIONAL: limit to one menu location (recommended)
-    // Change 'primary' to your theme menu location slug if needed.
-    if ( isset($args) && isset($args->theme_location) && $args->theme_location !== 'primary' ) {
-        return $items;
-    }
-
-    // Prevent duplicates if menu renders multiple times (desktop/mobile/sticky)
-    static $search_popup_added = false;
-    if ( $search_popup_added ) {
-        return $items;
-    }
-    $search_popup_added = true;
+if ($args->theme_location !== 'primary') {
+    return $items;
+}
 
     $popup = '
         <div id="for-searching-5"></div>
@@ -638,7 +639,7 @@ if (
     return $popup 
                       .'<p id="wrapper_of_my_menu">'.$items.'</p>';
 }
-if (
+  if (
     $search_categories_woo == '1' &&
     $searchposts_in_title_before == '1' &&
     $standard_form != '1' &&
@@ -646,18 +647,9 @@ if (
     $pop_up_form == '1'
 ) {
 
-    // OPTIONAL: limit to one menu location (recommended)
-    // Change 'primary' to your theme menu location slug if needed.
-    if ( isset($args) && isset($args->theme_location) && $args->theme_location !== 'primary' ) {
-        return $items;
-    }
-
-    // Prevent duplicates if menu renders multiple times (desktop/mobile/sticky)
-    static $search_popup_added = false;
-    if ( $search_popup_added ) {
-        return $items;
-    }
-    $search_popup_added = true;
+if ($args->theme_location !== 'primary') {
+    return $items;
+}
 
     $popup = '
         <div id="for-searching-5"></div>
