@@ -494,38 +494,36 @@ foreach ($posts as $post) {
 ) {
 
 $before_title_full_width = '
-    <div class="before_title_full_width">
-        <div class="notification-container_full_width">
-            <div class="search_before_title_full_width" style="background-color:transparent;">
-
-                <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
-                      id="close-search-flyout-before-title_full_width"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-
-                <input type="text"
-                       class="search-term-before_title_full_width"
-                       style="border: 1px solid #000000;"
-                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
-            </div>
-
-            <div class="wrapper-data-container-before_title_full_width-data-posts">
-                <div class="data-categories-container-menu"></div>
-                <div class="data-container-before_title_full_width"></div>
-                <div class="data-posts-inc-before_title_full_width"></div>
-                <div class="data-before_title_full_width-posts-btn"></div>
-                <div class="no-data-before_title_full_width"></div>
-            </div>
-        </div>
-    </div>
-
+ <div class="before_title_full_width">
     <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title_full_width"
-
-          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          id="open-search-flyout-before-title_full_width"
+          aria-label="Search"
           role="button"
           tabindex="0"></span>
+
+    <div class="notification-container_full_width">
+        <div class="search_before_title_full_width" style="background-color:transparent;">
+            <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                  id="close-search-flyout-before-title_full_width"
+                  aria-label="Close Search"
+                  role="button"
+                  tabindex="0"></span>
+
+            <input type="text"
+                   class="search-term-before_title_full_width"
+                   style="border: 1px solid #000000;"
+                   placeholder="Search..." />
+        </div>
+
+        <div class="wrapper-data-container-before_title_full_width-data-posts">
+            <div class="data-categories-container-menu"></div>
+            <div class="data-container-before_title_full_width"></div>
+            <div class="data-posts-inc-before_title_full_width"></div>
+            <div class="data-before_title_full_width-posts-btn"></div>
+            <div class="no-data-before_title_full_width"></div>
+        </div>
+    </div>
+</div>
 ';
      // Single menu location array
   // ONLY modify primary menu

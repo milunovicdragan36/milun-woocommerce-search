@@ -451,6 +451,15 @@ wp_register_script(
 
 wp_enqueue_script( 'show-result-before-title-full-width' );
 
+// Pass WooCommerce currency to JS
+wp_localize_script(
+    'show-result-before-title-full-width',
+    'milunBeforeTitleFullWidth',
+    array(
+        'currency_symbol' => get_woocommerce_currency_symbol(),
+    )
+);
+
 // For searching widget full width
 wp_register_script(
     'show-result-widget-full-width',

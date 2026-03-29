@@ -23,10 +23,112 @@ body.milun-search-open {
     top: 0; /* JS will override this dynamically */
 }
 
+/* Ensure the flyout is positioned relative to the open icon */
 .before_title_full_width {
-    position: relative;
-    display: inline-block;
+    position: relative; /* This will help position the panel relative to the open icon */
+    overflow: visible;
+
 }
+
+/*
+    .notification-container_full_width {
+    position: absolute;
+    top: 100%;
+    left: 0; 
+
+    width: 80vw;
+    max-width: 80vw;
+
+    min-height: 100px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+
+    border-radius: 0 8px 8px 0; 
+    box-shadow: 4px 0 20px rgba(0,0,0,0.2);
+    z-index: 999999;
+
+    opacity: 0;
+    visibility: hidden;
+
+  
+    transform: translateX(100vw);
+
+    transition: transform 0.6s ease, opacity 0.3s ease;
+}
+
+.notification-container_full_width.active {
+    opacity: 1;
+    visibility: visible;
+
+    
+    transform: translateX(0);
+
+}
+
+/* Open state 
+.notification-container_full_width.active {
+    right: 0; 
+    opacity: 1; 
+    visibility: visible; 
+   
+    transform: translateX(0);
+}
+*/
+.notification-container_full_width {
+    position: absolute;
+    top: 100%;
+    left: -20vw;
+
+    width: 80vw;
+    max-width: 80vw;
+
+    min-height: 100px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+
+    border-radius: 8px;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.2);
+    z-index: 999999;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateX(100vw);
+    transition: transform 0.6s ease, opacity 0.3s ease;
+}
+@media (max-width: 768px) {
+    .notification-container_full_width {
+        position: fixed;
+        top: 0;
+        left: 10vw;
+        width: 90vw;
+        max-width: 90vw;
+        height: 100vh;
+        max-height: 100vh;
+        transform: translateX(100%);
+        border-radius: 0;
+    }
+
+    .notification-container_full_width.active {
+        transform: translateX(0);
+    }
+}
+
+.notification-container_full_width.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+
 
 /* Open icon 
 #open-search-flyout-before-title_full_width {
@@ -37,36 +139,6 @@ body.milun-search-open {
     line-height: 28px;
 }
 */
-/* Main flyout panel */
-.notification-container_full_width {
-    position: fixed;
-    top: 20px;
-    right: -80%;
-    width: 80%;
-    max-width: 80%;
-    min-height: 100px;
-    max-height: 90vh;
-    overflow-y: auto;
-
-    background: #ffffff;
-    box-sizing: border-box;
-    padding: 20px;
-    border-radius: 8px 0 0 8px;
-    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.15);
-
-    z-index: 999999;
-    opacity: 0;
-    visibility: hidden;
-
-    transition: right 0.5s ease, opacity 0.4s ease, visibility 0.4s ease;
-}
-
-/* Open state */
-.notification-container_full_width.active {
-    right: 0;
-    opacity: 1;
-    visibility: visible;
-}
 
 /* Search row */
 .search_before_title_full_width {
