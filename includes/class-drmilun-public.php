@@ -67,6 +67,9 @@ class MMSDD_Drmilun_Public {
         wp_enqueue_style( 'drmilun-public-before-loop', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-before-loop.css', array(), '1.0', 'all' );
  
         wp_enqueue_style( 'before-title-full-width', plugin_dir_url( __FILE__ ) . '../public/css/before-title-full-width.css', array(), '1.0', 'all' );
+        
+        wp_enqueue_style( 'after-title-full-width', plugin_dir_url( __FILE__ ) . '../public/css/after-title-full-width.css', array(), '1.0', 'all' );
+  
 
         wp_enqueue_style( 'before-loop-full-width', plugin_dir_url( __FILE__ ) . '../public/css/before-loop-full-width.css', array(), '1.0', 'all' );
         
@@ -166,6 +169,17 @@ wp_enqueue_script( 'pop-up-before-loop' );
 
 wp_enqueue_script( 'before-title-full-width' );
 
+
+/* full width after title */
+     wp_register_script(
+    'after-title-full-width',
+    plugin_dir_url( __FILE__ ) . '../public/js/after-title-full-width.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'after-title-full-width' );
 /* full widt before main loop */
      wp_register_script(
     'before-loop-full-width',
@@ -328,7 +342,44 @@ wp_localize_script(
     ]
 );
 
+// For full width search form after title 
+wp_register_script(
+    'main-full-width-after-title',
+    plugin_dir_url( __FILE__ ) . '../public/js/main-full-width-after-title.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
 
+wp_enqueue_script( 'main-full-width-after-title' );
+
+// Great for getting Rest Api data on the front end (Posts)
+wp_localize_script(
+    'main-full-width-after-title',
+    'liveSearchDataPosts',
+    array(
+        'root_url' => esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_products,
+    )
+);
+
+// Great for getting Rest Api data on the front end (Categories)
+wp_localize_script(
+    'main-full-width-after-title',
+    'liveSearchDataCategories',
+    array(
+        'root_url' => esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_categories,
+    )
+);
+
+wp_localize_script(
+    'main-full-width-after-title',
+    'MilunSearch',
+    [
+        'root_url' => home_url()
+    ]
+);
 // For full width search in widget
 wp_register_script(
     'main-full-width-widget',

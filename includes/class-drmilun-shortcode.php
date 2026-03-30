@@ -580,6 +580,57 @@ return $before_title_full_width . $items;
 */
 
 }
+
+   if (
+    $search_categories_woo == '1' &&
+    $searchposts_in_title_after == '1' &&
+    $standard_form != '1' &&
+    $full_width_form == '1'&&
+    $pop_up_form != '1'
+) {
+
+$after_title_full_width = '
+ <div class="after_title_full_width">
+    <span class="dashicons dashicons-search"
+          id="open-search-flyout-after-title_full_width"
+          aria-label="Search"
+          role="button"
+          tabindex="0"></span>
+
+    <div class="notification-container_after_title_full_width">
+        <div class="search_after_title_full_width" style="background-color:transparent;">
+            <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                  id="close-search-flyout-after-title_full_width"
+                  aria-label="Close Search"
+                  role="button"
+                  tabindex="0"></span>
+
+            <input type="text"
+                   class="search-term-after_title_full_width"
+                   style="border: 1px solid #000000;"
+                   placeholder="Search..." />
+        </div>
+
+        <div class="wrapper-data-container-after_title_full_width-data-posts">
+            <div class="data-categories-container-menu"></div>
+            <div class="data-container-after_title_full_width"></div>
+            <div class="data-posts-inc-after_title_full_width"></div>
+            <div class="data-after_title_full_width-posts-btn"></div>
+            <div class="no-data-after_title_full_width"></div>
+        </div>
+    </div>
+</div>
+';
+
+
+if (
+    !empty($menu_args->theme_location) &&
+    in_array($menu_args->theme_location, [$key], true)
+) {                  return $items. $after_title_full_width ;
+
+    }
+
+}
     // target multiple possible menu locations
 
     if (
