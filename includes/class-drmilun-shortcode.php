@@ -488,7 +488,7 @@ foreach ($posts as $post) {
     $searchposts_in_title_before == '1' &&
     $standard_form != '1' &&
     $full_width_form == '1'&&
-    $pop_up_form != '1'
+    $pop_up_form != '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
 
 $before_title_full_width = '
@@ -540,7 +540,7 @@ if (
     $searchposts_in_title_after == '1' &&
     $standard_form != '1' &&
     $full_width_form == '1'&&
-    $pop_up_form != '1'
+    $pop_up_form != '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
 
 $after_title_full_width = '
@@ -592,7 +592,7 @@ if (
     $searchposts_in_title_before == '1' &&
     $standard_form != '1' &&
     $full_width_form == '1'&&
-    $pop_up_form != '1'
+    $pop_up_form != '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
 
 
@@ -644,7 +644,7 @@ if (
     $searchposts_in_title_before == '1' &&
     $standard_form != '1' &&
     $full_width_form != '1' &&
-    $pop_up_form == '1'
+    $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
 
     $popup = '
@@ -700,7 +700,7 @@ if (
     $searchposts_in_title_after == '1' &&
     $standard_form != '1' &&
     $full_width_form != '1' &&
-    $pop_up_form == '1'
+    $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
 $popup = '
       
