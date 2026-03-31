@@ -467,7 +467,6 @@ foreach ($posts as $post) {
                   echo '<input type="hidden" id="numberofpostswoo" value="'.esc_attr(get_post_meta($post->ID, 'numberofpostswoo', true)).'" >';
 
                      foreach ($locations as $key =>$value){
-       print_r($key);              
 
       $search_categories_woo = esc_attr(get_post_meta( $post->ID,"search_categories_woo",true));
                
@@ -484,7 +483,6 @@ foreach ($posts as $post) {
    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
   // target multiple possible menu locations
  
-
     if (
     $search_categories_woo == '1' &&
     $searchposts_in_title_before == '1' &&
@@ -525,13 +523,7 @@ $before_title_full_width = '
     </div>
 </div>
 ';
-     // Single menu location array
-  // ONLY modify primary menu
 
-    // ALWAYS return items (for ALL menus)
-    
-            // Add the search icon HTML to the menu
-//$header_like_locations = ['primary', 'header', 'main-header'];
 
 if (
     !empty($menu_args->theme_location) &&
@@ -540,44 +532,6 @@ if (
 
     }
 
-   
-    /*
-$before_title_full_width = '
-    <div class="before_title_full_width">
-        <div class="notification-container_full_width">
-            <div class="search_before_title_full_width" style="background-color:transparent;">
-
-                <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
-                      id="close-search-flyout-before-title_full_width"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-
-                <input type="text"
-                       class="search-term-before_title_full_width"
-                       style="border: 1px solid #000000;"
-                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
-            </div>
-
-            <div class="wrapper-data-container-before_title_full_width-data-posts">
-                <div class="data-categories-container-menu"></div>
-                <div class="data-container-before_title_full_width"></div>
-                <div class="data-posts-inc-before_title_full_width"></div>
-                <div class="data-before_title_full_width-posts-btn"></div>
-                <div class="no-data-before_title_full_width"></div>
-            </div>
-        </div>
-    </div>
-
-    <span class="dashicons dashicons-search"
-          id="open-search-flyout-before-title_full_width"
-          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
-          role="button"
-          tabindex="0"></span>
-';
-
-return $before_title_full_width . $items;
-*/
 
 }
 
@@ -641,52 +595,49 @@ if (
     $pop_up_form != '1'
 ) {
 
-if ($args->theme_location !== 'primary') {
-    return $items;
-}
 
-    $popup = '
-        <div id="for-searching-5"></div>
 
-        <div class="pop_up_menu">
-            <div class="notification-container">
+   
+$before_title_full_width = '
+ <div class="before_title_full_width">
+    <span class="dashicons dashicons-search"
+          id="open-search-flyout-before-title_full_width"
+          aria-label="Search"
+          role="button"
+          tabindex="0"></span>
 
-             
-                    <div class="search_menu" style="background-color:transparent;">
+    <div class="notification-container_full_width">
+        <div class="search_before_title_full_width" style="background-color:transparent;">
+            <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                  id="close-search-flyout-before-title_full_width"
+                  aria-label="Close Search"
+                  role="button"
+                  tabindex="0"></span>
 
-                      <span class="dashicons dashicons-no-alt closeFilePanel"
-                      id="close-search-flyout-before-title"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-                        <input type="text"
-                               class="search-term-menu-full-width" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
-                    </div>
-
-        <div class="wrapper-data-container-menu-data-posts">
-<div class="data-categories-container-menu"></div>
-<div class="data-container-menu"></div>
-<div class="data-posts-inc-menu"></div>
-
-<div class="data-menu-posts-btn"></div>
-<div class="no-data-menu"></div>
-                      
-                    </div>
-
-            </div>
+            <input type="text"
+                   class="search-term-before_title_full_width"
+                   style="border: 1px solid #000000;"
+                   placeholder="Search..." />
         </div>
 
-        <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
-              role="button"
-              tabindex="0"></span>
-    ';
+        <div class="wrapper-data-container-before_title_full_width-data-posts">
+            <div class="data-categories-container-menu"></div>
+            <div class="data-container-before_title_full_width"></div>
+            <div class="data-posts-inc-before_title_full_width"></div>
+            <div class="data-before_title_full_width-posts-btn"></div>
+            <div class="no-data-before_title_full_width"></div>
+        </div>
+    </div>
+</div>
+';
+if (
+    !empty($menu_args->theme_location) &&
+    in_array($menu_args->theme_location, [$key], true)
+) { // Append popup + icon to the existing menu items
+    return $before_title_full_width.$items;
 
-    // Append popup + icon to the existing menu items
-    return $popup 
-                      .'<p id="wrapper_of_my_menu">'.$items.'</p>';
+    }
+   
 }
   if (
     $search_categories_woo == '1' &&
@@ -696,12 +647,8 @@ if ($args->theme_location !== 'primary') {
     $pop_up_form == '1'
 ) {
 
-if ($args->theme_location !== 'primary') {
-    return $items;
-}
-
     $popup = '
-        <div id="for-searching-5"></div>
+      
 
         <div class="pop_up_menu milun-popup-center">
             <div class="notification-container dismiss">
@@ -738,10 +685,69 @@ if ($args->theme_location !== 'primary') {
               role="button"
               tabindex="0"></span>
     ';
-
+    if (
+    !empty($menu_args->theme_location) &&
+    in_array($menu_args->theme_location, [$key], true)
+) { // Append popup + icon to the existing menu items
     // Append popup + icon to the existing menu items
     return $popup 
                       .'<p id="wrapper_of_my_menu">'.$items.'</p>';
+}
+}
+
+   if (
+    $search_categories_woo == '1' &&
+    $searchposts_in_title_after == '1' &&
+    $standard_form != '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1'
+) {
+$popup = '
+      
+
+        <div class="pop_up_menu milun-popup-center">
+            <div class="notification-container dismiss">
+
+             
+                    <div class="search_menu" style="background-color:transparent;">
+
+                      <span class="dashicons dashicons-no-alt closeFilePanel"
+                      id="close-search-flyout-before-title"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+                        <input type="text"
+                               class="search-term-menu" style="border: 1px solid #000000;"
+                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                    </div>
+
+        <div class="wrapper-data-container-menu-data-posts">
+<div class="data-categories-container-menu"></div>
+<div class="data-container-menu"></div>
+<div class="data-posts-inc-menu"></div>
+
+<div class="data-menu-posts-btn"></div>
+<div class="no-data-menu"></div>
+                      
+                    </div>
+
+            </div>
+        </div>
+
+        <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-title"
+              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              role="button"
+              tabindex="0"></span>
+    ';
+    if (
+    !empty($menu_args->theme_location) &&
+    in_array($menu_args->theme_location, [$key], true)
+) { // Append popup + icon to the existing menu items
+    // Append popup + icon to the existing menu items
+    return 
+                      $items.$popup;
+}
 }
 
 
