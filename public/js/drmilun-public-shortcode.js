@@ -1,8 +1,29 @@
+function debounce(fn, delay) {
+  let t = null;
+  return function () {
+    const ctx = this;
+    const args = arguments;
+    clearTimeout(t);
+    t = setTimeout(function () {
+      fn.apply(ctx, args);
+    }, delay);
+  };
+}
+
+jQuery(document).ready(function () {
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+jQuery('.my_wrapper').css('display','block');
+
+
+});
+   
+
+
 class Live_Search_Shortcode{
   
   constructor(){
-     this.searchFieldProductsShortcode = jQuery(".search-term-shortcode");
- this.searchFieldCategoriesShortcode = jQuery(".search-term-shortcode");
+     this.searchFieldProductsShortcode = jQuery(".search-term-shortcode_full_width");
+ this.searchFieldCategoriesShortcode = jQuery(".search-term-shortcode_full_width");
   this.searchFieldTagsShortcode = jQuery(".search-term-shortcode");
   this.searchCategoriesAdmin =jQuery("#search_categories");
 
@@ -17,41 +38,30 @@ this.count = 0;
 
       const $this = this; 
    
-      this.post_type_featured_image =    jQuery('[id^=post_type_featured_image_shortcode_]');
- 
-      this.post_type_featured_image1 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-1);
-       this.post_type_featured_image2 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-2);
-       this.post_type_featured_image3 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-3);
-       this.post_type_featured_image4 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-4);
-       this.post_type_featured_image5 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-5);
-       this.post_type_featured_image6 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-6);
-       this.post_type_featured_image7 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-7);
-       this.post_type_featured_image8 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-8);
-       this.post_type_featured_image9 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-10);
-       this.post_type_featured_image10 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-11);
-       this.post_type_featured_image11 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-12);
-       this.post_type_featured_image12 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-13);
-       this.post_type_featured_image13 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-14);
-       this.post_type_featured_image14 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-15);
-       this.post_type_featured_image15 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-16);
-            
+             
      //this.searchFieldWoo = jQuery(".search-term-woo");
-     //this.searchFieldWidget = jQuery(".search-term-widget-woo");
-     this.searchFieldShortcodeWoo = jQuery(".search-term-shortcode-woo");
+     //this.searchFieldshortcode = jQuery(".search-term-shortcode-woo");
+     this.searchFieldshortcodeWoo = jQuery(".search-term-shortcode-woo");
      this.isSpinnerVisible = false;
      this.typingTimer;
      
      this.isOverlayOpen = false;
      this.template_no_posts;
-     this.resultsDiv = jQuery(".search-term-widget");
+     this.resultsDiv = jQuery(".search-term-shortcode");
      this.isSpinnerVisible = false;
      this.previousValue;
      this.timeout;
      this.i = 0;
-           this.searchFieldProductsShortcode.on("keyup",this.getResultsProductsShortcode.bind(this));
+           
+this.searchFieldProductsShortcode.on(
+  "keyup",
+  debounce(this.getResultsProductsShortcode.bind(this), 400)
+);
 
-          this.searchFieldCategoriesShortcode.on('keyup',this.getResultsCategoriesShortcode.bind(this));
-
+this.searchFieldCategoriesShortcode.on(
+  "keyup",
+  debounce(this.getResultsCategoriesShortcode.bind(this), 400)
+);
 
   
            jQuery('.no-data').css('display','none');
@@ -90,7 +100,7 @@ jQuery(".wrapper-data-container-shortcode-data-posts").css("display",'none');
 
   jQuery(".data-container-shortcode").css("display",'none');
 
-      jQuery('.data-shortcode-posts-btn').css("display",'none');
+      jQuery('.data-shortcode-posts-btn').css("display",'block');
 
 
     }
@@ -100,6 +110,8 @@ jQuery(".wrapper-data-container-shortcode-data-posts").css("display",'none');
    
 
 getResultsProductsShortcode(){
+ jQuery(".search-term-shortcode").addClass("loadinggif");
+
 jQuery(".wrapper-data-container-shortcode-data-posts").css("display",'block');
   jQuery(".data-search_categories-container-shortcode").css("display",'block');
 
@@ -111,7 +123,9 @@ jQuery(".wrapper-data-container-shortcode-data-posts").css("display",'block');
  // jQuery(".data-categories-container").removeClass("hid");
 
 let counter = 1;
- jQuery(".search-term-shortcode").addClass("loadinggif");
+
+jQuery('.data-shortcode-posts-btn').css('display','block');
+jQuery('.line_below_cat_tag').css('display','none');
 
 
 var find_element = 1;
@@ -124,92 +138,83 @@ var number_of_posts = parseInt(jQuery("#numberofposts").val());
 var post_id = jQuery("#search_post_id").val();
 var search_by_woo_title = jQuery('#search_by_woo_title').val();
 
-if(search_by_woo_title=='1'){
-var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-jQuery.getJSON(liveSearchDataPosts[1].root_url+'namespacewoo/v11/search_products/'+customSearchBox+'/'+post_id,function(livesearchposts_1){
-        var livesearchposts_1 =  Object.values(livesearchposts_1).filter(item =>  item.post_title.includes(customSearchBox)?item:'' );
-        
-var xhr = new XMLHttpRequest();
-xhr.open("GET", newURL+"/wp-content/plugins/woo-milun-search/public/js/show_result.js", false);
-xhr.send();
-eval(xhr.responseText);
 
-});
 
+// Get rest base from either "new" or "old" localized structure
+const root =
+  (window.liveSearchDataPosts && window.liveSearchDataPosts.root_url) ||
+  (Array.isArray(window.liveSearchDataPosts) &&
+    window.liveSearchDataPosts[1] &&
+    window.liveSearchDataPosts[1].root_url);
+
+
+if (!root) {
+  console.warn("liveSearchDataPosts missing on this page", window.liveSearchDataPosts);
+  jQuery(".search-term-shortcode").removeClass("loadinggif");
+  return;
 }
 
-var search_by_content = jQuery('#search_by_content').val();
+const base = root.replace(/\/?$/, "/");
+
+const url =
+  base +
+  "namespacewoo/v11/search_products/" +
+  encodeURIComponent(customSearchBox) +
+  "/" +
+  encodeURIComponent(post_id);
+
+jQuery.getJSON(url, function (livesearchposts_1) {
+  console.log(livesearchposts_1);
+  if (typeof window.milunShowResultShortcodeFullWidth === "function") {
+    window.milunShowResultShortcodeFullWidth(livesearchposts_1);
+  }
+  
+if (livesearchposts_1.length==0) {
+  jQuery(".data-container-shortcode").css("display","block");
+
+    document.getElementsByClassName('data-container-shortcode')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
 
 
-if(search_by_content=='1'){
-
-
-   jQuery.getJSON(liveSearchDataPosts[1].root_url+'/wp-json/namespace/v11/search_post_types/'+customSearchBox+'/'+post_id,function(livesearchposts_1){
-        var livesearchposts_1 = Object.values(livesearchposts_1).filter(item =>  item.post_content.includes(customSearchBox)?item:'' );
-
-var xhr = new XMLHttpRequest();
-xhr.open("GET", liveSearchDataPosts[1].root_url+"/wp-content/plugins/milun-search/public/js/search_by_content_shortcode.js", false);
-xhr.send();
-eval(xhr.responseText);
-
-
-
-
-
-
-
-
+ 
+}
 });
 
 
-}
-
-
-
-
-
-
-   
 }
 
 
 
 getResultsCategoriesShortcode(){
-if (jQuery('.data-categories-container-shortcode').length > 0) {
+const el = document.querySelector('.data-categories-container-shortcode');
 
+if (el) {
   var $this =this;
    
        jQuery('.categories').css("display",'none');
         jQuery('.category_and_tag_empty').css("display",'none');
       jQuery('.category_and_tag').css("display",'none');
 
- jQuery(".data-categories-container-shortcode").css("display",'block').after("<div class='line_below_cat_tag'></div>");
-  
+  setTimeout(function () {
+    jQuery(".data-categories-container-shortcode")
+        .css("display", "block")
+        .after("<div class='line_below_cat_tag'></div>");
+}, 1000);
 
 
     
       var customSearchBox =  $this.searchFieldCategoriesShortcode.val();
        
-//alert(customSearchBox);
-   
+var post_id = jQuery("#search_post_id").val();   
 
-jQuery.getJSON(liveSearchDataCategories[1].root_url+'/wp-json/namespace/v11/searching_front_cat/'+customSearchBox,function(livesearchcategories){
- //  jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/searching_empty_cat/'+ customSearchBox,function(empty_categories){
-
-
-
-let unique_3 = [...new Map(livesearchcategories.map((m) => [m.term_id, m])).values()];
+jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v12/searching_woo_categories/'+customSearchBox+'/'+post_id,function(livesearchcategories){
 
 
 
 
-
-
-var result = unique_3.map(item => 
+var result = livesearchcategories.map(item => 
 `<div>
   
-            <a class='red_color' href="${liveSearchDataCategories[1].root_url}/${item.taxonomy}/${item.slug}">${item.name} ( ${item.count} )</a> 
-</div>
+<a class='red_color' href="${MilunSearch.root_url}/product-category/${item.slug}">${item.name} ( ${item.count} )</a></div>
  
   `
 ).join('')
@@ -260,5 +265,5 @@ if (result.length==0) {
 
 
 
-var liveSearchShortcode = new Live_Search_Shortcode();
+var liveSearchshortcode = new Live_Search_Shortcode();
 

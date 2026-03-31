@@ -74,6 +74,7 @@ class MMSDD_Drmilun_Public {
         wp_enqueue_style( 'before-loop-full-width', plugin_dir_url( __FILE__ ) . '../public/css/before-loop-full-width.css', array(), '1.0', 'all' );
         
         wp_enqueue_style( 'widget-full-width', plugin_dir_url( __FILE__ ) . '../public/css/widget-full-width.css', array(), '1.0', 'all' );
+        wp_enqueue_style( 'shortcode-full-width', plugin_dir_url( __FILE__ ) . '../public/css/shortcode-full-width.css', array(), '1.0', 'all' );
 
 
 		wp_enqueue_style( 'drmilun-public', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public.css', array(), '1.0', 'all' );
@@ -193,14 +194,14 @@ wp_enqueue_script( 'before-loop-full-width' );
 
 /* full width in widget */
      wp_register_script(
-    'widget-full-width',
-    plugin_dir_url( __FILE__ ) . '../public/js/widget-full-width.js',
+    'shortcode-full-width',
+    plugin_dir_url( __FILE__ ) . '../public/js/shortcode-full-width.js',
     array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
     '1.0',
     true
 );
 
-wp_enqueue_script( 'widget-full-width' );
+wp_enqueue_script( 'shortcode-full-width' );
 
 /* full width in widget */
      wp_register_script(
@@ -530,6 +531,27 @@ wp_localize_script(
         'currency_symbol' => get_woocommerce_currency_symbol(),
     )
 );
+
+// For searching shortcode full width
+wp_register_script(
+    'show-result-shortcode-full-width',
+    plugin_dir_url( __FILE__ ) . '../public/js/show_result_shortcode_full_width.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'show-result-shortcode-full-width' );
+
+// Pass WooCommerce currency to JS
+wp_localize_script(
+    'show-result-shortcode-full-width',
+    'milunShortcodeFullWidth',
+    array(
+        'currency_symbol' => get_woocommerce_currency_symbol(),
+    )
+);
+
 
 // For searching before main loop full width
 wp_register_script(

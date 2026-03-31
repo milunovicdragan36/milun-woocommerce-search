@@ -1,0 +1,86 @@
+/* Prevent horizontal shift caused by flyout */
+html,
+body {
+    overflow-x: hidden;
+}
+
+
+/* Ensure the flyout is positioned relative to the open icon */
+.shortcode_full_width {
+    position: relative; /* This will help position the panel relative to the open icon */
+}
+
+/* Main flyout panel */
+.notification-container_shortcode_full_width {
+    position: absolute; /* Absolute positioning relative to its parent */
+    top: 0; /* Align the panel with the top of the widget */
+    right: -80%; /* Start off-screen on the right (panel width = 80%) */
+    width: 80%; /* 80% width */
+    max-width: 80%;
+    min-height: 100px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 8px 0 0 8px;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.15);
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+    transition: right 0.6s ease, opacity 0.3s ease; /* Smooth transition for right and opacity */
+}
+
+/* Open state */
+.notification-container_shortcode_full_width.active {
+    right: 0; /* Moves from off-screen right to final position */
+    opacity: 1; /* Make it visible once it slides in */
+    visibility: visible; /* Make it visible after it has slid in */
+    transition: right 0.6s ease, opacity 0.3s ease; /* Keep smooth sliding and fading */
+}
+
+/* Input */
+.search-term-shortcode_full_width {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background: #ffffff;
+}
+/* Mobile */
+@media (max-width: 768px) {
+    
+
+    .search-term-shortcode_full_width {
+       width:70%;
+    }
+}
+    /* Input */
+
+
+
+/* PRODUCT IMAGE */
+.milun-search-thumb {
+  width: 85px;
+  height: 85px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+/*/////////for spinner///////*/
+.loadinggif{
+   padding-right: 60px !important;
+    background-image: url("../images/animated_loader_gif_20.gif");
+    background-repeat: no-repeat;
+    background-position: right 30px center;
+    background-size: 18px 18px;
+}
+
+
+.milun-search-thumb{
+  float: left;
+  margin-right: 10px;
+}
