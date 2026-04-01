@@ -84,3 +84,9 @@ body {
   float: left;
   margin-right: 10px;
 }
+
+.search_widget_full_width {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

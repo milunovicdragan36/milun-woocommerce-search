@@ -919,7 +919,8 @@ border-top-color:<?php echo esc_attr($color); ?>;
 
                 }
                 
-             .search-term-before-loop{
+             .search-term-before-loop,
+             .search-term-shortcode_full_width{
                 
                 border-color: <?php echo esc_attr($color); ?>!important;
              }
@@ -932,14 +933,18 @@ border-top-color:<?php echo esc_attr($color); ?>;
                 }
                     
                
-            .background_color_of_load_more_button_before_loop{
+            .background_color_of_load_more_button_before_loop,
+            .background_color_of_load_more_button_shortcode_full_width{
                                 cursor: pointer;
   background-color:<?php echo esc_attr($color); ?>;
     border-radius: 10px;
+    color:white;
 
             }
-.closeFilePanel{
+.closeFilePanel,
+#open-shortcode_full_width{
     color:<?php echo esc_attr($color); ?>!important;
+    font-size: 27px;
 
 }
           

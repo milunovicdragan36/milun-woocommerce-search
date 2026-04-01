@@ -70,6 +70,10 @@ body {
   object-fit: cover;
   margin-right: 10px;
 }
+.close-search-flyout-shortcode_full_width{
+    float: left;
+    margin-right: 15px;
+}
 /*/////////for spinner///////*/
 .loadinggif{
    padding-right: 60px !important;
@@ -83,4 +87,10 @@ body {
 .milun-search-thumb{
   float: left;
   margin-right: 10px;
+}
+
+.search_shortcode_full_width {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

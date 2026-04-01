@@ -110,7 +110,7 @@ jQuery(".wrapper-data-container-shortcode-data-posts").css("display",'none');
    
 
 getResultsProductsShortcode(){
- jQuery(".search-term-shortcode").addClass("loadinggif");
+ jQuery(".search-term-shortcode_full_width").addClass("loadinggif");
 
 jQuery(".wrapper-data-container-shortcode-data-posts").css("display",'block');
   jQuery(".data-search_categories-container-shortcode").css("display",'block');

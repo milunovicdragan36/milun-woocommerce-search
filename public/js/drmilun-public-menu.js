@@ -126,7 +126,8 @@ jQuery(".wrapper-data-container-menu-data-posts").css("display",'none');
    
 
 getResultsProductsMenu(){
- 
+  //jQuery(".search-term-menu").addClass("loadinggif");
+
 jQuery(".wrapper-data-container-menu-data-posts").css("display",'block');
   jQuery(".data-search_categories-container-menu").css("display",'block');
 
