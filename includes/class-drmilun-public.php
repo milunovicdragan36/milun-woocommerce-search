@@ -604,6 +604,26 @@ wp_localize_script(
 );
 
 
+// For show result after title full width
+wp_register_script(
+    'show-result-after-title-full-width',
+    plugin_dir_url( __FILE__ ) . '../public/js/show_result_after_title_full_width.js',
+    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'show-result-after-title-full-width' );
+
+
+// Pass WooCommerce currency to JS
+wp_localize_script(
+    'show-result-after-title-full-width',
+    'milunAfterTitleFullWidth',
+    array(
+        'currency_symbol' => get_woocommerce_currency_symbol(),
+    )
+);
 
  wp_register_script( 'widget-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-widget.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
     

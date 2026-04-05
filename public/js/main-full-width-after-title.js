@@ -32,24 +32,7 @@ this.count = 0;
 
       const $this = this; 
    
-      this.post_type_featured_image =    jQuery('[id^=post_type_featured_image_shortcode_]');
- 
-      this.post_type_featured_image1 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-1);
-       this.post_type_featured_image2 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-2);
-       this.post_type_featured_image3 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-3);
-       this.post_type_featured_image4 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-4);
-       this.post_type_featured_image5 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-5);
-       this.post_type_featured_image6 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-6);
-       this.post_type_featured_image7 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-7);
-       this.post_type_featured_image8 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-8);
-       this.post_type_featured_image9 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-10);
-       this.post_type_featured_image10 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-11);
-       this.post_type_featured_image11 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-12);
-       this.post_type_featured_image12 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-13);
-       this.post_type_featured_image13 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-14);
-       this.post_type_featured_image14 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-15);
-       this.post_type_featured_image15 =    jQuery('[id^=post_type_featured_image_shortcode_]').eq(-16);
-            
+
      //this.searchFieldWoo = jQuery(".search-term-woo");
      //this.searchFieldafter-loop = jQuery(".search-term-after-loop-woo");
      this.searchFieldAfterLoopWoo = jQuery(".search-term-after-loop-woo");
@@ -121,6 +104,19 @@ jQuery(".wrapper-data-container-after_title_full_width-data-posts").css("display
    
 
 getResultsProductsAfterTitleFullWidth(){
+      jQuery(".wrapper-data-container-after_title_full_width-data-posts").css("margin-bottom","150px");
+
+  const el = document.querySelector('.after_title_full_width');
+const rect = el.getBoundingClientRect();
+
+const distanceFromBottom = window.innerHeight - rect.bottom;
+
+if (distanceFromBottom < 400) {
+      
+
+    jQuery(".wrapper-data-container-after_title_full_width-data-posts").css("margin-bottom","400px");
+}
+
  jQuery(".search-term-after_title_full_width").addClass("loadinggif");
 
 jQuery(".wrapper-data-container-after_title_full_width-data-posts").css("display",'block');
