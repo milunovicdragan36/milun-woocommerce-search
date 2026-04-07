@@ -105,6 +105,10 @@ body.milun-search-open {
         max-width: 60% !important;
         box-sizing: border-box;
     }
+    .data-container-after_title_full_width{
+        background-color: red !important;
+        max-width:45% !important;
+    }
 
 
 }
