@@ -121,6 +121,17 @@ jQuery(".wrapper-data-container-before_title_full_width-data-posts").css("displa
    
 
 getResultsProductsBeforeTitleFullWidth(){
+    const el = document.querySelector('.before_title_full_width');
+const rect = el.getBoundingClientRect();
+
+const distanceFromBottom = window.innerHeight - rect.bottom;
+
+if (distanceFromBottom < 400) {
+      
+
+    jQuery(".wrapper-data-container-before_title_full_width-data-posts").css("margin-bottom","400px");
+}
+
  jQuery(".search-term-before_title_full_width").addClass("loadinggif");
 
 jQuery(".wrapper-data-container-before_title_full_width-data-posts").css("display",'block');

@@ -17,8 +17,7 @@ class MMSDD_Drmilun_Shortcode{
   
      
 
-add_shortcode( "woo_search_post", [$this,"add_search_box_2"],10,2);
-             
+add_shortcode( "woo_search_form", [$this, "add_search_box_2"] );             
 
 add_filter( 'wp_nav_menu_items', [$this,'miluse_render_subtitle' ],10,2);
 
@@ -804,138 +803,247 @@ foreach ($posts as $post) {
      
 
  
-function add_search_box_2( $items, $args ) {
- 
+ public function add_search_box_2( $atts ) {
+    
 ob_start();
 
 
            $posts = get_posts(['post_type' =>"sfp_search_post"]);
-                              
-                       
-foreach ($posts as $post) {
-
-    $search_by_woo_title = esc_attr(get_post_meta( $post->ID,"search_by_woo_title", true));
-   $search_by_excerpt = esc_attr(get_post_meta( $post->ID,"search_by_excerpt", true));
-   $search_by_content = esc_attr(get_post_meta( $post->ID,"search_by_content", true));
-   $search_categories = esc_attr(get_post_meta( $post->ID,"search_categories", true));
-  
-     $searchposts_in_title_woo = esc_attr(get_post_meta( $post->ID,"searchposts_in_title_woo", true));
-   ?>
-<input type='hidden' id="search_post_id" value="<?php echo esc_attr($post->ID); ?>">
-<input type='hidden' id="search_by_woo_title" value="<?php echo esc_attr($search_by_woo_title); ?>" >
-<input type='hidden' id="search_by_excerpt" value="<?php echo esc_attr($search_by_excerpt); ?>" >
-<input type='hidden' id="search_by_content" value="<?php echo esc_attr($search_by_content); ?>" >
-<input type='hidden' id="search_categories" value="<?php echo esc_attr($search_categories); ?>" >
-
-
-<?php
-}
-
-           $posts = get_posts(['post_type' =>"sfp_search_post"]);
+                        
                         
 foreach ($posts as $post) {
+           
             $custom = get_post_meta( esc_attr($post->ID) );
+            $search_form_before_loop = ( isset( $custom['search_form_before_loop'][0] ) ) ? $custom['search_form_before_loop'][0] : false;
+
              $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
+             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
+             $color = $color_of_background;
+ ?>
+  <style type="text/css">
+#open-search-flyout-before-loop_full_width{
+      color:<?php echo esc_attr($color); ?>!important;
+
 }
-   ?>
-  
+
                 
-              <style type="text/css">
-                /*
-               #open-search-flyout,
-    #open-search-flyout::before  {
-        color: white !important;
-                        font-size: 135px;
+               .search_before_loop_full_width{
+  background-color:<?php echo esc_attr($color); ?>;
+}
 
-      }
-            /*   
-                .dashicons-search {  color:<?php echo $color_of_background; ?> ; 
-                     font-size: 35px;
-                }*/
-              
-              </style>
-             <?php
-// Default arguments
-$args = array(
-    'status'            => array( 'draft', 'pending', 'private', 'publish' ),
-    'type'              => array_merge( array_keys( wc_get_product_types() ) ),
-    'parent'            => null,
-    'sku'               => '',
-    'category'          => array(),
-    'tag'               => array(),
-    'limit'             => get_option( 'posts_per_page' ),  // -1 for unlimited
-    'offset'            => null,
-    'page'              => 1,
-    'include'           => array(),
-    'exclude'           => array(),
-    'orderby'           => 'date',
-    'order'             => 'DESC',
-    'return'            => 'objects',
-    'paginate'          => false,
-    'shipping_class'    => array(),
-);
+     
+               .wrapper-data-container-before_loop_full_width-data-posts{
+    border-color: <?php echo esc_attr($color); ?>!important;
 
-// Array of product objects
-$products = wc_get_products( $args );
+     border-top-style: solid !important;
+border-top-width: 3px !important;
+border-top-color:<?php echo esc_attr($color); ?>;
 
-// Loop through list of products
-foreach( $products as $product ) {
+    width:100% !important;
 
-    // Collect product variables
-    $product_id   = $product->get_id();
-    $product_name = $product->get_name();
-
-    // Output product ID and name
-    echo 'Product ID: ' . $product_id . ' is "' . $product_name . '"<br>';
-
-    // Do whatever...
 
 }
-/*
-// Loop through list of products
-foreach( $products as $product ) {
 
-    // Collect product variables
-    $product_id[]   = $product->ID;
+                .data-before_loop_full_width-posts-btn{
+                    background-color:<?php echo esc_attr($color); ?> !important;
+                    color:white;
+                        border-radius: 8px;
+                            text-align: center;
+
+
+                }
+                
+             .search-term-before_loop_full_width{
+                
+                border-color: <?php echo esc_attr($color); ?>!important;
+             }
+            
+               .line_below_cat_tag,
+                .line_below_post{
+                    border: 1px dotted <?php echo esc_attr($color); ?>!important;
+
+
+                }
+                    
+               
+            .background_color_of_load_more_button_before_title_full_width{
+                                cursor: pointer;
+  background-color:<?php echo esc_attr($color); ?>;
+    border-radius: 10px;
+
+            }
+.closeFilePanel_full_width{
+    color:<?php echo esc_attr($color); ?>!important;
 
 }
-print_r($product_id);
-  //$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_id() ), 'single-post-thumbnail' );
-   // print_r($image);                                    
-     /* if($post_type == "miluse_search_post" || $post_type == "attachment"  || $post_type == "page"|| $post_type == "posts"){
-//        return;
-      }else{
-//if ( ! empty ( $post_types ) ) { // If there are any custom public post types.
+          
+               </style>
+ <style type="text/css">
 
+   .my_wrapper,
+   .child_before_loop{
 
-      
-    register_rest_field( array($post_type),
-        'fimg_url',
-        array(
-            'get_callback'    =>[$this,'miluse_get_rest_featured_image'],
-            'update_callback' => null,
-            'schema'          => null,
-        )
-    );
+background-color: white;
+
+border-left-width: 3px !important;
+
+    
+    border-width: 3px;
+border-color:<?php echo esc_attr($color); ?>!important;
+border-style: solid;
+}
+                
+               .search_before-loop{
+  background-color:<?php echo esc_attr($color); ?>;
+}
+
+     
+               .wrapper-data-container-before-loop-data-posts{
+    border-color: <?php echo esc_attr($color); ?>!important;
+
+     border-top-style: solid !important;
+border-top-width: 3px !important;
+border-top-color:<?php echo esc_attr($color); ?>;
+
+    width:100% !important;
+
 
 }
-   */
-    return '<input type="text" class="search-term-shortcode"  placeholder="'.__("Search...","milun-search") .'"/></div>
-      <div class="show_result">
-<div class="my_wrapper">
-<span class="dashicons dashicons-search"></span>
- <div class="child">
 
-<div class="search_shortcode">
+                .data-before-loop-posts-btn{
+                    background-color:<?php echo esc_attr($color); ?> !important;
+                    color:white;
+                        border-radius: 8px;
+                            text-align: center;
 
-<div class="wrapper-data-container-shortcode-data-posts">
-<div class="data-container-shortcode data-container-2 hid"></div><div class="data-container-shortcode-2"></div><div class="data-shortcode-posts-btn"></div><div class="data-posts-inc"></div><div class="no-data-shortcode"></div>
-</div>
 
-</div>
-</div></div>
-    '.      
-  @$nav. ob_get_clean();
+                }
+                
+             .search-term-before-loop,
+             .search-term-shortcode_full_width{
+                
+                border-color: <?php echo esc_attr($color); ?>!important;
+             }
+            
+               .line_below_cat_tag,
+                .line_below_post{
+                    border: 1px dotted <?php echo esc_attr($color); ?>!important;
+
+
+                }
+                    
+               
+            .background_color_of_load_more_button_before_loop,
+            .background_color_of_load_more_button_shortcode_full_width{
+                                cursor: pointer;
+  background-color:<?php echo esc_attr($color); ?>;
+    border-radius: 10px;
+    color:white;
+
+            }
+.closeFilePanel,
+#open-shortcode_full_width{
+    color:<?php echo esc_attr($color); ?>!important;
+    font-size: 27px;
+
+}
+          
+               </style>
+ <?php
+   $search_categories_woo = esc_attr(get_post_meta( $post->ID,"search_categories_woo",true));
+               
+       $full_width_form = esc_attr(get_post_meta( $post->ID,"full_width_form",true));
+        $standard_form = esc_attr(get_post_meta( $post->ID,"standard_form",true));
+              $pop_up_form = esc_attr(get_post_meta( $post->ID,"pop_up_form",true));
+  if (
+    $search_categories_woo == '1' &&
+    $standard_form != '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
+) {
+ $popup = '
+        <div class="pop_up_before_loop milun-popup-center">
+            <div class="notification-container">
+
+             
+                    <div class="search_before_loop" style="background-color:transparent;">
+
+                      <span class="dashicons dashicons-no-alt closeFilePanel"
+                      id="close-search-flyout-before-title"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+                        <input type="text"
+                               class="search-term-before-loop" style="border: 1px solid #000000;"
+                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                    </div>
+
+        <div class="wrapper-data-container-before-loop-data-posts">
+<div class="data-categories-container-before-loop"></div>
+<div class="data-container-before-loop"></div>
+<div class="data-posts-inc-before-loop"></div>
+
+<div class="data-before-loop-posts-btn"></div>
+<div class="no-data-before-loop"></div>
+                      
+                    </div>
+
+            </div>
+        </div>
+
+        <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-title"
+              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              role="button"
+              tabindex="0"></span>
+    ';
+
+    // Append popup + icon to the existing menu items
+    echo $popup; 
+}else if (
+    $search_categories_woo == '1' &&
+    $standard_form != '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' && is_shop() || is_product_category() || is_product_tag()
+) {
+$shortcode_full_width  = '
+  <div class="shortcode_full_width">
+        <div class="notification-container_shortcode_full_width">
+            <div class="search_shortcode_full_width" style="background-color:transparent;">
+
+                <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                      id="close-search-flyout-shortcode_full_width"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+
+                <input type="text"
+                       class="search-term-shortcode_full_width"
+                       style="border: 1px solid #000000;"
+                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+            </div>
+
+            <div class="wrapper-data-container-shortcode_full_width-data-posts">
+                <div class="data-categories-container-menu"></div>
+                <div class="data-container-shortcode_full_width"></div>
+                <div class="data-posts-inc-shortcode_full_width"></div>
+                <div class="data-shortcode_full_width-posts-btn"></div>
+                <div class="no-data-shortcode_full_width"></div>
+            </div>
+        </div>
+    </div>
+
+    <span class="dashicons dashicons-search"
+              id="open-shortcode_full_width"
+          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          role="button"
+          tabindex="0"></span>
+';
+    // Append popup + icon to the existing menu items
+ echo $shortcode_full_width;
+
+}}
+echo ob_get_clean();
 
   
 

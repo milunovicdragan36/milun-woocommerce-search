@@ -6,12 +6,12 @@ body {
 
 
 /* Ensure the flyout is positioned relative to the open icon */
-.widget_full_width {
+.shortcode_full_width {
     position: relative; /* This will help position the panel relative to the open icon */
 }
 
 /* Main flyout panel */
-.notification-container_widget_full_width {
+.notification-container_shortcode_full_width {
     position: absolute; /* Absolute positioning relative to its parent */
     top: 0; /* Align the panel with the top of the widget */
     right: -80%; /* Start off-screen on the right (panel width = 80%) */
@@ -32,7 +32,7 @@ body {
 }
 
 /* Open state */
-.notification-container_widget_full_width.active {
+.notification-container_shortcode_full_width.active {
     right: 0; /* Moves from off-screen right to final position */
     opacity: 1; /* Make it visible once it slides in */
     visibility: visible; /* Make it visible after it has slid in */
@@ -40,7 +40,7 @@ body {
 }
 
 /* Input */
-.search-term-widget_full_width {
+.search-term-shortcode_full_width {
     width: 100%;
     height: 44px;
     padding: 0 14px;
@@ -55,7 +55,7 @@ body {
 @media (max-width: 768px) {
     
 
-    .search-term-widget_full_width {
+    .search-term-shortcode_full_width {
        width:70%;
     }
 }
@@ -69,6 +69,10 @@ body {
   height: 85px;
   object-fit: cover;
   margin-right: 10px;
+}
+.close-search-flyout-shortcode_full_width{
+    float: left;
+    margin-right: 15px;
 }
 /*/////////for spinner///////*/
 .loadinggif{
@@ -85,7 +89,7 @@ body {
   margin-right: 10px;
 }
 
-.search_widget_full_width {
+.search_shortcode_full_width {
     display: flex;
     align-items: center;
     gap: 8px;

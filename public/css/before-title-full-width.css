@@ -104,21 +104,38 @@ body.milun-search-open {
     transform: translateX(100vw);
     transition: transform 0.6s ease, opacity 0.3s ease;
 }
+
 @media (max-width: 768px) {
     .notification-container_full_width {
         position: fixed;
         top: 0;
-        left: 10vw;
-        width: 90vw;
-        max-width: 90vw;
+        right: 0;
+        left: 0;              /* ✅ important */
+        width: 50% !important;          /* ✅ instead of 100vw */
+        max-width: 50% !important;
         height: 100vh;
-        max-height: 100vh;
+        box-sizing: border-box;
+        overflow-x: hidden;
         transform: translateX(100%);
         border-radius: 0;
     }
 
     .notification-container_full_width.active {
         transform: translateX(0);
+    }
+
+    .search_before_title_full_width {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 50px 20px 0 10px;
+    }
+
+    .search-term-before_title_full_width {
+        flex: 1;
+        min-width: 0;
+        width: 0;
+        max-width: 100%;
     }
 }
 
