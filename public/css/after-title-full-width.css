@@ -249,6 +249,9 @@ body.milun-search-open {
     left: 0;
     right: 0;
 }
+.red_color{
+    color:red !important;
+}
 
 
 /* PRODUCT IMAGE */

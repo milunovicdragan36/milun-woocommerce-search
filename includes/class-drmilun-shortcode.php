@@ -380,79 +380,17 @@ $meta_value = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_
   ?>
    <input type="hidden" id="numberofposts" name="numberofposts" min="3" max="15" value="<?php echo esc_attr( @$meta_value[0]->meta_value ? @$meta_value[0]->meta_value :3);  ?>">
 <?php
-$posts = get_posts(['post_type' =>"sfp_search_post"]);
-                        
-                        
-foreach ($posts as $post) {
-            $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-             $color = $color_of_background;
- ?>
- <style type="text/css">
-#open-search-flyout-before-title_full_width{
-      color:<?php echo esc_attr($color); ?>!important;
+                     
 
-}
-
-                
-               .search_before_title_full_width{
-  background-color:<?php echo esc_attr($color); ?>;
-}
-
-     
-               .wrapper-data-container-before_title_full_width-data-posts{
-    border-color: <?php echo esc_attr($color); ?>!important;
-
-     border-top-style: solid !important;
-border-top-width: 3px !important;
-border-top-color:<?php echo esc_attr($color); ?>;
-
-    width:100% !important;
-
-
-}
-
-                .data-before_title_full_width-posts-btn{
-                    background-color:<?php echo esc_attr($color); ?> !important;
-                    color:white;
-                        border-radius: 8px;
-                            text-align: center;
-
-
-                }
-                
-             .search-term-before_title_full_width{
-                
-                border-color: <?php echo esc_attr($color); ?>!important;
-             }
-            
-               .line_below_cat_tag,
-                .line_below_post{
-                    border: 1px dotted <?php echo esc_attr($color); ?>!important;
-
-
-                }
-                    
-               
-            .background_color_of_load_more_button_before_title_full_width{
-                                cursor: pointer;
-  background-color:<?php echo esc_attr($color); ?>;
-    border-radius: 10px;
-
-            }
-.closeFilePanel_full_width{
-    color:<?php echo esc_attr($color); ?>!important;
-
-}
-          
-               </style>
- <?php
-}
    $posts = get_posts(['post_type' =>"sfp_search_post"]);
                              
                        
 foreach ($posts as $post) {
+
+  $custom = get_post_meta( esc_attr($post->ID) );
+             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
+             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
+             $color = $color_of_background;
   
  if ( function_exists('is_shop') && is_shop() ) {
     $search_post_id = wc_get_page_id('shop');
@@ -819,137 +757,10 @@ foreach ($posts as $post) {
              $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
              $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
              $color = $color_of_background;
- ?>
-  <style type="text/css">
-#open-search-flyout-before-loop_full_width{
-      color:<?php echo esc_attr($color); ?>!important;
+ 
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
 
-}
-
-                
-               .search_before_loop_full_width{
-  background-color:<?php echo esc_attr($color); ?>;
-}
-
-     
-               .wrapper-data-container-before_loop_full_width-data-posts{
-    border-color: <?php echo esc_attr($color); ?>!important;
-
-     border-top-style: solid !important;
-border-top-width: 3px !important;
-border-top-color:<?php echo esc_attr($color); ?>;
-
-    width:100% !important;
-
-
-}
-
-                .data-before_loop_full_width-posts-btn{
-                    background-color:<?php echo esc_attr($color); ?> !important;
-                    color:white;
-                        border-radius: 8px;
-                            text-align: center;
-
-
-                }
-                
-             .search-term-before_loop_full_width{
-                
-                border-color: <?php echo esc_attr($color); ?>!important;
-             }
-            
-               .line_below_cat_tag,
-                .line_below_post{
-                    border: 1px dotted <?php echo esc_attr($color); ?>!important;
-
-
-                }
-                    
-               
-            .background_color_of_load_more_button_before_title_full_width{
-                                cursor: pointer;
-  background-color:<?php echo esc_attr($color); ?>;
-    border-radius: 10px;
-
-            }
-.closeFilePanel_full_width{
-    color:<?php echo esc_attr($color); ?>!important;
-
-}
-          
-               </style>
- <style type="text/css">
-
-   .my_wrapper,
-   .child_before_loop{
-
-background-color: white;
-
-border-left-width: 3px !important;
-
-    
-    border-width: 3px;
-border-color:<?php echo esc_attr($color); ?>!important;
-border-style: solid;
-}
-                
-               .search_before-loop{
-  background-color:<?php echo esc_attr($color); ?>;
-}
-
-     
-               .wrapper-data-container-before-loop-data-posts{
-    border-color: <?php echo esc_attr($color); ?>!important;
-
-     border-top-style: solid !important;
-border-top-width: 3px !important;
-border-top-color:<?php echo esc_attr($color); ?>;
-
-    width:100% !important;
-
-
-}
-
-                .data-before-loop-posts-btn{
-                    background-color:<?php echo esc_attr($color); ?> !important;
-                    color:white;
-                        border-radius: 8px;
-                            text-align: center;
-
-
-                }
-                
-             .search-term-before-loop,
-             .search-term-shortcode_full_width{
-                
-                border-color: <?php echo esc_attr($color); ?>!important;
-             }
-            
-               .line_below_cat_tag,
-                .line_below_post{
-                    border: 1px dotted <?php echo esc_attr($color); ?>!important;
-
-
-                }
-                    
-               
-            .background_color_of_load_more_button_before_loop,
-            .background_color_of_load_more_button_shortcode_full_width{
-                                cursor: pointer;
-  background-color:<?php echo esc_attr($color); ?>;
-    border-radius: 10px;
-    color:white;
-
-            }
-.closeFilePanel,
-#open-shortcode_full_width{
-    color:<?php echo esc_attr($color); ?>!important;
-    font-size: 27px;
-
-}
-          
-               </style>
- <?php
+ 
    $search_categories_woo = esc_attr(get_post_meta( $post->ID,"search_categories_woo",true));
                
        $full_width_form = esc_attr(get_post_meta( $post->ID,"full_width_form",true));
