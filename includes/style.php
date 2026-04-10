@@ -11,6 +11,9 @@ border-left-width: 3px !important;
 border-color:<?php echo esc_attr($color); ?>!important;
 border-style: solid;
 }
+.dashicons-search{
+    cursor: pointer;
+}
         
 #open-search-flyout-before-title_full_width,
 #open-search-flyout-after-title_full_width,
@@ -41,6 +44,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
 
 
 }
+.data-shortcode_full_width-posts-btn,
 .data-widget_full_width-posts-btn,
  .data-before-loop-posts-btn,
        .data-before_title_full_width-posts-btn,

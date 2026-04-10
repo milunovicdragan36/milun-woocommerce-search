@@ -228,36 +228,36 @@ border-top-color:<?php echo esc_attr($color); ?>;
 ) {
  $before_loop_full_width = '
     <div class="before_loop_full_width">
-        <div class="notification-container_before_loop_full_width">
-            <div class="search_before_loop_full_width" style="background-color:transparent;">
-
-                <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
-                      id="close-search-flyout-before-loop_full_width"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-
-                <input type="text"
-                       class="search-term-before_loop_full_width"
-                       style="border: 1px solid #000000;"
-                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
-            </div>
-
-            <div class="wrapper-data-container-before_loop_full_width-data-posts">
-                <div class="data-categories-container-menu"></div>
-                <div class="data-container-before_loop_full_width"></div>
-                <div class="data-posts-inc-before_loop_full_width"></div>
-                <div class="data-before_loop_full_width-posts-btn"></div>
-                <div class="no-data-before_loop_full_width"></div>
-            </div>
-        </div>
-    </div>
-
     <span class="dashicons dashicons-search"
-              id="open-before-loop_full_width"
+          id="open-before-loop_full_width"
           aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
           role="button"
           tabindex="0"></span>
+
+    <div class="notification-container_before_loop_full_width">
+        <div class="search_before_loop_full_width" style="background-color:transparent;">
+
+            <span class="dashicons dashicons-no-alt closeFilePanel_full_width"
+                  id="close-search-flyout-before-loop_full_width"
+                  aria-label="Close Search"
+                  role="button"
+                  tabindex="0"></span>
+
+            <input type="text"
+                   class="search-term-before_loop_full_width"
+                   style="border: 1px solid #000000;"
+                   placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+        </div>
+
+        <div class="wrapper-data-container-before_loop_full_width-data-posts">
+            <div class="data-categories-container-menu"></div>
+            <div class="data-container-before_loop_full_width"></div>
+            <div class="data-posts-inc-before_loop_full_width"></div>
+            <div class="data-before_loop_full_width-posts-btn"></div>
+            <div class="no-data-before_loop_full_width"></div>
+        </div>
+    </div>
+</div>
 ';
     // Append popup + icon to the existing menu items
   echo $before_loop_full_width; 
@@ -830,7 +830,6 @@ $shortcode_full_width  = '
 
                 <input type="text"
                        class="search-term-shortcode_full_width"
-                       style="border: 1px solid #000000;"
                        placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
             </div>
 
