@@ -23,45 +23,99 @@ body.milun-search-open {
     top: 0; /* JS will override this dynamically */
 }
 
+
+
 /* Ensure the flyout is positioned relative to the open icon */
 .before_loop_full_width {
     position: relative; /* This will help position the panel relative to the open icon */
+
+}
+
+
+
+/* Open state 
+.notification-container_full_width.active {
+    right: 0; 
+    opacity: 1; 
+    visibility: visible; 
+   
+    transform: translateX(0);
+}
+*/
+.before_loop_full_width {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+/* Search icon */
+#open-before-loop_full_width {
+    cursor: pointer;
 }
 
 /* Main flyout panel */
 .notification-container_before_loop_full_width {
-    position: absolute; /* Absolute positioning relative to its parent */
-    top: 100%; /* Position it right below the open icon */
-    right: -100%; /* Start off-screen on the right */
-    width: 80%;
-    max-width: 80%;
-   
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: auto;
+
+    width: 80vw;
+    max-width: 95vw;
+    min-width: 280px;
+
     min-height: 100px;
     max-height: 90vh;
     overflow-y: auto;
+    overflow-x: hidden;
+
     background: #ffffff;
     box-sizing: border-box;
     padding: 20px;
+
     border-radius: 8px 0 0 8px;
     box-shadow: -4px 0 15px rgba(0, 0, 0, 0.15);
     z-index: 999999;
+
+    transform: translateX(100%);
     opacity: 0;
     visibility: hidden;
-    transition: right 0.6s ease, opacity 0.3s ease; /* Smooth transition for right and opacity */
+
+    transition: transform 0.6s ease, opacity 0.3s ease, visibility 0.3s ease;
 }
 
 /* Open state */
 .notification-container_before_loop_full_width.active {
-    right: 0; /* Moves from off-screen right to final position */
-    opacity: 1; /* Make it visible once it slides in */
-    visibility: visible; /* Make it visible after it has slid in */
-    transition: right 0.6s ease, opacity 0.3s ease; /* Keep smooth sliding and fading */
-}
-/* Open state */
-.notification-container_before_loop_full_width.active {
-    right: 0;
+    transform: translateX(0);
     opacity: 1;
     visibility: visible;
+}
+
+@media (max-width: 768px) {
+    .notification-container_before_loop_full_width {
+        position: fixed;   /* 🔥 important */
+        top: 0;
+        left: 0;
+        right: 0;
+
+        width: 100vw;
+        height: 100vh;
+
+        max-width: 100vw;
+        border-radius: 0;
+
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+
+        transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+
+    .notification-container_before_loop_full_width.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 /* Search row */
