@@ -412,8 +412,7 @@ var result_1 = result_2.map(item =>  item.featured_image  ?
  
 ).join("");
 */
-// console.log('result '+result_2.length);
- // console.log('result_1 '+result_3.length);
+
 
 
 

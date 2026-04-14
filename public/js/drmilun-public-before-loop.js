@@ -166,7 +166,6 @@ const root =
 
 
 if (!root) {
-  console.warn("liveSearchDataPosts missing on this page", window.liveSearchDataPosts);
   jQuery(".search-term-before-loop").removeClass("loadinggif");
   return;
 }

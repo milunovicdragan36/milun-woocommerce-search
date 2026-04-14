@@ -149,7 +149,6 @@ const root =
 
 
 if (!root) {
-  console.warn("liveSearchDataPosts missing on this page", window.liveSearchDataPosts);
   jQuery(".search-term-shortcode").removeClass("loadinggif");
   return;
 }
