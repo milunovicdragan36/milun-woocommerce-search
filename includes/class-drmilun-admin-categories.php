@@ -56,11 +56,11 @@ function namespace_searching_front_woo_categories($request){
  $woo_category_slug       =$request['s']; 
 
   
-       $woo_categories =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_terms
-  LEFT JOIN wp_term_taxonomy ON wp_terms.term_id = wp_term_taxonomy.term_id
-  LEFT JOIN wp_postmeta ON wp_terms.term_id = wp_postmeta.meta_key
+       $woo_categories =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
+  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
+  LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
 
-         WHERE wp_term_taxonomy.taxonomy ='product_cat' AND wp_postmeta.meta_value NOT LIKE '%oo_cat_33%' AND wp_terms.name LIKE '%$woo_category_slug%' 
+         WHERE $wpdb->term_taxonomy.taxonomy ='product_cat' AND $wpdb->postmeta.meta_value NOT LIKE '%oo_cat_33%' AND $wpdb->terms.name LIKE '%$woo_category_slug%' 
     "));
        
 return  $woo_categories;
@@ -76,18 +76,18 @@ global $wpdb;
 
 $search_categories_woo = esc_attr(get_post_meta( $id,"search_categories_woo", true));
 if($search_categories_woo=="1"){  
-   $files =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_terms
-  LEFT JOIN wp_term_taxonomy ON wp_terms.term_id = wp_term_taxonomy.term_id
-      LEFT JOIN wp_postmeta ON wp_terms.term_id = wp_postmeta.meta_key
+   $files =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
+  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
+      LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
 
-         WHERE wp_term_taxonomy.taxonomy ='product_cat' AND wp_terms.slug LIKE '%$category_slug%'
+         WHERE $wpdb->term_taxonomy.taxonomy ='product_cat' AND $wpdb->terms.slug LIKE '%$category_slug%'
     "));
 
-        $totalArray =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_terms
-  LEFT JOIN wp_term_taxonomy ON wp_terms.term_id = wp_term_taxonomy.term_id
-      LEFT JOIN wp_postmeta ON wp_terms.term_id = wp_postmeta.meta_key
+        $totalArray =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
+  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
+      LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
 
-         WHERE  wp_postmeta.meta_value = 'woo_cat_33' AND wp_term_taxonomy.taxonomy ='product_cat' AND wp_postmeta.post_id = '$id' 
+         WHERE  $wpdb->postmeta.meta_value = 'woo_cat_33' AND $wpdb->term_taxonomy.taxonomy ='product_cat' AND $wpdb->postmeta.post_id = '$id' 
     "));
 
 
@@ -140,11 +140,11 @@ function namespace_searching_woo_categories($request){
  $woo_category_slug       =$request['s']; 
 
   
-       $woo_categories =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_terms
-  LEFT JOIN wp_term_taxonomy ON wp_terms.term_id = wp_term_taxonomy.term_id
-  LEFT JOIN wp_postmeta ON wp_terms.term_id = wp_postmeta.meta_key
+       $woo_categories =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
+  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
+  LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
 
-         WHERE wp_terms.slug !='uncategorized' AND wp_term_taxonomy.taxonomy ='product_cat' AND ifnull(wp_postmeta.meta_value, '') = '' AND wp_terms.name LIKE '%$woo_category_slug%' 
+         WHERE $wpdb->terms.slug !='uncategorized' AND $wpdb->term_taxonomy.taxonomy ='product_cat' AND ifnull($wpdb->postmeta.meta_value, '') = '' AND $wpdb->terms.name LIKE '%$woo_category_slug%' 
     "));
        
 return  $woo_categories;
@@ -157,11 +157,11 @@ function namespace_searching_empty_woo_categories($request){
  $woo_category_slug       =$request['s']; 
 
   
-       $empty_woo_categories =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_terms
-  LEFT JOIN wp_term_taxonomy ON wp_terms.term_id = wp_term_taxonomy.term_id
-  LEFT JOIN wp_postmeta ON wp_terms.term_id = wp_postmeta.meta_key
+       $empty_woo_categories =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
+  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
+  LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
 
-         WHERE wp_terms.slug !='uncategorized' AND wp_term_taxonomy.taxonomy ='product_cat' AND wp_postmeta.meta_value LIKE '%oo_cat_33%' AND wp_terms.name LIKE '%$woo_category_slug%' 
+         WHERE $wpdb->terms.slug !='uncategorized' AND $wpdb->term_taxonomy.taxonomy ='product_cat' AND $wpdb->postmeta.meta_value LIKE '%oo_cat_33%' AND $wpdb->terms.name LIKE '%$woo_category_slug%' 
     "));
        
 return  $empty_woo_categories;

@@ -32,8 +32,8 @@ public function __construct(){
     add_action( 'wp_ajax_nopriv_select_woo_product', [$this,'select_woo_product' ]);
 
 
-  add_action( 'wp_ajax_select_visibility_post', [$this,'select_visibility_post' ]);
-    add_action( 'wp_ajax_nopriv_select_visibility_post', [$this,'select_visibility_post' ]);
+ // add_action( 'wp_ajax_select_visibility_post', [$this,'select_visibility_post' ]);
+ //   add_action( 'wp_ajax_nopriv_select_visibility_post', [$this,'select_visibility_post' ]);
     add_action( 'wp_ajax_select_visibility_meta', [$this,'select_visibility_meta' ]);
     add_action( 'wp_ajax_nopriv_select_visibility_meta', [$this,'select_visibility_meta' ]);
 
@@ -118,7 +118,7 @@ public function select_visibility_title_of_product() {
 *  @param $post_type (string)
 *  @return  (string)
 */
-    
+    /*
 public function select_visibility_post() { 
       
 
@@ -140,8 +140,7 @@ public function select_visibility_post() {
  delete_post_meta(get_the_ID(), $_POST["visibility_post"],'0');
 
          }else{
-        /* Update post meta in terms of checking what 
-           kind of form is selected  */
+        
            
               add_post_meta(get_the_ID(), $_POST["visibility_post"],'post_hide');
         
@@ -150,6 +149,7 @@ public function select_visibility_post() {
 
     die();
 }
+    */
 
 /**
 *  select_woo_term_id

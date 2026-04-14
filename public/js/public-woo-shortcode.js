@@ -280,9 +280,7 @@ if (jQuery('.data-categories-container-shortcode').length > 0) {
 
     
       var customSearchBox =  $this.searchFieldCategoriesShortcode.val();
-       
-//alert(customSearchBox);
-   
+          
 
 jQuery.getJSON(liveSearchDataCategories[1].root_url+'/wp-json/namespace/v11/searching_front_cat/'+customSearchBox,function(livesearchcategories){
  //  jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/searching_empty_cat/'+ customSearchBox,function(empty_categories){

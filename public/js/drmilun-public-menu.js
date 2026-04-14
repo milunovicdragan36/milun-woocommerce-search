@@ -164,7 +164,6 @@ const root =
 
 
 if (!root) {
-  console.warn("liveSearchDataPosts missing on this page", window.liveSearchDataPosts);
   jQuery(".search-term-menu").removeClass("loadinggif");
   return;
 }
@@ -179,7 +178,7 @@ const url =
   encodeURIComponent(post_id);
 
 jQuery.getJSON(url, function (livesearchposts_1) {
-  console.log(livesearchposts_1);
+
   if (typeof window.milunShowResult === "function") {
     window.milunShowResult(livesearchposts_1);
   }

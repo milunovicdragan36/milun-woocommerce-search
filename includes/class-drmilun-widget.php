@@ -67,7 +67,7 @@ add_action('rest_api_init', [$this,'register_rest_images' ]);
       global $wpdb;
 
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$meta_value = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_key ='numberofposts' AND meta_value !=''");
+$meta_value = $wpdb->get_results("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key ='numberofposts' AND meta_value !=''");
 
 
 ?>
@@ -76,7 +76,7 @@ $meta_value = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_
  </p>
  <?php
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$meta_value_word = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_key ='numberofwordsinposts' AND meta_value !=''");
+$meta_value_word = $wpdb->get_results("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key ='numberofwordsinposts' AND meta_value !=''");
 ?>
 <p>
       <label><input type="number" id="numberofwordsinposts" name="numberofwordsinposts" min="15" max="150" style='display: none;' value="<?php echo esc_attr( @$meta_value_word[0]->meta_value ? @$meta_value_word[0]->meta_value :15);  ?>"></label>
@@ -246,7 +246,6 @@ border-top-color:<?php echo esc_attr($color); ?>;
    $search_categories_woo = esc_attr(get_post_meta( @$post->ID,"search_categories_woo", true)); 
  
  $popup = '
-        <div id="for-searching-4"></div>
 
         <div class="pop_up_for_widget">
             <div class="notification-container dismiss">
@@ -296,7 +295,6 @@ $widget_full_width = '
 
                 <input type="text"
                        class="search-term-widget_full_width"
-                       style="border: 1px solid #000000;"
                        placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
             </div>
 
@@ -739,12 +737,12 @@ $post_types = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->_posts
    
 
 
-    WHERE wp_posts.post_status ='publish' AND wp_posts.post_type != 'product' AND wp_posts.post_type != 'miluse_search_post' AND wp_posts.post_type != 'woo_search_post'  AND wp_posts.post_type != 'product_variation' AND wp_posts.post_type != 'revision' AND wp_posts.post_type != 'is_search_form' AND wp_posts.post_type != 'wp_template' AND wp_posts.post_type !='nav_menu_item' AND
-     wp_posts.post_type LIKE %s",'%' . $wpdb->esc_like($post_slug) . '%'));
+    WHERE $wpdb->posts.post_status ='publish' AND $wpdb->posts.post_type != 'product' AND $wpdb->posts.post_type != 'miluse_search_post' AND $wpdb->posts.post_type != 'woo_search_post'  AND $wpdb->posts.post_type != 'product_variation' AND $wpdb->posts.post_type != 'revision' AND $wpdb->posts.post_type != 'is_search_form' AND $wpdb->posts.post_type != 'wp_template' AND $wpdb->posts.post_type !='nav_menu_item' AND
+     $wpdb->posts.post_type LIKE %s",'%' . $wpdb->esc_like($post_slug) . '%'));
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$post_type_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts
-     LEFT JOIN wp_postmeta ON wp_postmeta.meta_key = wp_posts.post_type 
-         WHERE wp_postmeta.meta_value = 'post_hide' AND  wp_posts.post_type AND wp_posts.post_type LIKE %s",'%' . $wpdb->esc_like($post_slug) . '%'
+$post_type_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts
+     LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_key = $wpdb->posts.post_type 
+         WHERE $wpdb->postmeta.meta_value = 'post_hide' AND  $wpdb->posts.post_type AND $wpdb->posts.post_type LIKE %s",'%' . $wpdb->esc_like($post_slug) . '%'
          
     ));
  if (!empty($post_type_empty)) {
@@ -766,9 +764,9 @@ function namespace_ajax_search_empty_post_types($request){
 
 global $wpdb;
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$post_type_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts
-     LEFT JOIN wp_postmeta ON wp_postmeta.meta_key = wp_posts.post_type 
-         WHERE wp_posts.post_status ='publish' AND  wp_postmeta.meta_value = 'post_hide'AND  wp_posts.post_type LIKE %s",'%' . $wpdb->esc_like($post_slug) . '%'
+$post_type_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts
+     LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_key = $wpdb->posts.post_type 
+         WHERE $wpdb->posts.post_status ='publish' AND  $wpdb->postmeta.meta_value = 'post_hide'AND  $wpdb->posts.post_type LIKE %s",'%' . $wpdb->esc_like($post_slug) . '%'
          
     ));
 
@@ -785,31 +783,31 @@ function namespace_ajax_search_meta_data_of_post_types($request){
 
    
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$meta_data =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts
-     LEFT JOIN wp_postmeta ON wp_postmeta.post_id =wp_posts.ID
-          WHERE wp_posts.post_type != 'product' AND wp_posts.post_type != 'product_variation' AND wp_posts.post_type != 'miluse_search_post' AND wp_posts.post_type != 'attachment' AND
-          wp_posts.post_type != 'miluse_search_post' AND wp_posts.post_type != 'woo_search_post'  AND wp_posts.post_type != 'nav_menu_item' AND wp_posts.post_type != 'is_search_form' AND wp_posts.post_type != 'wp_template' AND 
+$meta_data =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts
+     LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id =$wpdb->posts.ID
+          WHERE $wpdb->posts.post_type != 'product' AND $wpdb->posts.post_type != 'product_variation' AND $wpdb->posts.post_type != 'miluse_search_post' AND $wpdb->posts.post_type != 'attachment' AND
+          $wpdb->posts.post_type != 'miluse_search_post' AND $wpdb->posts.post_type != 'woo_search_post'  AND $wpdb->posts.post_type != 'nav_menu_item' AND $wpdb->posts.post_type != 'is_search_form' AND $wpdb->posts.post_type != 'wp_template' AND 
          
-         wp_postmeta.meta_key NOT LIKE %s AND wp_postmeta.meta_key!='search_categories' 
-         AND wp_postmeta.meta_key!='_wp_desired_post_slug'
-                   AND wp_postmeta.meta_key!='_wp_trash_meta_time'
-AND wp_postmeta.meta_key!='_wp_trash_meta_status'
-        AND wp_postmeta.meta_key!='searchposts_in_title'
-                AND wp_postmeta.meta_key!='searchposts_in_title'
-        AND wp_postmeta.meta_key!='color_of_text'
+         $wpdb->postmeta.meta_key NOT LIKE %s AND $wpdb->postmeta.meta_key!='search_categories' 
+         AND $wpdb->postmeta.meta_key!='_wp_desired_post_slug'
+                   AND $wpdb->postmeta.meta_key!='_wp_trash_meta_time'
+AND $wpdb->postmeta.meta_key!='_wp_trash_meta_status'
+        AND $wpdb->postmeta.meta_key!='searchposts_in_title'
+                AND $wpdb->postmeta.meta_key!='searchposts_in_title'
+        AND $wpdb->postmeta.meta_key!='color_of_text'
         
-        AND wp_postmeta.meta_key!='text_color_of_categories'
+        AND $wpdb->postmeta.meta_key!='text_color_of_categories'
 
-        AND wp_postmeta.meta_key!='color_of_the_load_more_btn'
+        AND $wpdb->postmeta.meta_key!='color_of_the_load_more_btn'
        
-        AND wp_postmeta.meta_key!='product'
-        AND wp_postmeta.meta_key!='miluse_search_post'
-        AND wp_postmeta.meta_key!='woo_search_post'
-        AND wp_postmeta.meta_key!='_edit_lock'
-        AND wp_postmeta.meta_key!='search_post_id_title'
-        AND wp_postmeta.meta_value!='1'
-        AND wp_postmeta.meta_value!=''
-AND wp_postmeta.meta_value!='0'
+        AND $wpdb->postmeta.meta_key!='product'
+        AND $wpdb->postmeta.meta_key!='miluse_search_post'
+        AND $wpdb->postmeta.meta_key!='woo_search_post'
+        AND $wpdb->postmeta.meta_key!='_edit_lock'
+        AND $wpdb->postmeta.meta_key!='search_post_id_title'
+        AND $wpdb->postmeta.meta_value!='1'
+        AND $wpdb->postmeta.meta_value!=''
+AND $wpdb->postmeta.meta_value!='0'
          
     ",$wpdb->esc_like('name_term_') . '%'));
 
@@ -818,27 +816,27 @@ AND wp_postmeta.meta_value!='0'
 $temp = array_unique(array_column($meta_data, 'post_title'));
 $unique_arr = array_intersect_key($meta_data, $temp);
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$post_meta_data_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts
-     LEFT JOIN wp_postmeta ON wp_postmeta.meta_value =wp_posts.post_title
-          WHERE wp_postmeta.meta_key LIKE %s AND
-         wp_postmeta.meta_key NOT LIKE %s AND wp_postmeta.meta_key!='search_categories' 
-        AND wp_postmeta.meta_key!='searchposts_in_title'
-                AND wp_postmeta.meta_key!='searchposts_in_title'
-        AND wp_postmeta.meta_key!='color_of_text'
+$post_meta_data_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts
+     LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_value =$wpdb->posts.post_title
+          WHERE $wpdb->postmeta.meta_key LIKE %s AND
+         $wpdb->postmeta.meta_key NOT LIKE %s AND $wpdb->postmeta.meta_key!='search_categories' 
+        AND $wpdb->postmeta.meta_key!='searchposts_in_title'
+                AND $wpdb->postmeta.meta_key!='searchposts_in_title'
+        AND $wpdb->postmeta.meta_key!='color_of_text'
         
-        AND wp_postmeta.meta_key!='text_color_of_categories'
+        AND $wpdb->postmeta.meta_key!='text_color_of_categories'
 
-        AND wp_postmeta.meta_key!='background_color_of_load_more_button_widget'
-       AND wp_postmeta.meta_key!='background_color_of_load_more_button_shortcode'
-       AND wp_postmeta.meta_key!='background_color_of_load_more_button_menu'
-        AND wp_postmeta.meta_key!='product'
-        AND wp_postmeta.meta_key!='miluse_search_post'
-        AND wp_postmeta.meta_key!='woo_search_post'
-        AND wp_postmeta.meta_key!='_edit_lock'
-        AND wp_postmeta.meta_key!='search_post_id_title'
-        AND wp_postmeta.meta_value!='1'
-        AND wp_postmeta.meta_value!=''
-AND wp_postmeta.meta_value!='0'
+        AND $wpdb->postmeta.meta_key!='background_color_of_load_more_button_widget'
+       AND $wpdb->postmeta.meta_key!='background_color_of_load_more_button_shortcode'
+       AND $wpdb->postmeta.meta_key!='background_color_of_load_more_button_menu'
+        AND $wpdb->postmeta.meta_key!='product'
+        AND $wpdb->postmeta.meta_key!='miluse_search_post'
+        AND $wpdb->postmeta.meta_key!='woo_search_post'
+        AND $wpdb->postmeta.meta_key!='_edit_lock'
+        AND $wpdb->postmeta.meta_key!='search_post_id_title'
+        AND $wpdb->postmeta.meta_value!='1'
+        AND $wpdb->postmeta.meta_value!=''
+AND $wpdb->postmeta.meta_value!='0'
          
     ",'%'.$wpdb->esc_like('_meta'),$wpdb->esc_like('name_term_') . '%'));
 
@@ -858,26 +856,26 @@ return $result;
 function namespace_ajax_search_meta_data_empty_of_post_types($request){
     global $wpdb;
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$post_meta_data =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts
-     LEFT JOIN wp_postmeta ON wp_postmeta.meta_value =wp_posts.post_title
-          WHERE wp_postmeta.meta_key LIKE %s AND
-         wp_postmeta.meta_key NOT LIKE %s AND wp_postmeta.meta_key!='search_categories' 
-        AND wp_postmeta.meta_key!='searchposts_in_title'
-                AND wp_postmeta.meta_key!='searchposts_in_title'
-        AND wp_postmeta.meta_key!='color_of_text'
-        AND wp_postmeta.meta_key!='text_color_of_categories'
-          AND wp_postmeta.meta_key!='background_color_of_load_more_button_widget'
-       AND wp_postmeta.meta_key!='background_color_of_load_more_button_shortcode'
-       AND wp_postmeta.meta_key!='background_color_of_load_more_button_menu'
+$post_meta_data =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts
+     LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_value =$wpdb->posts.post_title
+          WHERE $wpdb->postmeta.meta_key LIKE %s AND
+         $wpdb->postmeta.meta_key NOT LIKE %s AND $wpdb->postmeta.meta_key!='search_categories' 
+        AND $wpdb->postmeta.meta_key!='searchposts_in_title'
+                AND $wpdb->postmeta.meta_key!='searchposts_in_title'
+        AND $wpdb->postmeta.meta_key!='color_of_text'
+        AND $wpdb->postmeta.meta_key!='text_color_of_categories'
+          AND $wpdb->postmeta.meta_key!='background_color_of_load_more_button_widget'
+       AND $wpdb->postmeta.meta_key!='background_color_of_load_more_button_shortcode'
+       AND $wpdb->postmeta.meta_key!='background_color_of_load_more_button_menu'
         
-        AND wp_postmeta.meta_key!='product'
-        AND wp_postmeta.meta_key!='miluse_search_post'
-        AND wp_postmeta.meta_key!='woo_search_post'
-        AND wp_postmeta.meta_key!='_edit_lock'
-        AND wp_postmeta.meta_key!='search_post_id_title'
-        AND wp_postmeta.meta_value!='1'
-        AND wp_postmeta.meta_value!=''
-AND wp_postmeta.meta_value!='0'
+        AND $wpdb->postmeta.meta_key!='product'
+        AND $wpdb->postmeta.meta_key!='miluse_search_post'
+        AND $wpdb->postmeta.meta_key!='woo_search_post'
+        AND $wpdb->postmeta.meta_key!='_edit_lock'
+        AND $wpdb->postmeta.meta_key!='search_post_id_title'
+        AND $wpdb->postmeta.meta_value!='1'
+        AND $wpdb->postmeta.meta_value!=''
+AND $wpdb->postmeta.meta_value!='0'
          
   ",'%'.$wpdb->esc_like('_meta'),$wpdb->esc_like('name_term_') . '%'));
  return $post_meta_data;
@@ -890,20 +888,20 @@ $user_slug =$request['s'];
 $user_with_first_character=[];
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
 $user =$wpdb->get_results( $wpdb->prepare("SELECT *
-FROM wp_users 
-LEFT JOIN $wpdb->usermeta ON wp_users.ID = $wpdb->usermeta.user_id
+FROM $wpdb->users 
+LEFT JOIN $wpdb->usermeta ON $wpdb->users.ID = $wpdb->usermeta.user_id
 
-WHERE  wp_users.user_login LIKE %s",'%' . $wpdb->esc_like($user_slug) . '%' 
+WHERE  $wpdb->users.user_login LIKE %s",'%' . $wpdb->esc_like($user_slug) . '%' 
 
          
     ));
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
 $user_first_character =$wpdb->get_results( $wpdb->prepare("SELECT *
-FROM wp_users 
-LEFT JOIN $wpdb->usermeta ON wp_users.ID = $wpdb->usermeta.user_id
+FROM $wpdb->users 
+LEFT JOIN $wpdb->usermeta ON $wpdb->users.ID = $wpdb->usermeta.user_id
 
 WHERE 
-      wp_users.user_login LIKE %s", $wpdb->esc_like($user_slug) . '%' 
+      $wpdb->users.user_login LIKE %s", $wpdb->esc_like($user_slug) . '%' 
     ));
   if (!empty($user_first_character)) {
 $user_with_first_character = $user_first_character;
@@ -917,18 +915,18 @@ $user_with_first_character =  $user;
   $user_empty_with_first_character = [];
 
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$user_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_users
-     LEFT JOIN wp_postmeta ON wp_users.user_login = wp_postmeta.meta_key 
+$user_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->users
+     LEFT JOIN $wpdb->postmeta ON $wpdb->users.user_login = $wpdb->postmeta.meta_key 
          WHERE  
-           wp_postmeta.meta_key LIKE  %s AND wp_postmeta.meta_value LIKE %s",'%' . $wpdb->esc_like($user_slug) . '%', '%'. $wpdb->esc_like('hide_user')     
+           $wpdb->postmeta.meta_key LIKE  %s AND $wpdb->postmeta.meta_value LIKE %s",'%' . $wpdb->esc_like($user_slug) . '%', '%'. $wpdb->esc_like('hide_user')     
 
          
     ));
 
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$user_empty_first_character =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_users
-     LEFT JOIN wp_postmeta ON wp_users.user_login = wp_postmeta.meta_key 
-    WHERE wp_postmeta.meta_key LIKE  %s AND wp_postmeta.meta_value LIKE %s",  $wpdb->esc_like($user_slug) . '%', '%'. $wpdb->esc_like('hide_user')    
+$user_empty_first_character =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->users
+     LEFT JOIN $wpdb->postmeta ON $wpdb->users.user_login = $wpdb->postmeta.meta_key 
+    WHERE $wpdb->postmeta.meta_key LIKE  %s AND $wpdb->postmeta.meta_value LIKE %s",  $wpdb->esc_like($user_slug) . '%', '%'. $wpdb->esc_like('hide_user')    
     ));
 
   if (!empty($user_empty_first_character)) {
@@ -959,17 +957,17 @@ return [];
 
   $user_empty_with_first_character = [];
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$user_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_users
-     LEFT JOIN wp_postmeta ON wp_users.user_login = wp_postmeta.meta_key 
+$user_empty =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->users
+     LEFT JOIN $wpdb->postmeta ON $wpdb->users.user_login = $wpdb->postmeta.meta_key 
          WHERE  
-           wp_postmeta.meta_key LIKE  %s AND wp_postmeta.meta_value LIKE %s",'%' . $wpdb->esc_like($user_slug) . '%', '%'. $wpdb->esc_like('hide_user')  
+           $wpdb->postmeta.meta_key LIKE  %s AND $wpdb->postmeta.meta_value LIKE %s",'%' . $wpdb->esc_like($user_slug) . '%', '%'. $wpdb->esc_like('hide_user')  
          
     ));
 
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$user_empty_first_character =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_users
-     LEFT JOIN wp_postmeta ON wp_users.user_login = wp_postmeta.meta_key 
-    WHERE wp_postmeta.meta_key LIKE  %s AND wp_postmeta.meta_value LIKE %s",  $wpdb->esc_like($user_slug) . '%', '%'. $wpdb->esc_like('hide_user')   
+$user_empty_first_character =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->users
+     LEFT JOIN $wpdb->postmeta ON $wpdb->users.user_login = $wpdb->postmeta.meta_key 
+    WHERE $wpdb->postmeta.meta_key LIKE  %s AND $wpdb->postmeta.meta_value LIKE %s",  $wpdb->esc_like($user_slug) . '%', '%'. $wpdb->esc_like('hide_user')   
     ));
 
   if (!empty($user_empty_first_character)) {
@@ -1079,9 +1077,9 @@ if($search_categories=="1"){
 
 
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$pageposts_1 =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_terms
-   LEFT JOIN wp_term_taxonomy ON wp_terms.term_id = wp_term_taxonomy.term_id      LEFT JOIN wp_postmeta ON wp_terms.term_id = wp_postmeta.meta_key
-   WHERE  ifnull(wp_postmeta.meta_value, '') = '' AND wp_term_taxonomy.taxonomy !='wp_theme' AND wp_term_taxonomy.taxonomy !='product_cat' AND wp_term_taxonomy.taxonomy !='nav_menu' AND wp_term_taxonomy.taxonomy !='product_type' AND wp_term_taxonomy.taxonomy !='product_visibility' AND wp_term_taxonomy.taxonomy NOT LIKE %s AND wp_terms.name LIKE %s || wp_postmeta.meta_value!='11' AND wp_term_taxonomy.taxonomy !='wp_theme' AND wp_term_taxonomy.taxonomy !='product_cat' AND wp_term_taxonomy.taxonomy !='nav_menu' AND wp_term_taxonomy.taxonomy !='product_type' AND wp_term_taxonomy.taxonomy !='product_visibility' AND wp_term_taxonomy.taxonomy NOT LIKE %s AND wp_terms.name LIKE %s", $wpdb->esc_like('pa') . '%','%' . $wpdb->esc_like($category_slug) . '%', $wpdb->esc_like('pa') . '%','%' . $wpdb->esc_like($category_slug) . '%'  
+$pageposts_1 =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
+   LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id      LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
+   WHERE  ifnull($wpdb->postmeta.meta_value, '') = '' AND $wpdb->term_taxonomy.taxonomy !='wp_theme' AND $wpdb->term_taxonomy.taxonomy !='product_cat' AND $wpdb->term_taxonomy.taxonomy !='nav_menu' AND $wpdb->term_taxonomy.taxonomy !='product_type' AND $wpdb->term_taxonomy.taxonomy !='product_visibility' AND $wpdb->term_taxonomy.taxonomy NOT LIKE %s AND $wpdb->terms.name LIKE %s || $wpdb->postmeta.meta_value!='11' AND $wpdb->term_taxonomy.taxonomy !='wp_theme' AND $wpdb->term_taxonomy.taxonomy !='product_cat' AND $wpdb->term_taxonomy.taxonomy !='nav_menu' AND $wpdb->term_taxonomy.taxonomy !='product_type' AND $wpdb->term_taxonomy.taxonomy !='product_visibility' AND $wpdb->term_taxonomy.taxonomy NOT LIKE %s AND $wpdb->terms.name LIKE %s", $wpdb->esc_like('pa') . '%','%' . $wpdb->esc_like($category_slug) . '%', $wpdb->esc_like('pa') . '%','%' . $wpdb->esc_like($category_slug) . '%'  
     ));
      
 return $pageposts_1;

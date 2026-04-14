@@ -34,14 +34,14 @@ if($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_1!='
 ){
     
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND 
-  wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND 
+  $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ",$datepicker_1, $datepicker_1));
 
@@ -53,14 +53,14 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_
 ){
    
     // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE wp_posts.post_password!=''  AND wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password!='' AND 
-  wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE $wpdb->posts.post_password!=''  AND $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
+  $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1, $datepicker_1));
 
@@ -70,12 +70,12 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_
  && $show_products_with_password!="1" && $show_products_without_password ="1"
 ){
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
-   WHERE wp_posts.post_password='' AND wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password='' AND 
-  wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
+   WHERE $wpdb->posts.post_password='' AND $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
+  $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1, $datepicker_1));
 
@@ -87,14 +87,14 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_
 ){
     
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND 
-  wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND 
+  $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_2, $datepicker_2));
 }
@@ -105,14 +105,14 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_
 ){
    
     // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE wp_posts.post_password!='' AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password!='' AND 
-  wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE $wpdb->posts.post_password!='' AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
+  $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ",$datepicker_2, $datepicker_2));
 
@@ -121,12 +121,12 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_
  && $show_products_with_password!="1" && $show_products_without_password ="1"
 ){
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
-   WHERE wp_posts.post_password='' AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password='' AND 
-  wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
+   WHERE $wpdb->posts.post_password='' AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
+  $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ",$datepicker_2,$datepicker_2));
 
@@ -137,14 +137,14 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_
 ){
     
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND 
- wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE  $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND 
+ $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1,$datepicker_2, $datepicker_1,$datepicker_2));
 }
@@ -154,14 +154,14 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" &&$datepicker_1
  && $show_products_with_password="1" && $show_products_without_password !="1"
 ){    
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_password!='' AND  wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password!='' AND 
-  wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE  $wpdb->posts.post_password!='' AND  $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
+  $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1,$datepicker_2, $datepicker_1,$datepicker_2));
 
@@ -170,14 +170,14 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_
  && $show_products_with_password!="1" && $show_products_without_password ="1"
 ){
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_password='' AND  wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password='' AND 
-  wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE  $wpdb->posts.post_password='' AND  $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
+  $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1,$datepicker_2, $datepicker_1,$datepicker_2));
 
@@ -189,14 +189,14 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && empty($datep
 ){
     
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
    WHERE
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND 
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND 
   
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 "));
 }
@@ -206,14 +206,14 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && empty($datep
  && $show_products_with_password="1" && $show_products_without_password !="1"
 ){    
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_password!='' AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password!='' AND 
+   WHERE  $wpdb->posts.post_password!='' AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
  
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 "));
 }
@@ -221,14 +221,14 @@ elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && empty($datep
  && $show_products_with_password!="1" && $show_products_without_password ="1"
 ){
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_password='' AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password='' AND 
+   WHERE  $wpdb->posts.post_password='' AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
  
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 "));
 }
@@ -241,14 +241,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && $datepicker_
 ){
     
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND 
-  wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND 
+  $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ",$datepicker_1,$datepicker_1));
 
@@ -260,14 +260,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && $datepicker_
 ){
    
     // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE wp_posts.post_password!='' AND  wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password!='' AND 
-  wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE $wpdb->posts.post_password!='' AND  $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
+  $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1,$datepicker_1));
 
@@ -277,12 +277,12 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && $datepicker_
  && $show_products_with_password!="1" && $show_products_without_password ="1"
 ){
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
-   WHERE wp_posts.post_password='' AND wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password='' AND 
-  wp_posts.post_date > %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
+   WHERE $wpdb->posts.post_password='' AND $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
+  $wpdb->posts.post_date > %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1,$datepicker_1));
 
@@ -294,14 +294,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && $datepicker_
 ){
     
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND 
-  wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE  $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND 
+  $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_2,$datepicker_2));
 }
@@ -312,14 +312,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && $datepicker_
 ){
    
     // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE wp_posts.post_password!='' AND  wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password!='' AND 
-  wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE $wpdb->posts.post_password!='' AND  $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
+  $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_2,$datepicker_2));
 
@@ -328,12 +328,12 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && $datepicker_
  && $show_products_with_password!="1" && $show_products_without_password ="1"
 ){
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
-   WHERE wp_posts.post_password='' AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password='' AND 
-  wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
+   WHERE $wpdb->posts.post_password='' AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
+  $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_2,$datepicker_2));
 
@@ -344,14 +344,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && $datepicker_
 ){
     
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND 
- wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND 
+ $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1,$datepicker_2, $datepicker_1,$datepicker_2));
 }
@@ -361,14 +361,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && $datepicker_
  && $show_products_with_password="1" && $show_products_without_password !="1"
 ){    
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_password!='' AND wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password!='' AND 
-  wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE  $wpdb->posts.post_password!='' AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
+  $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1,$datepicker_2, $datepicker_1,$datepicker_2));
 
@@ -377,14 +377,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && $datepicker_
  && $show_products_with_password!="1" && $show_products_without_password ="1"
 ){
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_password='' AND wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password='' AND 
-  wp_posts.post_date > %s AND wp_posts.post_date < %s AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   WHERE  $wpdb->posts.post_password='' AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
+  $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", $datepicker_1,$datepicker_2, $datepicker_1,$datepicker_2));
 
@@ -396,14 +396,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && empty($datep
 ){
     
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
    WHERE
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND 
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND 
   
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 "));
 }
@@ -413,14 +413,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && empty($datep
  && $show_products_with_password="1" && $show_products_without_password !="1"
 ){    
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_password!='' AND
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password!='' AND 
+   WHERE  $wpdb->posts.post_password!='' AND
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
  
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 "));
 }
@@ -428,14 +428,14 @@ elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" && empty($datep
  && $show_products_with_password!="1" && $show_products_without_password ="1"
 ){
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
+$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
  
     
-   WHERE  wp_posts.post_password='' AND 
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'  AND wp_posts.post_type = 'product'
-  ||  wp_posts.post_type = 'product_variation' AND wp_posts.post_password='' AND 
+   WHERE  $wpdb->posts.post_password='' AND 
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
+  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
  
-   wp_posts.post_status = 'publish' AND wp_posts.post_type != 'sfp_search_post'
+   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 "));
 }
@@ -448,24 +448,24 @@ $row->price = wc_get_product( $row->ID )->get_price();
 
    }
 //ratings
- $ratings =$wpdb->get_results( $wpdb->prepare("SELECT * FROM wp_posts
+ $ratings =$wpdb->get_results( $wpdb->prepare("SELECT * FROM $wpdb->posts
 
-        LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id)
-    LEFT JOIN wp_term_taxonomy ON (wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id)
-    LEFT JOIN wp_terms ON (wp_term_taxonomy.term_id = wp_terms.term_id) 
-    LEFT JOIN wp_postmeta ON (wp_terms.slug= wp_postmeta.meta_key)
+        LEFT JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id)
+    LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
+    LEFT JOIN $wpdb->terms ON ($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id) 
+    LEFT JOIN $wpdb->postmeta ON ($wpdb->terms.slug= $wpdb->postmeta.meta_key)
      
    
 
  
     WHERE  
-       wp_posts.post_type IN ('product', 'product_variation')  
-     AND wp_postmeta.meta_value = 'woo_ratings51' OR wp_postmeta.meta_value = 'outofstock' AND  wp_posts.post_title  LIKE '%$post_slug%' AND wp_posts.post_type IN ('product', 'product_variation')  
+       $wpdb->posts.post_type IN ('product', 'product_variation')  
+     AND $wpdb->postmeta.meta_value = 'woo_ratings51' OR $wpdb->postmeta.meta_value = 'outofstock' AND  $wpdb->posts.post_title  LIKE '%$post_slug%' AND $wpdb->posts.post_type IN ('product', 'product_variation')  
     "));
-$sku =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
-      LEFT JOIN wp_postmeta ON wp_postmeta.meta_value LIKE CONCAT('%', wp_posts.post_name, '%')
+$sku =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
+      LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_value LIKE CONCAT('%', $wpdb->posts.post_name, '%')
 
-    WHERE meta_key = '_sku' AND meta_value LIKE '%kuhide' AND wp_posts.post_status = 'publish'   AND wp_posts.post_type IN ('product', 'product_variation')
+    WHERE meta_key = '_sku' AND meta_value LIKE '%kuhide' AND $wpdb->posts.post_status = 'publish'   AND $wpdb->posts.post_type IN ('product', 'product_variation')
 "));
  
 
@@ -524,17 +524,17 @@ $sql = $wpdb->prepare(
 $terms_products = $wpdb->get_results( $sql );
 
 //product titles
- $products_titles =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts 
-      LEFT JOIN wp_postmeta ON wp_postmeta.meta_value = wp_posts.post_title
+ $products_titles =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
+      LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_value = $wpdb->posts.post_title
 
-    WHERE  meta_key LIKE '%hidetitleproduct' AND wp_posts.post_status = 'publish'   AND wp_posts.post_type IN ('product', 'product_variation')
+    WHERE  meta_key LIKE '%hidetitleproduct' AND $wpdb->posts.post_status = 'publish'   AND $wpdb->posts.post_type IN ('product', 'product_variation')
 "));
 //users posts
-$users =$wpdb->get_results( $wpdb->prepare("SELECT * from wp_posts
-      LEFT JOIN wp_users ON wp_posts.post_author = wp_users.ID
-      LEFT JOIN wp_postmeta ON wp_users.user_nicename = wp_postmeta.meta_key
+$users =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts
+      LEFT JOIN $wpdb->users ON $wpdb->posts.post_author = $wpdb->users.ID
+      LEFT JOIN $wpdb->postmeta ON $wpdb->users.user_nicename = $wpdb->postmeta.meta_key
     
-    WHERE  meta_value LIKE '%hide_woo_user' AND wp_posts.post_status = 'publish'   AND wp_posts.post_type IN ('product', 'product_variation')
+    WHERE  meta_value LIKE '%hide_woo_user' AND $wpdb->posts.post_status = 'publish'   AND $wpdb->posts.post_type IN ('product', 'product_variation')
 
 
 "));
