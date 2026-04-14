@@ -179,7 +179,7 @@ const url =
   encodeURIComponent(post_id);
 
 jQuery.getJSON(url, function (livesearchposts_1) {
-  console.log(livesearchposts_1);
+
   if (typeof window.milunShowResult === "function") {
     window.milunShowResult(livesearchposts_1);
   }

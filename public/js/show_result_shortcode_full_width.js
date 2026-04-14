@@ -233,8 +233,6 @@ jQuery('.wrapper-data-container-shortcode_full_width-data-posts').animate({
 
 const myText = document.getElementById('no_more_posts_shortcode_full_width');
 
-alert('find_element '+find_element);
-alert('livesearchposts_1.length '+livesearchposts_1.length);
 
 if(find_element == livesearchposts_1.length || find_element> livesearchposts_1.length){
     

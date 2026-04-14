@@ -1,7 +1,6 @@
 jQuery("#datepicker_1").datepicker({
     onSelect: function() { 
         var dateObject = jQuery(this).datepicker('getDate'); 
-        console.log(dateObject);
     }
 });
 

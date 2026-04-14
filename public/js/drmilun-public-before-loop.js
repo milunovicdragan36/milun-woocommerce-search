@@ -181,7 +181,7 @@ const url =
   encodeURIComponent(post_id);
 
 jQuery.getJSON(url, function (livesearchposts_1) {
-  console.log(livesearchposts_1);
+  
   if (typeof window.milunShowResultBeforeLoop === "function") {
     window.milunShowResultBeforeLoop(livesearchposts_1);
   }

@@ -233,9 +233,6 @@ jQuery('.wrapper-data-container-widget_full_width-data-posts').animate({
 
 const myText = document.getElementById('no_more_posts_widget_full_width');
 
-alert('find_element '+find_element);
-alert('livesearchposts_1.length '+livesearchposts_1.length);
-
 if(find_element == livesearchposts_1.length || find_element> livesearchposts_1.length){
     
 const myInsertText = '<div class="red_color_no_more_posts_widget_full_width">No more posts !</div>';
