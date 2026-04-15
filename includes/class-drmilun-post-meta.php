@@ -2805,7 +2805,8 @@ if($category->name!="" && $category->slug!="uncategorized"){
   }
 }?>          
     <div class="woo_category"></div> 
-    <div class="woo_category_empty"></div> 
+    <div class="woo_category_empty"></div>
+    <div class="no_woo_categories"></div>
 </div>
 <?php
  $standard_form = esc_attr(get_post_meta( get_the_ID(),"standard_form", true));
@@ -3100,7 +3101,8 @@ foreach ($results as $result) {
 ?>
 
      <div class='results-<?php echo $value->attribute_name; ?>'>
-     
+    <div class='no_terms'></div>
+
   </div>   
 <?php
 }
@@ -3166,7 +3168,9 @@ $double_woo_rated = get_post_meta(get_the_ID(), $va,'woo_ratings51');
 }?>          
     <div class="visibility_of_product"></div> 
     <div class="visibility_of_product_empty"></div>  
-    <?php
+    <div class="no_visibility_of_products"></div>  
+
+<?php
 }
              
 
@@ -3208,8 +3212,9 @@ $double_woo_user = get_post_meta(get_the_ID(), $term->meta_value,$term->meta_val
       }   
       ?>          
     <div class="woo_user"></div> 
-    <div class="woo_user_empty"></div>    
-   
+    <div class="woo_user_empty"></div>
+    <div class="no_woo_users"></div>    
+    
 </div>
   </div> 
      
@@ -3293,7 +3298,7 @@ foreach ($values as $v) {
         ?>
         <div class="sku_results"></div>
 <div class="sku_results_empty"></div>  
- 
+ <div class="no_skus"></div>  
 </div>
      
     </div>  
