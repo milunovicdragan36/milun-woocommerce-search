@@ -432,7 +432,6 @@ if(empty_categories.length != 0){
   item.name
 +
   `</div>`).join("");
-console.log(result_2);
              document.getElementsByClassName('category_empty')[0].innerHTML =result_2;
      
      
@@ -642,15 +641,13 @@ this.template_no_terms =`
 
 
    } 
-console.log(liveSearchDataCategories[1].root_url+'namespacewoo/v10/term_empty/'+term+'/'+ customSearchBox);
 
     jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v10/terms/'+term+'/'+customSearchBox,function(livesearchproducts_1){
    jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v10/term_empty/'+term+'/'+ customSearchBox,function(livesearchproducts_empty){
 
 
 
-console.log(livesearchproducts_1);
-console.log(livesearchproducts_empty);
+
 
   //   let unique_1 = [...new Map(livesearchproducts_1.map((m) => [m.term_id, m])).values()];
 
@@ -691,11 +688,7 @@ console.log(result_2);
   document.getElementsByClassName('results-'+term)[0].innerHTML =result_2;
 }
          
-if(livesearchproducts_1.length == 0  && livesearchproducts_empty.length == 0){
-jQuery('.no_terms').css("display",'block');
-                     document.getElementsByClassName('no_skus')[0].innerHTML =liveSearchDataCategories[0].no_search_results;
-
-}  
+ 
 return;
 });
  });

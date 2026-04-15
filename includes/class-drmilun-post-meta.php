@@ -2700,8 +2700,117 @@ $sanitized_checkbox_search_form_before_loop= $search_form_before_loop==1? $this-
 <p>
       <label style="font-size:15px;"><input type="checkbox" value="1" name="search_form_before_loop" <?php checked(esc_attr($sanitized_checkbox_search_form_before_loop), 1 ); ?>><?php esc_html_e("Display search form before loop","milun-search"); ?></label>
  </p>
+  <h4><?php _e("Choose how to display the search form:",'milun-search') ?></h4>
+
  <?php
-        //Display how many of posts is in a current category
+ 
+
+   $full_width_form = esc_attr(get_post_meta( get_the_ID(),"full_width_form", true));
+
+
+   $sanitized_checkbox_full_width_form = $full_width_form ==1? $this->dmsfp_prefix_sanitize_input($full_width_form, 1): '';
+   
+    $pop_up_form = esc_attr(get_post_meta( get_the_ID(),"pop_up_form", true));
+
+
+   $sanitized_checkbox_pop_up_form = $pop_up_form ==1? $this->dmsfp_prefix_sanitize_input($pop_up_form, 1): '';
+ 
+   ?>
+
+ <p>
+      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="full_width_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_full_width_form), 1 ); ?>><?php esc_html_e("Full width form","milun-search"); ?></label>
+ </p>
+ <p>
+      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="pop_up_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_pop_up_form), 1 ); ?>><?php esc_html_e("Pop up form","milun-search"); ?></label>
+ </p>
+<?php
+
+ //Display how many of posts is in a current category
+
+   $search_by_woo_title = esc_attr(get_post_meta( get_the_ID(),"search_by_woo_title", true));
+
+
+   $sanitized_checkbox_search_by_woo_title = $search_by_woo_title ==1? $this->dmsfp_prefix_sanitize_input($search_by_woo_title, 1): ''; 
+
+   $search_by_woo_content = esc_attr(get_post_meta( get_the_ID(),"search_by_woo_content", true));
+
+
+   $sanitized_checkbox_search_by_woo_content = $search_by_woo_content ==1? $this->dmsfp_prefix_sanitize_input($search_by_woo_content, 1): '';      
+?>
+   <h4><?php _e("Choose how you want to search:",'milun-search') ?></h4>
+
+
+<p>
+      <label style="font-size:15px;"><input class="cb" onchange="cbChange(this)" type="checkbox" id="search_by_woo_title" name="search_by_woo_title" value="1"  <?php checked(esc_attr($sanitized_checkbox_search_by_woo_title), 1 ); ?>><?php esc_html_e("Search by title","milun-search"); ?></label>
+ </p>
+   
+
+ 
+</p>
+
+<p>
+      <label><input class="cb" onchange="cbChange(this)" type="checkbox" id="search_by_woo_content" name="search_by_woo_content" value="1"  <?php checked(esc_attr($sanitized_checkbox_search_by_woo_content), 1 ); ?>><?php _e("Search by content","searching-for-posts"); ?></label>
+ </p>
+ 
+   
+
+ 
+   
+<p>
+  <?php  
+
+  $id =get_the_ID();?>
+
+
+<?php
+ //Number of posts that will be showing during searching
+      $search_post_id_woo =  esc_attr(get_post_meta( get_the_ID(), 'search_post_id_woo', true ));
+     
+?>
+<input  type="hidden" id="search_post_id_woo" name="search_post_id_woo" value="<?php echo $search_post_id_woo; ?>"> 
+<?php
+ //Number of posts that will be showing during searching
+      $numberofpostswoo =  esc_attr(get_post_meta( get_the_ID(), 'numberofpostswoo', true ));
+     
+?>
+
+ <p>
+      <label for="numberofpostswoo"><?php _e('Select number of products (between 1 and 15) to show: ','milun-search'); ?></label>
+      <input type="number" id="numberofpostswoo" name="numberofpostswoo" 
+            value="<?php echo esc_attr(@$numberofpostswoo); ?>" 
+           min="1" max="15">
+</p>
+ <br>
+ <?php
+   global $wpdb;
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
+//$meta_value_word = $wpdb->get_results("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key ='numberofwordsinposts' AND meta_value !=''");
+$numberofwordsinposts =  esc_attr(get_post_meta( get_the_ID(), 'numberofwordsinposts', true ));
+
+?>
+<p>
+      <label style="font-size:15px;"><input type="number" id="numberofwordsinposts" name="numberofwordsinposts" min="7" max="30" value="<?php echo esc_attr(@$numberofwordsinposts); ?>" 
+><?php esc_html_e("Number of words to show in posts","milun-search"); ?></label>
+ </p>            
+
+  <?php 
+  
+
+      $custom = get_post_meta( esc_attr($post->ID) );
+
+
+
+    $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';
+?>
+  <label for="color_of_background"><?php _e('Color for background of posts: ','searching-for-posts'); ?></label>
+
+          <input id="color_of_background" class="background_color_of_article" type="text" name="color_of_background" value="<?php esc_attr_e( $color_of_background ); ?>"/>
+  <br>
+  <br>
+ 
+
+<?php
+       //Display how many of posts is in a current category
    $search_categories_woo = esc_attr(get_post_meta( get_the_ID(),"search_categories_woo", true));
 
 
@@ -2776,12 +2885,7 @@ $operator = 'and'; // 'and' or 'or'
                          
 
                   ));
-     
-        
-    
-      
-
-     
+       
 
  global $wpdb;            
 
@@ -2809,119 +2913,6 @@ if($category->name!="" && $category->slug!="uncategorized"){
     <div class="no_woo_categories"></div>
 </div>
 <?php
- $standard_form = esc_attr(get_post_meta( get_the_ID(),"standard_form", true));
-
-
-   $sanitized_checkbox_standard_form = $standard_form ==1? $this->dmsfp_prefix_sanitize_input($standard_form, 1): ''; 
-
-   $full_width_form = esc_attr(get_post_meta( get_the_ID(),"full_width_form", true));
-
-
-   $sanitized_checkbox_full_width_form = $full_width_form ==1? $this->dmsfp_prefix_sanitize_input($full_width_form, 1): '';
-   
-    $pop_up_form = esc_attr(get_post_meta( get_the_ID(),"pop_up_form", true));
-
-
-   $sanitized_checkbox_pop_up_form = $pop_up_form ==1? $this->dmsfp_prefix_sanitize_input($pop_up_form, 1): '';
- 
-   ?>
-<p>
-      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" value="1" name="standard_form" <?php checked(esc_attr($sanitized_checkbox_standard_form), 1 ); ?>><?php esc_html_e("Standard form","milun-search"); ?></label>
- </p>
- <p>
-      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="full_width_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_full_width_form), 1 ); ?>><?php esc_html_e("Full width form","milun-search"); ?></label>
- </p>
- <p>
-      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="pop_up_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_pop_up_form), 1 ); ?>><?php esc_html_e("Pop up form","milun-search"); ?></label>
- </p>
-<?php
-
- //Display how many of posts is in a current category
-
-   $search_by_woo_title = esc_attr(get_post_meta( get_the_ID(),"search_by_woo_title", true));
-
-
-   $sanitized_checkbox_search_by_woo_title = $search_by_woo_title ==1? $this->dmsfp_prefix_sanitize_input($search_by_woo_title, 1): ''; 
-
-   $search_by_woo_content = esc_attr(get_post_meta( get_the_ID(),"search_by_woo_content", true));
-
-
-   $sanitized_checkbox_search_by_woo_content = $search_by_woo_content ==1? $this->dmsfp_prefix_sanitize_input($search_by_woo_content, 1): '';      
-?>
-   <h3><?php _e("Check option you want to search by",'milun-search') ?></h3>
-
-
-<p>
-      <label style="font-size:15px;"><input class="cb" onchange="cbChange(this)" type="checkbox" id="search_by_woo_title" name="search_by_woo_title" value="1"  <?php checked(esc_attr($sanitized_checkbox_search_by_woo_title), 1 ); ?>><?php esc_html_e("Search by title","milun-search"); ?></label>
- </p>
-   
-
- 
-</p>
-
-<p>
-      <label><input class="cb" onchange="cbChange(this)" type="checkbox" id="search_by_woo_content" name="search_by_woo_content" value="1"  <?php checked(esc_attr($sanitized_checkbox_search_by_woo_content), 1 ); ?>><?php _e("Search by content","searching-for-posts"); ?></label>
- </p>
- 
-   
-
- 
-   
-<p>
-  <?php  
-
-  $id =get_the_ID();?>
-
-
-<?php
- //Number of posts that will be showing during searching
-      $search_post_id_woo =  esc_attr(get_post_meta( get_the_ID(), 'search_post_id_woo', true ));
-     
-?>
-<input  type="hidden" id="search_post_id_woo" name="search_post_id_woo" value="<?php echo $search_post_id_woo; ?>"> 
-<?php
- //Number of posts that will be showing during searching
-      $numberofpostswoo =  esc_attr(get_post_meta( get_the_ID(), 'numberofpostswoo', true ));
-     
-?>
-
- <p>
-      <label for="numberofpostswoo"><?php _e('Select number of products (between 1 and 15) to show: ','milun-search'); ?></label>
-      <input type="number" id="numberofpostswoo" name="numberofpostswoo" 
-            value="<?php echo esc_attr(@$numberofpostswoo); ?>" 
-           min="1" max="15">
-</p>
- <br>
- <?php
-   global $wpdb;
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-//$meta_value_word = $wpdb->get_results("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key ='numberofwordsinposts' AND meta_value !=''");
-$numberofwordsinposts =  esc_attr(get_post_meta( get_the_ID(), 'numberofwordsinposts', true ));
-
-?>
-<p>
-      <label style="font-size:15px;"><input type="number" id="numberofwordsinposts" name="numberofwordsinposts" min="7" max="30" value="<?php echo esc_attr(@$numberofwordsinposts); ?>" 
-><?php esc_html_e("Number of words to show in posts","milun-search"); ?></label>
- </p>            
-
-  <?php 
-  
-
-      $custom = get_post_meta( esc_attr($post->ID) );
-
-
-
-    $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';
-?>
-  <label for="color_of_background"><?php _e('Color for background of posts: ','searching-for-posts'); ?></label>
-
-          <input id="color_of_background" class="background_color_of_article" type="text" name="color_of_background" value="<?php esc_attr_e( $color_of_background ); ?>"/>
-  <br>
-  <br>
- 
-
-<?php
-
 
    
 
@@ -2929,7 +2920,7 @@ $numberofwordsinposts =  esc_attr(get_post_meta( get_the_ID(), 'numberofwordsinp
 $datepicker_1 = ( isset( $custom['datepicker_1'.get_the_ID()][0] ) ) ? $custom['datepicker_1'.get_the_ID()][0] : '';
 $datepicker_2 = ( isset( $custom['datepicker_2'.get_the_ID()][0] ) ) ? $custom['datepicker_2'.get_the_ID()][0] : '';    
 ?> 
-<h5><?php esc_html_e("Date range of posts.",'milun-search') ?></h5>
+<h4><?php esc_html_e("Date range of posts.",'milun-search') ?></h4>
 <p style="font-size: 15px;"><?php esc_html_e("Start Date: ",'milun-search'); ?> <input type="text" name='datepicker_1' id="datepicker_1" value="<?php echo esc_attr($datepicker_1); ?>"></p>
 <p style="font-size: 15px;"><?php esc_html_e("End Date: ",'milun-search'); ?> <input type="text" name='datepicker_2' id="datepicker_2" value="<?php echo esc_attr($datepicker_2); ?>"></p>
 
@@ -3017,43 +3008,16 @@ foreach ($attributes as $attribute) {
 
    
     foreach( wc_get_attribute_taxonomies() as $value){
- //foreach($value as $val){
 
 $visibility = trim($value->attribute_name,"pa_");
-//print_r($value->attribute_name); 
-/*
- $terms =get_post_meta( get_the_ID(), 'name_term_id_'.$value[0]->term_id, true );
 
-$terms_checkbox = $terms ==1? $this->dmsfp_prefix_sanitize_input($terms, 1): '';   
 
- 
-         ?>                     
-        <input type="checkbox" name="name_term_id_<?php echo $value[0]->term_id; ?>" class="class_term_id_<?php echo $value[0]->term_id; ?>" value="1"  <?php checked(esc_attr($terms_checkbox),1 ); ?>>
-       
-<?php
- $terms =get_post_meta( get_the_ID(), 'name_term_value_'.$value->taxonomy, $value[0]->taxonomy );
-//$terms_checkbox = $terms ==1? $this->dmsfp_prefix_sanitize_input($terms, 1): '';   
-
- 
-         ?>                     
-
-        <input type="hidden" name="name_term_value_<?php echo $value->taxonomy; ?>" value="<?php echo $value[0]->taxonomy; ?>">
-<?php
-*/ 
-//print_r($value->attribute_name);       
-//$visibility = trim($value->taxonomy,"pa_");
-  //   echo "Show ". trim($value->taxonomy,"pa_");  
-  //Display how many of posts is in a current category
 ?>
-
-
-
-
-
   
-  
-    
     <div id='parent-element'>
+         
+  <h4><?php _e("Click on term you want to exclude",'milun-search') ?></h4>
+
      <input type="text" id="term-<?php echo $value->attribute_name; ?>"  class="term" placeholder="Search <?php echo $value->attribute_name; ?>"/>
     <input type='hidden' id="myterm-<?php echo $value->attribute_name; ?>" value='<?php echo $value->attribute_name; ?>'/>
     </div> 
@@ -3077,8 +3041,7 @@ $results =$val;
 if(is_string($results)|| is_int($results)){
 
 }else{
-    
-    
+
 global $wpdb;
 
 foreach ($results as $result) {
@@ -3087,6 +3050,7 @@ foreach ($results as $result) {
   
 
   ?>
+  
   <div class='terms-<?php echo $value->attribute_name; ?>'>                              
   <div <?php echo $double_term_woo_name =="woo_term"? "style='background-color:pink; color:grey;'":"'style='background-color:white; color:grey;'"; ?>onclick='myWooFunctionName(<?php  echo $result->term_id.", ". '"'.$result->slug.'"'.", ".'  "'.$value->attribute_name.'"'; ?>); '><?php echo $result->name; ?></div>
 </div>
@@ -3109,7 +3073,7 @@ foreach ($results as $result) {
  ?>
  
 
- <h5><?php _e("Click on term you want to exclude",'milun-search') ?></h5>
+ <h4><?php _e("Click on term you want to exclude",'milun-search') ?></h4>
      <input type="text" class="search-visibility_of_product" placeholder="Search ratings"/>
            <div class="admin-container">        
  
@@ -3734,32 +3698,21 @@ if(isset($_POST[ 'datepicker_1' ]) && sanitize_text_field(wp_unslash($_POST[ 'da
 } else {
     update_post_meta( $post_id,  'datepicker_1'.esc_attr($post_id), false );
 }
-/*
-if(isset($_POST[ 'standard_form' ]))  // && sanitize_text_field(wp_unslash($_POST['search_by_woo_title']))) {
-    {
-    update_post_meta( $post_id, 'standard_form', 1);
-    
-  
-}  else {
-    update_post_meta( $post_id, 'standard_form', 1 );
-}
-*/
-if(isset($_POST[ 'standard_form' ]) && sanitize_text_field(wp_unslash($_POST['standard_form']))) {
-          delete_post_meta( $post_id, 'full_width_form' );
-           delete_post_meta( $post_id, 'pop_up_form' );
-           update_post_meta( $post_id, 'standard_form', 1);
 
-} 
+
 if(isset($_POST[ 'full_width_form' ]) && sanitize_text_field(wp_unslash($_POST['full_width_form']))) {
-           delete_post_meta( $post_id, 'standard_form' );
+          
            delete_post_meta( $post_id, 'pop_up_form' );
            update_post_meta( $post_id, 'full_width_form', 1);
 
 } 
-if(isset($_POST[ 'pop_up_form' ]) && sanitize_text_field(wp_unslash($_POST['pop_up_form']))) {
-           delete_post_meta( $post_id, 'standard_form' );
+else if(isset($_POST[ 'pop_up_form' ]) && sanitize_text_field(wp_unslash($_POST['pop_up_form']))) {
+           
            delete_post_meta( $post_id, 'full_width_form' );
            update_post_meta( $post_id, 'pop_up_form', 1);
+
+}else{
+               update_post_meta( $post_id, 'full_width_form', 1);
 
 } 
 
