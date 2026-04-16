@@ -59,9 +59,9 @@ wp_enqueue_script( 'jquery-1.12.4', plugin_dir_url( __FILE__ ) . '../admin/js/jq
 	  // Localize the script with new data
 
  $translation_array_for_categories = array(
-	    'search_results' => __( 'Search Results', 'searching-for-posts' ),
-	    'not_found_data' =>  __( 'We could not find any categories for your search. You can give it another try with different criteria.', 'searching-for-posts' ),
-	    'no_search_results' => __( 'We could not find any data for your search.', 'searching-for-posts' )
+	    'search_results' => __( 'Search Results', 'milun-woo-search' ),
+	    'not_found_data' =>  __( 'We could not find any categories for your search. You can give it another try with different criteria.', 'milun-woo-search' ),
+	    'no_search_results' => __( 'We could not find any data for your search.', 'milun-woo-search' )
 	 );
 
 	 

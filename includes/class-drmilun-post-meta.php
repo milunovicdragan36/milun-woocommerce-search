@@ -811,11 +811,11 @@ function namespace_get_search_args_two_words() {
     $args = [];
     $sen = [];
     $args['s'] = [
-       'description' => esc_html__( 'The search term.', 'namespace' ),
+       'description' => esc_html__( 'The search term.', 'milun-woo-search' ),
        'type'        => 'string',
    ];
    $sen['se'] = [
-       'description' => esc_html__( 'The search term.', 'namespace' ),
+       'description' => esc_html__( 'The search term.', 'milun-woo-search' ),
        'type'        => 'string',
    ];
    return array([$args,$sen]);
@@ -2575,8 +2575,8 @@ public function dmsfp_prefix_sanitize_input( $input, $expected_value="yes" ) {
 public function dmsfp_get_searching_criteria() { 
     return array(
 
-            'posts'   => __( 'Search Posts', 'searching-for-posts' ),
-            'categories'    => __( 'Search Categories', 'searching-for-posts' )
+            'posts'   => __( 'Search Posts', 'milun-woo-search' ),
+            'categories'    => __( 'Search Categories', 'milun-woo-search' )
         );
 }
 
@@ -2749,7 +2749,7 @@ $sanitized_checkbox_search_form_before_loop= $search_form_before_loop==1? $this-
 </p>
 
 <p>
-      <label><input class="cb" onchange="cbChange(this)" type="checkbox" id="search_by_woo_content" name="search_by_woo_content" value="1"  <?php checked(esc_attr($sanitized_checkbox_search_by_woo_content), 1 ); ?>><?php _e("Search by content","searching-for-posts"); ?></label>
+      <label><input class="cb" onchange="cbChange(this)" type="checkbox" id="search_by_woo_content" name="search_by_woo_content" value="1"  <?php checked(esc_attr($sanitized_checkbox_search_by_woo_content), 1 ); ?>><?php _e("Search by content","milun-woo-search"); ?></label>
  </p>
  
    
@@ -2802,7 +2802,7 @@ $numberofwordsinposts =  esc_attr(get_post_meta( get_the_ID(), 'numberofwordsinp
 
     $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';
 ?>
-  <label for="color_of_background"><?php _e('Color for background of posts: ','searching-for-posts'); ?></label>
+  <label for="color_of_background"><?php _e('Color for background of posts: ','milun-woo-search'); ?></label>
 
           <input id="color_of_background" class="background_color_of_article" type="text" name="color_of_background" value="<?php esc_attr_e( $color_of_background ); ?>"/>
   <br>
@@ -2817,7 +2817,7 @@ $numberofwordsinposts =  esc_attr(get_post_meta( get_the_ID(), 'numberofwordsinp
    $sanitized_checkbox_category_count_2 = $search_categories_woo ==1? $this->dmsfp_prefix_sanitize_input($search_categories_woo, 1): '';
     ?>
     <p>
-      <label><input type="checkbox" id="search_categories_woo" name="search_categories_woo" value="1"  <?php checked(esc_attr($sanitized_checkbox_category_count_2), 1 ); ?>/><?php _e("Check to search categories","searching-for-posts"); ?></label>
+      <label><input type="checkbox" id="search_categories_woo" name="search_categories_woo" value="1"  <?php checked(esc_attr($sanitized_checkbox_category_count_2), 1 ); ?>/><?php _e("Check to search categories","milun-woo-search"); ?></label>
  </p>
  <h4><?php _e("Click on category you want to exclude",'milun-woo-search') ?></h4>
   <input type="text" class="search-woo_categories" placeholder="Search categories"/>
@@ -3282,7 +3282,7 @@ $title =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts
 ?>
 <form>
   <div>
-   <h4><?php _e("Click on the title of the product you want to exclude.",'searching-for-posts') ?></h4>
+   <h4><?php _e("Click on the title of the product you want to exclude.",'milun-woo-search') ?></h4>
    <input type="text" class="search-title_of_product" placeholder="Search the title of the product">
 <div class="terms-container">
          <div class="admin-container">        
