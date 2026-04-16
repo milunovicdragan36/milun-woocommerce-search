@@ -17,7 +17,7 @@ $datepicker_2 = ( isset( $custom['datepicker_2'.$request['id']][0] ) ) ? $custom
   //Display how many of posts is in a current category
    $show_products_without_password = esc_attr(get_post_meta( $request['id'],"show_products_without_password", true));
    //Display how many of posts is in a current category
- //return  "show_products_with_and_without_password - ".$show_products_with_and_without_password. "show_products_with_password ".$show_products_with_password
+ //return "datepicker_1 ".$datepicker_1 ." datepicker_2 ".$datepicker_2."show_products_with_and_without_password - ".$show_products_with_and_without_password. "show_products_with_password ".$show_products_with_password
  //."show_products_without_password ".$show_products_without_password;
  $search_by_woo_title = esc_attr(get_post_meta( $request['id'],"search_by_woo_title", true));
 
@@ -44,6 +44,7 @@ $files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts
    $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
    
 ", '%' . $wpdb->esc_like($post_slug) . '%',$datepicker_1, '%' . $wpdb->esc_like($post_slug) . '%',$datepicker_1));
+
 }
   
 

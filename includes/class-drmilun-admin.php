@@ -21,6 +21,11 @@ class MMSDD_Drmilun_Admin {
 	
 
 	wp_enqueue_style( 'admin-css', $url, array(), '1.0' );
+
+	$ui = plugins_url( '../admin/css/jquery-ui.css', __FILE__ );
+	
+
+	wp_enqueue_style( 'ui-css', $ui, array(), '1.0' );
 }
 
 	/**

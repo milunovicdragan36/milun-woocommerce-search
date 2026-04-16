@@ -5,6 +5,10 @@ jQuery("#datepicker_1").datepicker({
         dateFormat: "yy-mm-dd",
         showOn: "button",               
         buttonText: "Calendar",
+
+         onSelect: function(dateText) {
+        jQuery(this).val(dateText + " 00:00:00");
+    },
         beforeShow: function(ele, obj){
 
             // Current value
@@ -30,6 +34,9 @@ jQuery("#datepicker_2").datepicker({
         dateFormat: "yy-mm-dd",
         showOn: "button",               
         buttonText: "Calendar",
+        onSelect: function(dateText) {
+        jQuery(this).val(dateText + " 23:59:59");
+    },
         beforeShow: function(ele, obj){
 
             // Current value
