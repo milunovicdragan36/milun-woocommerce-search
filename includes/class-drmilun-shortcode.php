@@ -194,7 +194,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
                       tabindex="0"></span>
                         <input type="text"
                                class="search-term-before-loop" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
                     </div>
 
         <div class="wrapper-data-container-before-loop-data-posts">
@@ -212,7 +212,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
 
         <span class="dashicons dashicons-search"
               id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
               role="button"
               tabindex="0"></span>
     ';
@@ -230,7 +230,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
     <div class="before_loop_full_width">
     <span class="dashicons dashicons-search"
           id="open-before-loop_full_width"
-          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
           role="button"
           tabindex="0"></span>
 
@@ -246,7 +246,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
             <input type="text"
                    class="search-term-before_loop_full_width"
                    style="border: 1px solid #000000;"
-                   placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                   placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
         </div>
 
         <div class="wrapper-data-container-before_loop_full_width-data-posts">
@@ -359,7 +359,7 @@ foreach ( $post_types_3  as $post_type ) {
 </p>
 
 <p style="display: none;">
-      <label><input type="checkbox" id="search_categories" name="search_categories"  <?php checked(esc_attr($sanitized_checkbox_category_count_2), 1 ); ?>/><?php esc_html_e("Search Categories and Tags","milun-search"); ?></label>
+      <label><input type="checkbox" id="search_categories" name="search_categories"  <?php checked(esc_attr($sanitized_checkbox_category_count_2), 1 ); ?>/><?php esc_html_e("Search Categories and Tags","milun-woo-search"); ?></label>
  </p>
 
 
@@ -600,7 +600,7 @@ if (
                       tabindex="0"></span>
                         <input type="text"
                                class="search-term-menu" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
                     </div>
 
         <div class="wrapper-data-container-menu-data-posts">
@@ -618,7 +618,7 @@ if (
 
         <span class="dashicons dashicons-search"
               id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
               role="button"
               tabindex="0"></span>
     ';
@@ -655,7 +655,7 @@ $popup = '
                       tabindex="0"></span>
                         <input type="text"
                                class="search-term-menu" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
                     </div>
 
         <div class="wrapper-data-container-menu-data-posts">
@@ -673,7 +673,7 @@ $popup = '
 
         <span class="dashicons dashicons-search"
               id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
               role="button"
               tabindex="0"></span>
     ';
@@ -786,7 +786,7 @@ foreach ($posts as $post) {
                       tabindex="0"></span>
                         <input type="text"
                                class="search-term-before-loop" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
                     </div>
 
         <div class="wrapper-data-container-before-loop-data-posts">
@@ -804,7 +804,7 @@ foreach ($posts as $post) {
 
         <span class="dashicons dashicons-search"
               id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
               role="button"
               tabindex="0"></span>
     ';
@@ -830,7 +830,7 @@ $shortcode_full_width  = '
 
                 <input type="text"
                        class="search-term-shortcode_full_width"
-                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                       placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
             </div>
 
             <div class="wrapper-data-container-shortcode_full_width-data-posts">
@@ -845,7 +845,7 @@ $shortcode_full_width  = '
 
     <span class="dashicons dashicons-search"
               id="open-shortcode_full_width"
-          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
           role="button"
           tabindex="0"></span>
 ';

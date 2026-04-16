@@ -20,7 +20,7 @@ class MMSDD_Drmilun_i18n {
 	public function dmsfp_load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'milun-search',
+			'milun-woo-search',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

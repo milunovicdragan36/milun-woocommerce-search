@@ -67,7 +67,7 @@ class MMSDD_Drmilun {
 		} else {
 			$this->version = '1.0.1';
 		}
-		$this->dmsfp_milun_search = 'milun-search';
+		$this->dmsfp_milun_search = 'milun-woo-search';
 
 		$this->dmsfp_load_dependencies();
 		$this->dmsfp_set_locale();

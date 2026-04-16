@@ -11,15 +11,15 @@
  * @package           MMSDD_Milun_Search
  *
  * @wordpress-plugin
- * Plugin Name:       Milun Woo Search
- * Plugin URI:        https://wordpress.org/plugins/milun-search/
+ * Plugin Name:       Milun Woocommerce Search
+ * Plugin URI:        
  * Description:       This is the plugin for searching categories, posts and products by different serching criteria
  * Version:           1.0.0
  * Author:            Dragan Milunovic
  * Author URI:        
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       milun-search
+ * Text Domain:       milun-woo-search
  * Domain Path:       /languages
  */
  

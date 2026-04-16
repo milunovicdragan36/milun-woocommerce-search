@@ -140,7 +140,7 @@ public function sfp_add_meta_boxes() {
   
 
     // meta boxes for adding different criteria for searching
-   add_meta_box( 'prfx_meta_form_woo', __( 'Woo Search Form', 'milun-search' ), [$this,'dmsfp_woo_add_meta_callback_form'], 'sfp_search_post', 'normal', 'default'
+   add_meta_box( 'prfx_meta_form_woo', __( 'Woo Search Form', 'milun-woo-search' ), [$this,'dmsfp_woo_add_meta_callback_form'], 'sfp_search_post', 'normal', 'default'
  );
 
  
@@ -2611,7 +2611,7 @@ if($locations){
  <p>
       <label style="font-size:15px;"><input type="checkbox" class="cb searchposts_in_title_after_<?php echo esc_attr($key); ?>" onchange="cbChange(this)"  name="searchposts_in_title_after_<?php echo esc_attr($key); ?>" value="1"  <?php checked(esc_attr($sanitized_checkbox_menu_after), 1 ); ?>/><?php 
     /* translators: Display search form in menu. */
- esc_html_e("Display search form after menu ", 'milun-search'); echo esc_attr($key);
+ esc_html_e("Display search form after menu ", 'milun-woo-search'); echo esc_attr($key);
 
   ?></label>
  </p>
@@ -2619,7 +2619,7 @@ if($locations){
  if($searchposts_in_title_after==1){
     ?>
 <p style="margin-left: 10px;">
-      <label style="font-size:15px;"><input type="checkbox" class="cb remove_searchposts_in_title_after_<?php echo esc_attr($key); ?>" onchange="cbChange(this)" /><?php esc_html_e("Remove search form after menu ","milun-search"); 
+      <label style="font-size:15px;"><input type="checkbox" class="cb remove_searchposts_in_title_after_<?php echo esc_attr($key); ?>" onchange="cbChange(this)" /><?php esc_html_e("Remove search form after menu ","milun-woo-search"); 
      echo esc_attr($key);
   ?></label>
  </p>
@@ -2630,7 +2630,7 @@ if($locations){
    <p>
       <label style="font-size:15px;"><input type="checkbox" class="cb searchposts_in_title_before" onchange="cbChange(this)"  name="searchposts_in_title_before_<?php echo esc_attr($key); ?>" value="1"  <?php checked(esc_attr($sanitized_checkbox_menu_before), 1 ); ?>/><?php 
     /* translators: Display search form in menu. */
- esc_html_e("Display search form before menu ", 'milun-search'); echo esc_attr($key);
+ esc_html_e("Display search form before menu ", 'milun-woo-search'); echo esc_attr($key);
 
   ?></label>
  </p>
@@ -2639,7 +2639,7 @@ if($locations){
 if($searchposts_in_title_before==1 ){
     ?>
 <p style="margin-left: 10px;">
-      <label style="font-size:15px;"><input type="checkbox" class="cb remove_searchposts_in_title_before_<?php echo esc_attr($key); ?>" onchange="cbChange(this)" /><?php esc_html_e("Remove search form before menu ","milun-search"); 
+      <label style="font-size:15px;"><input type="checkbox" class="cb remove_searchposts_in_title_before_<?php echo esc_attr($key); ?>" onchange="cbChange(this)" /><?php esc_html_e("Remove search form before menu ","milun-woo-search"); 
      echo esc_attr($key);
   ?></label>
  </p>
@@ -2676,7 +2676,7 @@ $menu = $wpdb->get_results("SELECT meta_value FROM $wpdb->postmeta WHERE meta_ke
 
    foreach ($nav_menus as $nav_menu) :
 if($nav_menu->term_id==@$menu[0]->meta_value){
- ?><p class="WooSelectedPodMenu"><?php esc_html_e( 'Search form is going appear to appear in this menu:','milun-search' ); ?>
+ ?><p class="WooSelectedPodMenu"><?php esc_html_e( 'Search form is going appear to appear in this menu:','milun-woo-search' ); ?>
    <?php esc_attr($nav_menu->name); ?> 
     <?php
          }   endforeach;
@@ -2698,9 +2698,9 @@ $sanitized_checkbox_search_form_before_loop= $search_form_before_loop==1? $this-
  ?>
    
 <p>
-      <label style="font-size:15px;"><input type="checkbox" value="1" name="search_form_before_loop" <?php checked(esc_attr($sanitized_checkbox_search_form_before_loop), 1 ); ?>><?php esc_html_e("Display search form before loop","milun-search"); ?></label>
+      <label style="font-size:15px;"><input type="checkbox" value="1" name="search_form_before_loop" <?php checked(esc_attr($sanitized_checkbox_search_form_before_loop), 1 ); ?>><?php esc_html_e("Display search form before loop","milun-woo-search"); ?></label>
  </p>
-  <h4><?php _e("Choose how to display the search form:",'milun-search') ?></h4>
+  <h4><?php _e("Choose how to display the search form:",'milun-woo-search') ?></h4>
 
  <?php
  
@@ -2718,10 +2718,10 @@ $sanitized_checkbox_search_form_before_loop= $search_form_before_loop==1? $this-
    ?>
 
  <p>
-      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="full_width_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_full_width_form), 1 ); ?>><?php esc_html_e("Full width form","milun-search"); ?></label>
+      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="full_width_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_full_width_form), 1 ); ?>><?php esc_html_e("Full width form","milun-woo-search"); ?></label>
  </p>
  <p>
-      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="pop_up_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_pop_up_form), 1 ); ?>><?php esc_html_e("Pop up form","milun-search"); ?></label>
+      <label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="pop_up_form" value="1"  <?php checked(esc_attr($sanitized_checkbox_pop_up_form), 1 ); ?>><?php esc_html_e("Pop up form","milun-woo-search"); ?></label>
  </p>
 <?php
 
@@ -2737,11 +2737,11 @@ $sanitized_checkbox_search_form_before_loop= $search_form_before_loop==1? $this-
 
    $sanitized_checkbox_search_by_woo_content = $search_by_woo_content ==1? $this->dmsfp_prefix_sanitize_input($search_by_woo_content, 1): '';      
 ?>
-   <h4><?php _e("Choose how you want to search:",'milun-search') ?></h4>
+   <h4><?php _e("Choose how you want to search:",'milun-woo-search') ?></h4>
 
 
 <p>
-      <label style="font-size:15px;"><input class="cb" onchange="cbChange(this)" type="checkbox" id="search_by_woo_title" name="search_by_woo_title" value="1"  <?php checked(esc_attr($sanitized_checkbox_search_by_woo_title), 1 ); ?>><?php esc_html_e("Search by title","milun-search"); ?></label>
+      <label style="font-size:15px;"><input class="cb" onchange="cbChange(this)" type="checkbox" id="search_by_woo_title" name="search_by_woo_title" value="1"  <?php checked(esc_attr($sanitized_checkbox_search_by_woo_title), 1 ); ?>><?php esc_html_e("Search by title","milun-woo-search"); ?></label>
  </p>
    
 
@@ -2775,7 +2775,7 @@ $sanitized_checkbox_search_form_before_loop= $search_form_before_loop==1? $this-
 ?>
 
  <p>
-      <label for="numberofpostswoo"><?php _e('Select number of products (between 1 and 15) to show: ','milun-search'); ?></label>
+      <label for="numberofpostswoo"><?php _e('Select number of products (between 1 and 15) to show: ','milun-woo-search'); ?></label>
       <input type="number" id="numberofpostswoo" name="numberofpostswoo" 
             value="<?php echo esc_attr(@$numberofpostswoo); ?>" 
            min="1" max="15">
@@ -2790,7 +2790,7 @@ $numberofwordsinposts =  esc_attr(get_post_meta( get_the_ID(), 'numberofwordsinp
 ?>
 <p>
       <label style="font-size:15px;"><input type="number" id="numberofwordsinposts" name="numberofwordsinposts" min="7" max="30" value="<?php echo esc_attr(@$numberofwordsinposts); ?>" 
-><?php esc_html_e("Number of words to show in posts","milun-search"); ?></label>
+><?php esc_html_e("Number of words to show in posts","milun-woo-search"); ?></label>
  </p>            
 
   <?php 
@@ -2819,7 +2819,7 @@ $numberofwordsinposts =  esc_attr(get_post_meta( get_the_ID(), 'numberofwordsinp
     <p>
       <label><input type="checkbox" id="search_categories_woo" name="search_categories_woo" value="1"  <?php checked(esc_attr($sanitized_checkbox_category_count_2), 1 ); ?>/><?php _e("Check to search categories","searching-for-posts"); ?></label>
  </p>
- <h4><?php _e("Click on category you want to exclude",'milun-search') ?></h4>
+ <h4><?php _e("Click on category you want to exclude",'milun-woo-search') ?></h4>
   <input type="text" class="search-woo_categories" placeholder="Search categories"/>
                        <div class="admin-container">        
 
@@ -2920,9 +2920,9 @@ if($category->name!="" && $category->slug!="uncategorized"){
 $datepicker_1 = ( isset( $custom['datepicker_1'.get_the_ID()][0] ) ) ? $custom['datepicker_1'.get_the_ID()][0] : '';
 $datepicker_2 = ( isset( $custom['datepicker_2'.get_the_ID()][0] ) ) ? $custom['datepicker_2'.get_the_ID()][0] : '';    
 ?> 
-<h4><?php esc_html_e("Date range of posts.",'milun-search') ?></h4>
-<p style="font-size: 15px;"><?php esc_html_e("Start Date: ",'milun-search'); ?> <input type="text" name='datepicker_1' id="datepicker_1" value="<?php echo esc_attr($datepicker_1); ?>"></p>
-<p style="font-size: 15px;"><?php esc_html_e("End Date: ",'milun-search'); ?> <input type="text" name='datepicker_2' id="datepicker_2" value="<?php echo esc_attr($datepicker_2); ?>"></p>
+<h4><?php esc_html_e("Date range of posts.",'milun-woo-search') ?></h4>
+<p style="font-size: 15px;"><?php esc_html_e("Start Date: ",'milun-woo-search'); ?> <input type="text" name='datepicker_1' id="datepicker_1" value="<?php echo esc_attr($datepicker_1); ?>"></p>
+<p style="font-size: 15px;"><?php esc_html_e("End Date: ",'milun-woo-search'); ?> <input type="text" name='datepicker_2' id="datepicker_2" value="<?php echo esc_attr($datepicker_2); ?>"></p>
 
 <?php
 
@@ -3016,7 +3016,7 @@ $visibility = trim($value->attribute_name,"pa_");
   
     <div id='parent-element'>
          
-  <h4><?php _e("Click on term you want to exclude",'milun-search') ?></h4>
+  <h4><?php _e("Click on term you want to exclude",'milun-woo-search') ?></h4>
 
      <input type="text" id="term-<?php echo $value->attribute_name; ?>"  class="term" placeholder="Search <?php echo $value->attribute_name; ?>"/>
     <input type='hidden' id="myterm-<?php echo $value->attribute_name; ?>" value='<?php echo $value->attribute_name; ?>'/>
@@ -3073,7 +3073,7 @@ foreach ($results as $result) {
  ?>
  
 
- <h4><?php _e("Click on term you want to exclude",'milun-search') ?></h4>
+ <h4><?php _e("Click on term you want to exclude",'milun-woo-search') ?></h4>
      <input type="text" class="search-visibility_of_product" placeholder="Search ratings"/>
            <div class="admin-container">        
  
@@ -3149,7 +3149,7 @@ ON $wpdb->usermeta.user_id=$wpdb->users.ID
 
 <form>
   <div>
-   <h4><?php _e("Click on author you want to exclude",'milun-search') ?></h4>
+   <h4><?php _e("Click on author you want to exclude",'milun-woo-search') ?></h4>
      <input type="text" class="search-woo_users" placeholder="Search users"/>
 
 <div class="terms-container" contenteditable="true">
@@ -3240,7 +3240,7 @@ foreach ($values as $v) {
 ?>
 <form>
   <div>
-   <h4><?php _e("Click on sku of product you want to exclude",'milun-search') ?></h4>
+   <h4><?php _e("Click on sku of product you want to exclude",'milun-woo-search') ?></h4>
    <input type="text" class="search-sku" placeholder="Search sku of product">
 <div class="terms-container">
              <div class="admin-container">        
