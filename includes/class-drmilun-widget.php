@@ -18,11 +18,11 @@ class MILUSE_Drmilun_Widget extends \WP_Widget {
   public function __construct() {
     $widget_ops = array(
       'classname'                   => 'widget_for_search',
-      'description'                 => esc_html__( 'A search form for your site.', 'milun-search' ),
+      'description'                 => esc_html__( 'A search form for your site.', 'milun-woo-search' ),
       'customize_selective_refresh' => true,
       'show_instance_in_rest'       => true,
     );
-    parent::__construct( 'searching', esc_html__( 'Milun Woo Search', 'milun-search'), $widget_ops);
+    parent::__construct( 'searching', esc_html__( 'Milun Woo Search', 'milun-woo-search'), $widget_ops);
            add_action( "rest_api_init", [$this,'miluse_search_categories'] );
  ////*front end rest api routes*////////////
 add_action( "rest_api_init", [$this,'miluse_search_categories'] );
@@ -260,7 +260,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
                       tabindex="0"></span>
                         <input type="text"
                                class="search-term-widget" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
                     </div>
 
         <div class="wrapper-data-container-widget-data-posts">
@@ -278,7 +278,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
 
         <span class="dashicons dashicons-search"
               id="pop_up_search_widget"
-              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
               role="button"
               tabindex="0"></span>
     ';
@@ -295,7 +295,7 @@ $widget_full_width = '
 
                 <input type="text"
                        class="search-term-widget_full_width"
-                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                       placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
             </div>
 
             <div class="wrapper-data-container-widget_full_width-data-posts">
@@ -310,7 +310,7 @@ $widget_full_width = '
 
     <span class="dashicons dashicons-search"
               id="open-widget_full_width"
-          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
           role="button"
           tabindex="0"></span>
 ';
@@ -340,7 +340,7 @@ $form = '';
                       
                           <input type="text"
                                class="search-term-widget" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
                        </div>
 
         <div class="wrapper-data-container-widget-data-posts">
@@ -358,7 +358,7 @@ $form = '';
 
         <span class="dashicons dashicons-search"
               id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
               role="button"
               tabindex="0"></span>
     ';
@@ -420,7 +420,7 @@ $form = '';
                 <input type="text"
                        class="search-term-widget_full_width"
                        style="border: 1px solid #000000;"
-                       placeholder="' . esc_attr__( 'Search...', 'milun-search' ) . '" />
+                       placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
             </div>
 
             <div class="wrapper-data-container-widget_full_width-data-posts">
@@ -436,7 +436,7 @@ $form = '';
 
     <span class="dashicons dashicons-search"
               id="open-widget_full_width"
-          aria-label="' . esc_attr__( 'Search', 'milun-search' ) . '"
+          aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
           role="button"
           tabindex="0"></span>
 ';
@@ -479,7 +479,7 @@ $form = '';
     $title    = $instance['title'];
     ?>
     <p>
-      <label for="<?php echo esc_attr($this->get_field_id( 'title' )); ?>"><?php esc_html_e( 'Title:', 'milun-search' ); ?></label>
+      <label for="<?php echo esc_attr($this->get_field_id( 'title' )); ?>"><?php esc_html_e( 'Title:', 'milun-woo-search' ); ?></label>
       <input class="widefat" id="<?php echo esc_attr($this->get_field_id( 'title' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'title' )); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
     </p>
     <?php

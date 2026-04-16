@@ -42,8 +42,8 @@ function sfp_block_creating_new_search_forms( $caps, $cap, $user_id, $args ) {
  function sfp_register_add_new_search_menu() {
 
       add_menu_page(
-        __( 'Search Woo', 'milun-search' ),
-        __( 'Search Woo', 'milun-search' ),
+        __( 'Search Woo', 'milun-woo-search' ),
+        __( 'Search Woo', 'milun-woo-search' ),
         'edit_pages',
         'sfp-search-ai',                 // IMPORTANT: custom slug (not post-new.php)
         [$this, 'sfp_render_search_router'],   // callback that redirects
@@ -61,7 +61,7 @@ function sfp_block_creating_new_search_forms( $caps, $cap, $user_id, $args ) {
 function sfp_render_search_router() {
 
     if ( ! current_user_can( 'edit_pages' ) ) {
-        wp_die( esc_html__( 'You do not have permission to access this page.', 'milun-search' ) );
+        wp_die( esc_html__( 'You do not have permission to access this page.', 'milun-woo-search' ) );
     }
 
     $post_type = 'sfp_search_post';
@@ -84,11 +84,11 @@ function sfp_render_search_router() {
         $post_id = wp_insert_post( [
             'post_type'   => $post_type,
             'post_status' => 'publish', // or 'draft' if you prefer
-            'post_title'  => __( 'Search Form', 'milun-search' ),
+            'post_title'  => __( 'Search Form', 'milun-woo-search' ),
         ], true );
 
         if ( is_wp_error( $post_id ) || ! $post_id ) {
-            wp_die( esc_html__( 'Could not create the Search Form post.', 'milun-search' ) );
+            wp_die( esc_html__( 'Could not create the Search Form post.', 'milun-woo-search' ) );
         }
     }
 
@@ -102,9 +102,9 @@ function sfp_render_search_router() {
  function sfp_smashing_search_post_columns($columns) {
      $columns = array(
       'cb' => $columns['cb'],
-      'title' => __( 'Title', 'milun-search' ),
-      'shortcode' => __( 'Shortcode', 'milun-search' ),
-      'date'      => __('Date','milun-search')
+      'title' => __( 'Title', 'milun-woo-search' ),
+      'shortcode' => __( 'Shortcode', 'milun-woo-search' ),
+      'date'      => __('Date','milun-woo-search')
      );
   
   
@@ -134,38 +134,38 @@ function sfp_custom_sfp_search_post_column( $column,$post_id ) {
 function sfp_new_form_for_searching() {
 
     $labels = array(
-        'name'                  => _x( 'Searches', 'Search General Name', 'milun-search' ),
-        'singular_name'         => _x( 'Search', 'Search Singular Name', 'milun-search' ),
-        'menu_name'             => __( 'Search Form', 'milun-search' ),
-        'name_admin_bar'        => __( 'Search', 'milun-search' ),
-        'archives'              => __( 'Search Archives', 'milun-search' ),
-        'attributes'            => __( 'Search Attributes', 'milun-search' ),
-        'parent_item_colon'     => __( 'Parent Search:', 'milun-search' ),
-        'all_items'             => __( 'All Searches', 'milun-search' ),
-        'add_new_item'          => __( 'Add New Search Form', 'milun-search' ),
-        'add_new'               => __( 'Add New', 'milun-search' ),
-        'new_item'              => __( 'New Search', 'milun-search' ),
-        'edit_item'             => __( 'Edit Search', 'milun-search' ),
-        'update_item'           => __( 'Update Search', 'milun-search' ),
-        'view_item'             => __( 'View Search', 'milun-search' ),
-        'view_items'            => __( 'View Searches', 'milun-search' ),
-        'search_items'          => __( 'Search Search', 'milun-search' ),
-        'not_found'             => __( 'Not found', 'milun-search' ),
-        'not_found_in_trash'    => __( 'Not found in Trash', 'milun-search' ),
-        'featured_image'        => __( 'Featured Image', 'milun-search' ),
-        'set_featured_image'    => __( 'Set featured image', 'milun-search' ),
-        'remove_featured_image' => __( 'Remove featured image', 'milun-search' ),
-        'use_featured_image'    => __( 'Use as featured image', 'milun-search' ),
-        'insert_into_item'      => __( 'Insert into search', 'milun-search' ),
-        'uploaded_to_this_item' => __( 'Uploaded to this Search', 'milun-search' ),
-        'items_list'            => __( 'Searches list', 'milun-search' ),
-        'items_list_navigation' => __( 'Searches list navigation', 'milun-search' ),
-        'filter_items_list'     => __( 'Filter Searches list', 'milun-search' ),
+        'name'                  => _x( 'Searches', 'Search General Name', 'milun-woo-search' ),
+        'singular_name'         => _x( 'Search', 'Search Singular Name', 'milun-woo-search' ),
+        'menu_name'             => __( 'Search Form', 'milun-woo-search' ),
+        'name_admin_bar'        => __( 'Search', 'milun-woo-search' ),
+        'archives'              => __( 'Search Archives', 'milun-woo-search' ),
+        'attributes'            => __( 'Search Attributes', 'milun-woo-search' ),
+        'parent_item_colon'     => __( 'Parent Search:', 'milun-woo-search' ),
+        'all_items'             => __( 'All Searches', 'milun-woo-search' ),
+        'add_new_item'          => __( 'Add New Search Form', 'milun-woo-search' ),
+        'add_new'               => __( 'Add New', 'milun-woo-search' ),
+        'new_item'              => __( 'New Search', 'milun-woo-search' ),
+        'edit_item'             => __( 'Edit Search', 'milun-woo-search' ),
+        'update_item'           => __( 'Update Search', 'milun-woo-search' ),
+        'view_item'             => __( 'View Search', 'milun-woo-search' ),
+        'view_items'            => __( 'View Searches', 'milun-woo-search' ),
+        'search_items'          => __( 'Search Search', 'milun-woo-search' ),
+        'not_found'             => __( 'Not found', 'milun-woo-search' ),
+        'not_found_in_trash'    => __( 'Not found in Trash', 'milun-woo-search' ),
+        'featured_image'        => __( 'Featured Image', 'milun-woo-search' ),
+        'set_featured_image'    => __( 'Set featured image', 'milun-woo-search' ),
+        'remove_featured_image' => __( 'Remove featured image', 'milun-woo-search' ),
+        'use_featured_image'    => __( 'Use as featured image', 'milun-woo-search' ),
+        'insert_into_item'      => __( 'Insert into search', 'milun-woo-search' ),
+        'uploaded_to_this_item' => __( 'Uploaded to this Search', 'milun-woo-search' ),
+        'items_list'            => __( 'Searches list', 'milun-woo-search' ),
+        'items_list_navigation' => __( 'Searches list navigation', 'milun-woo-search' ),
+        'filter_items_list'     => __( 'Filter Searches list', 'milun-woo-search' ),
     );
 
     $args = array(
-        'label'                 => __( 'Search', 'milun-search' ),
-        'description'           => __( 'Search Description', 'milun-search' ),
+        'label'                 => __( 'Search', 'milun-woo-search' ),
+        'description'           => __( 'Search Description', 'milun-woo-search' ),
         'labels'                => $labels,
 
         // CORE BEHAVIOR
