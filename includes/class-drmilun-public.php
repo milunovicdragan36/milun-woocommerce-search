@@ -121,8 +121,8 @@ class MMSDD_Drmilun_Public {
   
 	  // Localize the script with new data
 	  $translation_array_for_categories = array(
-	    'search_results' => __( 'Search Results', 'searching-for-posts' ),
-	    'not_found_data' =>  __( 'We could not find any categories for your search. You can give it another try with different criteria.', 'searching-for-posts' )
+	    'search_results' => __( 'Search Results', 'milun-woo-search' ),
+	    'not_found_data' =>  __( 'We could not find any categories for your search. You can give it another try with different criteria.', 'milun-woo-search' )
 	 );
      wp_register_script(
     'pop-up-search-bar',
@@ -216,9 +216,9 @@ wp_enqueue_script( 'widget-full-width' );
 
 /*
 	   $translation_array_for_posts = array(
-	    'search_results' => __( 'Search Results', 'searching-for-posts' ),
-	    'not_found_data' =>  __( 'We could not find any posts for your search. You can give it another try with different criteria.', 'searching-for-posts' ),
-	    'read_more' => __( 'Read more...', 'searching-for-posts' )
+	    'search_results' => __( 'Search Results', 'milun-woo-search' ),
+	    'not_found_data' =>  __( 'We could not find any posts for your search. You can give it another try with different criteria.', 'milun-woo-search' ),
+	    'read_more' => __( 'Read more...', 'milun-woo-search' )
 	 ); 
 
    wp_register_script( 'ajax-script-public', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
@@ -255,14 +255,14 @@ wp_enqueue_script( 'widget-full-width' );
 */
 	  // Localize the script with new data
 $translation_array_for_categories = array(
-    'search_results' => __( 'Search Results', 'searching-for-posts' ),
-    'not_found_data' => __( 'We could not find any categories for your search. You can give it another try with different criteria.', 'searching-for-posts' ),
+    'search_results' => __( 'Search Results', 'milun-woo-search' ),
+    'not_found_data' => __( 'We could not find any categories for your search. You can give it another try with different criteria.', 'milun-woo-search' ),
 );
 
 $translation_array_for_products = array(
-    'search_results' => __( 'Search Results', 'searching-for-posts' ),
-    'not_found_data' => __( 'We could not find any products for your search. You can give it another try with different criteria.', 'searching-for-posts' ),
-    'read_more'      => __( 'Read more...', 'searching-for-posts' ),
+    'search_results' => __( 'Search Results', 'milun-woo-search' ),
+    'not_found_data' => __( 'We could not find any products for your search. You can give it another try with different criteria.', 'milun-woo-search' ),
+    'read_more'      => __( 'Read more...', 'milun-woo-search' ),
 );
 
 // For searching in menus

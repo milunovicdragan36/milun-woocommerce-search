@@ -979,7 +979,7 @@ global $wpdb;
                  //var_dump($searchposts_in_title);
 
     if( $args->theme_location == $menu[0]->meta_value){
-      $nav = '<li class="menu-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","text-domain") .'"/></li><br>';
+      $nav = '<li class="menu-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
                         
                      // if($search_categories=="1"){
                        $return = '<div class="data-categories-container hid"></div>';
@@ -1053,7 +1053,7 @@ foreach ($posts as $post) {
 
              <?php
           
-                       $item_1 .= '<li class="qode-mobile-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","text-domain") .'"/></li><br>';
+                       $item_1 .= '<li class="qode-mobile-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
                         
                       if($search_categories=="1"){
                        $item_1 .= '<div class="data-categories-container hid"></div>';
@@ -1138,7 +1138,7 @@ foreach ($posts as $post) {
              $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
              $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
           
-                       $item_1 .= '<li class="qode-mobile-header-search"><input type="text" class="search-term-woo" style="max-width: 150px"  placeholder="'.__("Search...","text-domain") .'"/></li><br>';
+                       $item_1 .= '<li class="qode-mobile-header-search"><input type="text" class="search-term-woo" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
                         
                       if($search_categories=="1"){
                        $item_1 .= '<div class="data-categories-container hid"></div>';
@@ -1178,7 +1178,7 @@ print_r($menu);
                  //var_dump($searchposts_in_title);
 
     if( $args->theme_location == @$menu[0]->meta_value){
-      $nav = '<li class="menu-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","text-domain") .'"/></li><br>';
+      $nav = '<li class="menu-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
                         
                      // if($search_categories=="1"){
                        $return = '<div class="data-categories-container hid"></div>';
@@ -1252,7 +1252,7 @@ foreach ($posts as $post) {
                  //var_dump($searchposts_in_title);
 
     if( $args->theme_location == @$menu[0]->meta_value){
-      $nav = '<li class="menu-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","text-domain") .'"/></li><br>';
+      $nav = '<li class="menu-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
                         
                      // if($search_categories=="1"){
                        $return = '<div class="data-categories-container hid"></div>';
@@ -1263,7 +1263,7 @@ foreach ($posts as $post) {
                       return $items.$nav;
      }   
           /*
-                       $item_1 .= '<li class="qode-mobile-header-search"><input type="text" class="search-term-woo" style="max-width: 150px"  placeholder="'.__("Search...","text-domain") .'"/></li><br>';
+                       $item_1 .= '<li class="qode-mobile-header-search"><input type="text" class="search-term-woo" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
                         
                      // if($search_categories=="1"){
                        $item_1 .= '<div class="data-categories-container hid"></div>';
@@ -1311,7 +1311,7 @@ $numberofposts = esc_attr(get_post_meta( $atts['id'],"numberofposts", $atts['id'
 
 
 $search_categories = esc_attr(get_post_meta( $atts['id'],"search_categories", true));
-         $return ='<input type="text" class="search-term-shortcode" style="max-width: 150px"  placeholder="'.__("Search...","text-domain") .'"/>';
+         $return ='<input type="text" class="search-term-shortcode" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/>';
 
  if($search_categories=="1"){
 
@@ -1394,7 +1394,7 @@ foreach ($posts as $post) {
 
 
 
-                      $form = '<input type="text" class="search-term-shortcode-woo" style="max-width: 150px"  placeholder="'.__("Search...","text-domain") .'"/>';
+                      $form = '<input type="text" class="search-term-shortcode-woo" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/>';
                         
                       if($search_categories=="1"){
                        $form .= '<div class="data-categories-container-shortcode hid"></div>';
@@ -1429,7 +1429,7 @@ if ($attribute_taxonomies) :
  
 
 
-$terms_search_form .= '<option value="">'.__("Select Term","searching-for-posts").'</option>';
+$terms_search_form .= '<option value="">'.__("Select Term","milun-woo-search").'</option>';
  
 
 

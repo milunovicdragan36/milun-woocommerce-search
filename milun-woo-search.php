@@ -45,7 +45,7 @@ define( 'MMSDD_Drmilun_VERSION', '1.0.1' );
      */
    /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-searching-for-posts-activator.php
+ * This action is documented in includes/class-milun-woo-search-activator.php
  */
 if (!function_exists('dmsfp_activate_MMSDD_Milun_Search_Activator')){
 
@@ -58,7 +58,7 @@ if (!function_exists('dmsfp_activate_MMSDD_Milun_Search_Activator')){
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-searching-for-posts-deactivator.php
+ * This action is documented in includes/class-milun-woo-search-deactivator.php
  */
 if (!function_exists('dmsfp_deactivate_MMSDD_Drmilun_Deactivator')){
 
