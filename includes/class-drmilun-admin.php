@@ -51,16 +51,14 @@ class MMSDD_Drmilun_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
- wp_enqueue_script( 'jquery');
 	//moment is necessery for getting a date
-       wp_register_script( 'moment', plugin_dir_url( __FILE__ ) . '../public/js/moment.js', array( 'jquery' ),'1.0', true );
     wp_enqueue_script( 'moment');
 
-wp_enqueue_script( 'jquery-1.12.4', plugin_dir_url( __FILE__ ) . '../admin/js/jquery-1.12.4.js', array(), '1.0', true );
- 
- wp_enqueue_script( '1.12.1_jquery-ui', plugin_dir_url( __FILE__ ) . '../admin/js/1.12.1_jquery-ui.js', array("jquery-1.12.4"), '1.0', true );
+wp_enqueue_script( 'jquery-ui-datepicker' );	
 
-  wp_enqueue_script( 'datepicker', plugin_dir_url( __FILE__ ) . '../admin/js/datepicker.js', array("jquery-1.12.4",'1.12.1_jquery-ui'), '1.0', true );
+ 
+
+  wp_enqueue_script( 'datepicker', plugin_dir_url( __FILE__ ) . '../admin/js/datepicker.js', array("jquery",'jquery-ui-datepicker'), '1.0', true );
 	  // Localize the script with new data
 
  $translation_array_for_categories = array(
@@ -79,18 +77,45 @@ wp_enqueue_script( 'jquery-1.12.4', plugin_dir_url( __FILE__ ) . '../admin/js/jq
     // localize the script
   // wp_localize_script( 'drmilun-admin-woo', 'ajax_object',
     //        array( 'ajax_url' => admin_url( 'admin-ajax.php' )));
+/*
+wp_enqueue_script(
+	'drmilun-admin',
+	plugin_dir_url( __FILE__ ) . '../admin/js/drmilun-admin.js',
+	array( 'jquery' ),
+	'1.0',
+	false
+);
 
- wp_enqueue_script( 'drmilun-admin', plugin_dir_url( __FILE__ ) . '../admin/js/drmilun-admin.js', array("jquery"), '1.0', false );		
+wp_localize_script(
+	'drmilun-admin',
+	'ajax_object',
+	array(
+		'ajax_url' => admin_url( 'admin-ajax.php' ),
+		'nonce'    => wp_create_nonce( 'milun_visibility_nonce' ),
+	)
+);
+*/
 
-   // localize the script
-   wp_localize_script( 'drmilun-admin', 'ajax_object',
-            array( 'ajax_url' => admin_url( 'admin-ajax.php' )));
+wp_enqueue_script(
+	'drmilun-colors-admin',
+	plugin_dir_url( __FILE__ ) . '../admin/js/drmilun-colors-admin.js',
+	array( 'jquery' ),
+	'1.0',
+	false
+);
 
+wp_localize_script(
+	'drmilun-colors-admin',
+	'ajax_object',
+	array(
+		'ajax_url' => admin_url( 'admin-ajax.php' ),
+		'nonce'    => wp_create_nonce( 'milun_visibility_nonce' ),
+	)
+);
 
 wp_enqueue_style( 'wp-color-picker');
 wp_enqueue_script( 'wp-color-picker');
 
-  wp_enqueue_script( 'drmilun-colors-admin', plugin_dir_url( __FILE__ ) . '../admin/js/drmilun-colors-admin.js', array("wp-color-picker"), '1.0', true );
  
  
 	}

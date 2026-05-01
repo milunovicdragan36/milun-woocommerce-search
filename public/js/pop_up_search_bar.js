@@ -1,7 +1,7 @@
 (function ($) {
 
 function getPopup(){
-  return $(".pop_up_menu.milun-popup-center").first();
+  return $(".pop_up_popup.milun-popup-center").first();
 }
 
 function openPopup(){
@@ -12,7 +12,7 @@ function openPopup(){
   $("body").addClass("milun-popup-lock");
 
   setTimeout(function(){
-    $popup.find(".search-term-menu").first().focus();
+    $popup.find(".search-term-popup").first().focus();
   },80);
 }
 
@@ -45,7 +45,7 @@ $(document).on(
 /* CLICK OUTSIDE CLOSE */
 $(document).on(
   "click",
-  ".pop_up_menu.milun-popup-center",
+  ".pop_up_popup.milun-popup-center",
   function(e){
     if(!$(e.target).closest(".notification-container").length){
       closePopup();

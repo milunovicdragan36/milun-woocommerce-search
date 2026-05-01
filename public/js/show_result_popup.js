@@ -1,20 +1,8 @@
 window.milunShowResult = function(livesearchposts_1){
  // console.log(livesearchposts_1);
+  jQuery(".search-term-popup").removeClass("loadinggif");
 
-var livesearchposts_1 = livesearchposts_1;
-
-
-if (livesearchposts_1.length==0) {
-
-    document.getElementsByClassName('no-data-menu')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
-
-        jQuery('.data-menu-posts-btn').css('display','none');
-   
-                jQuery('.data-container-menu').css('display','none');
-
-
-
-}
+  jQuery(".data-container-popup").css("display",'block');
 
 var load_post_number =  parseInt(jQuery("#numberofpostswoo").val());
 var custom_word_of_number_of_posts = '';   
@@ -23,6 +11,7 @@ if(parseInt(jQuery("#numberofpostswoo").val()) == 1){
 }else{
   custom_word_of_number_of_posts = 'posts';
 }
+  //  jQuery(".data-popup-posts-btn").css("margin-top","100px");
 
 
 //livesearchposts_1.length=parseInt(jQuery("#numberofpostswoo").val());
@@ -33,12 +22,12 @@ let maxPosts = parseInt(jQuery("#numberofpostswoo").val());
 var number_of_words_in_posts_2=parseInt(jQuery("#numberofwordsinposts").val());
 
 jQuery(function() {
-  jQuery(".data-container-menu div.body").after("<div class='line_below_post'></div>");
-  jQuery(".data-container-menu div.line_below_post").last().remove();
+  jQuery(".data-container-popup div.body").after("<div class='line_below_post'></div>");
+  jQuery(".data-container-popup div.line_below_post").last().remove();
 
 });
-jQuery('.data-container-menu-inc').css('display','none');
-   document.getElementsByClassName('data-container-menu')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?'<div class="title">'+
+jQuery('.data-container-popup-inc').css('display','none');
+   document.getElementsByClassName('data-container-popup')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?'<div class="title">'+
     item.post_title+ `
 <div class='body'><img src=`+item.thumb +` class='milun-search-thumb'>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
  liveSearchDataPosts[0].read_more+`</a></div><br>`
@@ -47,16 +36,16 @@ jQuery('.data-container-menu-inc').css('display','none');
  liveSearchDataPosts[0].read_more+`</a></div><br>`
  ).join(" ")
 ;
- 
-document.getElementsByClassName('data-menu-posts-btn')[0].innerHTML=
-'<div class="background_color_of_load_more_button_menu">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ custom_word_of_number_of_posts+'</div><div id="no_more_posts_menu"></div>';
-var hasChild = document.getElementsByClassName('data-container-menu')[0];
+
+document.getElementsByClassName('data-popup-posts-btn')[0].innerHTML=
+'<div class="background_color_of_load_more_button_popup">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ custom_word_of_number_of_posts+'</div><div id="no_more_posts_popup"></div>';
+var hasChild = document.getElementsByClassName('data-container-popup')[0];
 if(hasChild===null){
-    document.getElementsByClassName('no-data-menu')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
+    document.getElementsByClassName('no-data-popup')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
 }else{
  
 }
-  var $button = jQuery('.background_color_of_load_more_button_menu');
+  var $button = jQuery('.background_color_of_load_more_button_popup');
 
 var $counter = jQuery('.counter');
 //var un_length =$counter.val( parseInt($counter.val())+ parseInt(jQuery("#numberofpostswoo").val())); // `parseInt` converts the `value` from a string to a number
@@ -65,7 +54,6 @@ var v = parseInt(jQuery("#numberofpostswoo").val());
 
 var find_element = parseInt(jQuery("#numberofpostswoo").val());
 $button.click(function(){
-jQuery('.data-container-menu').css('display','none');
 
 find_element+=parseInt(jQuery("#numberofpostswoo").val());
 
@@ -75,35 +63,35 @@ if(find_element> parseInt(jQuery("#numberofpostswoo").val())){
 
 
 
-var hasChild = document.getElementsByClassName('data-container-menu');
+var hasChild = document.getElementsByClassName('data-container-popup');
 if(hasChild!==null){
-  jQuery('.data-container-menu').css('display','block');
+  jQuery('.data-container-popup').css('display','block');
 
-     jQuery('.data-container-menu-inc').css('display','none');
-  jQuery('.no-data-menu').css('display','none');
+     jQuery('.data-container-popup-inc').css('display','none');
+  jQuery('.no-data-popup').css('display','none');
 
 livesearchposts_2 = livesearchposts_1.slice(0, find_element);
  
 if (livesearchposts_2.length==0) {
 
-    document.getElementsByClassName('no-data-menu')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
+    document.getElementsByClassName('no-data-popup')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
 
-        jQuery('.data-menu-posts-btn').css('display','none');
+        jQuery('.data-popup-posts-btn').css('display','none');
    
-                jQuery('.data-container-menu').css('display','none');
+                jQuery('.data-container-popup').css('display','none');
 
 
 
 }else{
 jQuery(function() {
-  jQuery(".data-container-menu div.body").after("<div class='line_below_post'></div>");
-  jQuery(".data-container-menu div.line_below_post").last().remove();
+  jQuery(".data-container-popup div.body").after("<div class='line_below_post'></div>");
+  jQuery(".data-container-popup div.line_below_post").last().remove();
 
 });
 
 
 
-    document.getElementsByClassName('data-container-menu')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?  '<div class="title">'+
+    document.getElementsByClassName('data-container-popup')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?  '<div class="title">'+
     item.post_title+ `
 <div class='body'><img src=`+item.thumb +` class='milun-search-thumb'>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
  liveSearchDataPosts[0].read_more+`</a></div><br>`
@@ -113,8 +101,8 @@ jQuery(function() {
  ).join(" ")+`<input type="hidden" style="display:none;" class="counter" value="0"/>`;
 
 
-document.getElementsByClassName('data-posts-inc-menu').innerHTML='<input type="hidden" class="counter" value="0"/>'+
-'<div class="background_color_of_load_more_button_menu">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ 1+'</div><div id="no_more_posts_menu"></div>';
+document.getElementsByClassName('data-posts-inc-popup').innerHTML='<input type="hidden" class="counter" value="0"/>'+
+'<div class="background_color_of_load_more_button_popup">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ 1+'</div><div id="no_more_posts_popup"></div>';
 }
  
 
@@ -122,11 +110,11 @@ var count = 0;
 
 var number_minus = find_element -parseInt(jQuery("#numberofpostswoo").val());
 if(parseInt(jQuery("#numberofpostswoo").val())==1){
-if(jQuery(".data-container-menu div").slice(number_minus).last().position()==undefined){
-           jQuery('.data-container-menu').animate({scrollTop: jQuery(".data-container-menu div.body").slice(find_element).first().position()}, 500);
+if(jQuery(".data-container-popup div").slice(number_minus).last().position()==undefined){
+           jQuery('.data-container-popup').animate({scrollTop: jQuery(".data-container-popup div.body").slice(find_element).first().position()}, 500);
 }else{
-     //  let eTop =jQuery(".data-container-menu div").slice(number_minus).first();// jQuery('.data-posts-inc-menu').children('div').eq(find_element).position();
-           jQuery('.data-container-menu').animate({scrollTop: jQuery(".data-container-menu div.body").slice(find_element).first().position()}, 500);
+     //  let eTop =jQuery(".data-container-popup div").slice(number_minus).first();// jQuery('.data-posts-inc-popup').children('div').eq(find_element).position();
+           jQuery('.data-container-popup').animate({scrollTop: jQuery(".data-container-popup div.body").slice(find_element).first().position()}, 500);
 
 }
 
@@ -137,10 +125,10 @@ if(jQuery(".data-container-menu div").slice(number_minus).last().position()==und
 
 
 }else{
-var $container = jQuery(".data-container-menu");
+var $container = jQuery(".data-container-popup");
 
 var startIndexNew = number_minus;
-var $target = jQuery(".data-container-menu div.title").eq(startIndexNew);
+var $target = jQuery(".data-container-popup div.title").eq(startIndexNew);
 
 if ($target.length) {
   var offset = 60; // try 8, 12, 20...
@@ -148,14 +136,14 @@ if ($target.length) {
   $container.animate({ scrollTop: Math.max(0, top) }, 500);
 }
 /*
-if(jQuery(".data-container-menu div").slice(number_minus).first().position()==undefined){
-            jQuery('.data-container-menu').animate({scrollTop: jQuery(".data-container-menu div.body").slice(find_element).first().position()}, 500);
+if(jQuery(".data-container-popup div").slice(number_minus).first().position()==undefined){
+            jQuery('.data-container-popup').animate({scrollTop: jQuery(".data-container-popup div.body").slice(find_element).first().position()}, 500);
 
 }else{
-          jQuery('.data-container-menu').animate({scrollTop: jQuery(".data-container-menu div.body").slice(find_element).first().position()}, 500);
+          jQuery('.data-container-popup').animate({scrollTop: jQuery(".data-container-popup div.body").slice(find_element).first().position()}, 500);
 
 }
-          jQuery(".data-container-menu div").slice(number_minus).first();
+          jQuery(".data-container-popup div").slice(number_minus).first();
 */
 
 }
@@ -167,27 +155,27 @@ if(jQuery(".data-container-menu div").slice(number_minus).first().position()==un
 
 
 
-document.getElementsByClassName('data-posts-inc-menu').innerHTML='<input type="hidden" class="counter" value="0"/>'+
-'<div class="background_color_of_load_more_button_menu">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ 1+'</div></div><div id="no_more_posts_menu"></div>';
+document.getElementsByClassName('data-posts-inc-popup').innerHTML='<input type="hidden" class="counter" value="0"/>'+
+'<div class="background_color_of_load_more_button_popup">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ 1+'</div></div><div id="no_more_posts_popup"></div>';
 
 
 var count = 0;
 var number_minus = number - parseInt($counter.val());
 var p = jQuery(".last_div_for_scrolling_"+find_element).slice(number_minus).first();
 
-       let eTop = jQuery('.data-posts-inc-menu').children('div').eq(find_element).position();
+       let eTop = jQuery('.data-posts-inc-popup').children('div').eq(find_element).position();
 
 
 
-        var top = jQuery('.data-posts-inc-menu div:last').offset().top;
+        var top = jQuery('.data-posts-inc-popup div:last').offset().top;
    
-            let children = jQuery('.data-posts-inc-menu div')[0];
+            let children = jQuery('.data-posts-inc-popup div')[0];
            
                
- jQuery('.wrapper-data-container-menu-data-posts').scrollTop(eTop );
+ jQuery('.wrapper-data-container-popup-data-posts').scrollTop(eTop );
    
 
-jQuery('.wrapper-data-container-menu-data-posts').animate({
+jQuery('.wrapper-data-container-popup-data-posts').animate({
 
 
 
@@ -205,21 +193,21 @@ var count = 0;
 var number_minus = number - parseInt($counter.val());
 var p = jQuery(".last_div_for_scrolling_"+find_element).slice(number_minus).first();
 
-       let eTop = jQuery('.data-posts-inc-menu').children('div').eq(find_element).position();
+       let eTop = jQuery('.data-posts-inc-popup').children('div').eq(find_element).position();
 
  
 
-jQuery(".data-posts-inc-menu").click(function() {
+jQuery(".data-posts-inc-popup").click(function() {
 
-        var top = jQuery('.data-posts-inc-menu div:last').offset().top;
+        var top = jQuery('.data-posts-inc-popup div:last').offset().top;
    
-            let children = jQuery('.data-posts-inc-menu div')[0];
+            let children = jQuery('.data-posts-inc-popup div')[0];
            
                
- jQuery('.wrapper-data-container-menu-data-posts').scrollTop(eTop );
+ jQuery('.wrapper-data-container-popup-data-posts').scrollTop(eTop );
    
 
-jQuery('.wrapper-data-container-menu-data-posts').animate({
+jQuery('.wrapper-data-container-popup-data-posts').animate({
 
 
 
@@ -248,18 +236,18 @@ const result_5 = result_4.reduce((accumulator, current) => {
 
 
 
-const myText = document.getElementById('no_more_posts_menu');
+const myText = document.getElementById('no_more_posts_popup');
 
 
 if(find_element == livesearchposts_1.length || find_element> livesearchposts_1.length){
     
-const myInsertText = '<div class="red_color_no_more_posts_menu">No more posts !</div>';
+const myInsertText = '<div class="red_color_no_more_posts_popup">No more posts !</div>';
 myText.innerHTML = myInsertText;
-jQuery('.background_color_of_load_more_button_menu').css('display','none');
+jQuery('.background_color_of_load_more_button_popup').css('display','none');
 }
 
 
-var hasChildmyText = document.getElementById('no_more_posts_menu');
+var hasChildmyText = document.getElementById('no_more_posts_popup');
 if(hasChildmyText!==null){
  }else{
 
@@ -321,7 +309,7 @@ var result_1 = result_2.map(item =>  item.featured_image  ?
 
 
 
-  //  document.getElementsByClassName('data-container-menu')[0].innerHTML =result_1;
+  //  document.getElementsByClassName('data-container-popup')[0].innerHTML =result_1;
  
  //return;
 //}

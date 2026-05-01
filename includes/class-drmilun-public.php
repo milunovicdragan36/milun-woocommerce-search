@@ -60,11 +60,7 @@ class MMSDD_Drmilun_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_style( 'drmilun-public-menu', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-menu.css', array(), '1.0', 'all' );
-
-        wp_enqueue_style( 'drmilun-public-widget', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-widget.css', array(), '1.0', 'all' );
-        
-        wp_enqueue_style( 'drmilun-public-before-loop', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-before-loop.css', array(), '1.0', 'all' );
+		wp_enqueue_style( 'drmilun-public-popup', plugin_dir_url( __FILE__ ) . '../public/css/drmilun-public-popup.css', array(), '1.0', 'all' );        
  
         wp_enqueue_style( 'before-title-full-width', plugin_dir_url( __FILE__ ) . '../public/css/before-title-full-width.css', array(), '1.0', 'all' );
         
@@ -104,7 +100,6 @@ class MMSDD_Drmilun_Public {
     
        wp_enqueue_script( 'jquery');
 	//moment is necessery for getting a date
-       wp_register_script( 'moment', plugin_dir_url( __FILE__ ) . '../public/js/moment.js', array( 'jquery' ),'1.0', true );
     wp_enqueue_script( 'moment');
        
 
@@ -115,9 +110,9 @@ class MMSDD_Drmilun_Public {
 
    // wp_enqueue_script( 'jquery-1.12.4', plugin_dir_url( __FILE__ ) . '../public/js/jquery-1.12.4.js', array(), '1.0', true );
  
- wp_enqueue_script( '1.12.1_jquery-ui', plugin_dir_url( __FILE__ ) . '../public/js/1.12.1_jquery-ui.js', array("jquery"), '1.0', true );
+ wp_enqueue_script( 'jquery-ui-datepicker');
 
-  wp_enqueue_script( 'datepicker', plugin_dir_url( __FILE__ ) . '../public/js/datepicker.js', array("jquery",'1.12.1_jquery-ui','moment'), '1.0', true );
+  wp_enqueue_script( 'datepicker', plugin_dir_url( __FILE__ ) . '../public/js/datepicker.js', array("jquery",'jquery-ui-datepicker','moment'), '1.0', true );
   
 	  // Localize the script with new data
 	  $translation_array_for_categories = array(
@@ -127,7 +122,7 @@ class MMSDD_Drmilun_Public {
      wp_register_script(
     'pop-up-search-bar',
     plugin_dir_url( __FILE__ ) . '../public/js/pop_up_search_bar.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -135,35 +130,12 @@ class MMSDD_Drmilun_Public {
 wp_enqueue_script( 'pop-up-search-bar' );
 
 
-/* pop up search bar for widget */
-     wp_register_script(
-    'pop-up-for-widget',
-    plugin_dir_url( __FILE__ ) . '../public/js/pop_up_for_widget.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
-    '1.0',
-    true
-);
-
-wp_enqueue_script( 'pop-up-for-widget' );
-
-
-/* pop up search bar before loop */
-     wp_register_script(
-    'pop-up-before-loop',
-    plugin_dir_url( __FILE__ ) . '../public/js/pop_up_before_loop.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
-    '1.0',
-    true
-);
-
-wp_enqueue_script( 'pop-up-before-loop' );
-
 
 /* full widt before title */
      wp_register_script(
     'before-title-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/before-title-full-width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -175,7 +147,7 @@ wp_enqueue_script( 'before-title-full-width' );
      wp_register_script(
     'after-title-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/after-title-full-width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery'),
     '1.0',
     true
 );
@@ -185,18 +157,18 @@ wp_enqueue_script( 'after-title-full-width' );
      wp_register_script(
     'before-loop-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/before-loop-full-width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
 
 wp_enqueue_script( 'before-loop-full-width' );
 
-/* full width in widget */
+/* full width in shortcode */
      wp_register_script(
     'shortcode-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/shortcode-full-width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -207,36 +179,15 @@ wp_enqueue_script( 'shortcode-full-width' );
      wp_register_script(
     'widget-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/widget-full-width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
 
 wp_enqueue_script( 'widget-full-width' );
 
+
 /*
-	   $translation_array_for_posts = array(
-	    'search_results' => __( 'Search Results', 'milun-woo-search' ),
-	    'not_found_data' =>  __( 'We could not find any posts for your search. You can give it another try with different criteria.', 'milun-woo-search' ),
-	    'read_more' => __( 'Read more...', 'milun-woo-search' )
-	 ); 
-
-   wp_register_script( 'ajax-script-public', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
-    
-   wp_enqueue_script( 'ajax-script-public' );
-
-   // Great for getting Rest Api data on the front end
-   wp_localize_script( 'ajax-script-public', 'liveSearchDataPosts',[$translation_array_for_posts,
-            array( 'root_url' => get_rest_url())]);
-
-     wp_localize_script( 'ajax-script-public', 'liveSearchDataCategories',[$translation_array_for_categories,
-            array( 'root_url' => get_rest_url())]); 
-          
-
-   wp_localize_script('ajax-script-public', 'wourl', array( 'siteurl' => get_option('siteurl') ));              
-   
-
-    
      wp_register_script( 'ajax-script-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/public-woo-shortcode.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
     
    wp_enqueue_script( 'public-woo-shortcode' );
@@ -250,9 +201,9 @@ wp_enqueue_script( 'widget-full-width' );
           
 
    wp_localize_script('public-woo-shortcode', 'woourl', array( 'siteurl' => get_option('siteurl') ));
-
-
 */
+
+
 	  // Localize the script with new data
 $translation_array_for_categories = array(
     'search_results' => __( 'Search Results', 'milun-woo-search' ),
@@ -265,20 +216,20 @@ $translation_array_for_products = array(
     'read_more'      => __( 'Read more...', 'milun-woo-search' ),
 );
 
-// For searching in menus
+// For searching popup
 wp_register_script(
-    'menu-public',
-    plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-menu.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    'popup-public',
+    plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-popup.js',
+    array( 'jquery' ),
     '1.0',
     true
 );
 
-wp_enqueue_script( 'menu-public' );
+wp_enqueue_script( 'popup-public' );
 
 // Great for getting Rest Api data on the front end (Posts)
 wp_localize_script(
-    'menu-public',
+    'popup-public',
     'liveSearchDataPosts',
     array(
         'root_url' => esc_url_raw( get_rest_url() ),
@@ -288,7 +239,7 @@ wp_localize_script(
 
 // Great for getting Rest Api data on the front end (Categories)
 wp_localize_script(
-    'menu-public',
+    'popup-public',
     'liveSearchDataCategories',
     array(
         'root_url' => esc_url_raw( get_rest_url() ),
@@ -297,7 +248,7 @@ wp_localize_script(
 );
 
 wp_localize_script(
-    'menu-public',
+    'popup-public',
     'MilunSearch',
     [
         'root_url' => home_url()
@@ -308,7 +259,7 @@ wp_localize_script(
 wp_register_script(
     'main-full-width-before-title',
     plugin_dir_url( __FILE__ ) . '../public/js/main-full-width-before-title.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -347,7 +298,7 @@ wp_localize_script(
 wp_register_script(
     'main-full-width-after-title',
     plugin_dir_url( __FILE__ ) . '../public/js/main-full-width-after-title.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -385,7 +336,7 @@ wp_localize_script(
 wp_register_script(
     'main-full-width-widget',
     plugin_dir_url( __FILE__ ) . '../public/js/main-full-width-widget.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -425,7 +376,7 @@ wp_localize_script(
 wp_register_script(
     'main-full-width-before-loop',
     plugin_dir_url( __FILE__ ) . '../public/js/main-full-width-before-loop.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -459,23 +410,23 @@ wp_localize_script(
         'root_url' => home_url()
     ]
 );
-// For searching in menus
+// For searching in popups
 wp_register_script(
-    'show-result-public',
-    plugin_dir_url( __FILE__ ) . '../public/js/show_result.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    'show-result-popup',
+    plugin_dir_url( __FILE__ ) . '../public/js/show_result_popup.js',
+    array( 'jquery' ),
     '1.0',
     true
 );
 
-wp_enqueue_script( 'show-result-public' );
+wp_enqueue_script( 'show-result-popup' );
 
 
 // For searching in widget
 wp_register_script(
     'show-result-widget',
     plugin_dir_url( __FILE__ ) . '../public/js/show_result_in_widget.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -496,7 +447,7 @@ wp_localize_script(
 wp_register_script(
     'show-result-before-title-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/show_result_before_title_full_width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery'),
     '1.0',
     true
 );
@@ -511,12 +462,39 @@ wp_localize_script(
         'currency_symbol' => get_woocommerce_currency_symbol(),
     )
 );
+// Great for getting Rest Api data on the front end (Posts)
+wp_localize_script(
+    'show-result-before-title-full-width',
+    'liveSearchDataPosts',
+    array(
+        'root_url' => esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_products,
+    )
+);
+
+// Great for getting Rest Api data on the front end (Categories)
+wp_localize_script(
+    'show-result-before-title-full-width',
+    'liveSearchDataCategories',
+    array(
+        'root_url' =>      esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_categories,
+    )
+);
+
+wp_localize_script(
+    'main-full-width-before-loop',
+    'MilunSearch',
+    [
+        'root_url' => home_url()
+    ]
+);
 
 // For searching widget full width
 wp_register_script(
     'show-result-widget-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/show_result_widget_full_width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -536,7 +514,7 @@ wp_localize_script(
 wp_register_script(
     'show-result-shortcode-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/show_result_shortcode_full_width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -557,7 +535,7 @@ wp_localize_script(
 wp_register_script(
     'show-result-before-loop-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/show_result_before_loop_full_width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -576,7 +554,7 @@ wp_localize_script(
 wp_register_script(
     'search-loop-before-loop',
     plugin_dir_url( __FILE__ ) . '../public/js/search_loop_in_before_loop.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -586,7 +564,7 @@ wp_enqueue_script( 'search-loop-before-loop' );
 wp_register_script(
     'show-result-before-loop',
     plugin_dir_url( __FILE__ ) . '../public/js/show_result_before_loop.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -603,12 +581,19 @@ wp_localize_script(
     )
 );
 
+ // Great for getting Rest Api data on the front end
+   wp_localize_script( 'show-result-before-loop', 'liveSearchDataPosts',[$translation_array_for_products,
+            array( 'root_url' => get_rest_url())]);
+
+     wp_localize_script( 'show-result-before-loop', 'liveSearchDataCategories',[$translation_array_for_categories,
+            array( 'root_url' => get_rest_url())]);
+
 
 // For show result after title full width
 wp_register_script(
     'show-result-after-title-full-width',
     plugin_dir_url( __FILE__ ) . '../public/js/show_result_after_title_full_width.js',
-    array( 'jquery', '1.12.1_jquery-ui', 'datepicker' ),
+    array( 'jquery' ),
     '1.0',
     true
 );
@@ -625,34 +610,6 @@ wp_localize_script(
     )
 );
 
- wp_register_script( 'widget-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-widget.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
-    
-   wp_enqueue_script( 'widget-public-woo' );
-
- wp_register_script( 'shortcode-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-shortcode.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
-    
-   wp_enqueue_script( 'shortcode-public-woo' );
-
-
-
-   // Great for getting Rest Api data on the front end
-   wp_localize_script( 'shortcode-public-woo', 'liveSearchDataPosts',[$translation_array_for_products,
-            array( 'root_url' => get_rest_url())]);
-
-     wp_localize_script( 'shortcode-public-woo', 'liveSearchDataCategories',[$translation_array_for_categories,
-            array( 'root_url' => get_rest_url())]);
-
- //search bar before loop           
- wp_register_script( 'before-loop-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/drmilun-public-before-loop.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
-    
-   wp_enqueue_script( 'before-loop-public-woo' );
-
-
-   
-   //for search loop in menu		
-   //  wp_register_script( 'show-result-widget', plugin_dir_url( __FILE__ ) . '../public/js/show_result_in_widget.js', array("jquery" ),'1.0', true );
-    
-   //wp_enqueue_script( 'show-result-widget' );
 
  }
 

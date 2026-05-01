@@ -1,21 +1,6 @@
 window.milunShowResultBeforeLoop = function(livesearchposts_1){
  // console.log(livesearchposts_1);
 
-var livesearchposts_1 = livesearchposts_1;
-
-
-if (livesearchposts_1.length==0) {
-
-    document.getElementsByClassName('no-data-before-loop')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
-
-        jQuery('.data-before-loop-posts-btn').css('display','none');
-   
-                jQuery('.data-container-before-loop').css('display','none');
-
-
-
-}
-
 var load_post_number =  parseInt(jQuery("#numberofpostswoo").val());
 var custom_word_of_number_of_posts = '';   
 if(parseInt(jQuery("#numberofpostswoo").val()) == 1){
@@ -37,17 +22,20 @@ jQuery(function() {
   jQuery(".data-container-before-loop div.line_below_post").last().remove();
 
 });
+console.log(liveSearchDataCategories);
 jQuery('.data-container-before-loop-inc').css('display','none');
    document.getElementsByClassName('data-container-before-loop')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?  `
 <div class='body'><img src=`+item.thumb +` class='milun-search-thumb'><div class="title" style="font-weight: bold;">`+
     item.post_title+`</div><div class="price">`+milunBeforeLoopData.currency_symbol +
-    item.price+`</div>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
+    item.price+`</div>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories.root_url+'/'+item.slug+`> `+
  liveSearchDataPosts[0].read_more+`</a></div><br>`
     
  : item.post_title == undefined ? ``:`<div class="title">`+item.post_title+`</div><div class='body'>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
  liveSearchDataPosts[0].read_more+`</a></div><br>`
  ).join(" ")
 ;
+jQuery('.data-before-loop-posts-btn').css('display','block');
+
 document.getElementsByClassName('data-before-loop-posts-btn')[0].innerHTML=
 '<div class="background_color_of_load_more_button_before_loop">Load more...('+parseInt(jQuery("#numberofpostswoo").val())+') '+ custom_word_of_number_of_posts+'</div><div id="no_more_posts_before-loop"></div>';
 jQuery(".search-term-before-loop").removeClass("loadinggif");

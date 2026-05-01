@@ -228,7 +228,7 @@ float:left;
 ===================================================== */
 
 /* ROOT */
-.pop_up_menu.milun-popup-center{
+.pop_up_popup.milun-popup-center{
   position: fixed;
   inset: 0;
   z-index: 999999;
@@ -236,7 +236,7 @@ float:left;
 }
 
 /* DARK BACKGROUND */
-.pop_up_menu.milun-popup-center::before{
+.pop_up_popup.milun-popup-center::before{
   content:"";
   position: fixed;
   inset:0;
@@ -249,7 +249,7 @@ float:left;
    FORCE CENTER MODAL
    (overrides any old sliding CSS)
 ===================================================== */
-.pop_up_menu.milun-popup-center .notification-container{
+.pop_up_popup.milun-popup-center .notification-container{
 
   position: fixed !important;
 
@@ -280,15 +280,15 @@ float:left;
 }
 
 /* OPEN STATE */
-.pop_up_menu.milun-popup-center.is-open{
+.pop_up_popup.milun-popup-center.is-open{
   pointer-events:auto;
 }
 
-.pop_up_menu.milun-popup-center.is-open::before{
+.pop_up_popup.milun-popup-center.is-open::before{
   opacity:1;
 }
 
-.pop_up_menu.milun-popup-center.is-open
+.pop_up_popup.milun-popup-center.is-open
 .notification-container{
   transform:translate(-50%,-50%) scale(1) !important;
   opacity:1;
@@ -297,7 +297,7 @@ float:left;
 /* =====================================================
    SEARCH HEADER
 ===================================================== */
-.pop_up_menu.milun-popup-center .search_menu{
+.pop_up_popup.milun-popup-center .search_popup{
   display:flex;
   align-items:center;
   gap:10px;
@@ -306,7 +306,7 @@ float:left;
 }
 
 /* SEARCH INPUT */
-.pop_up_menu.milun-popup-center .search-term-menu{
+.pop_up_popup.milun-popup-center .search-term-popup{
   width:100%;
   padding:10px 12px;
   border-radius:8px;
@@ -329,9 +329,9 @@ float:left;
 }
 
 /* RESULTS AREA */
-.pop_up_menu.milun-popup-center,
+.pop_up_popup.milun-popup-center,
 .pop_up_before_loop.milun-popup-center,
-.wrapper-data-container-menu-data-posts,
+.wrapper-data-container-popup-data-posts,
 .wrapper-data-container-before-loop-data-posts,
 .wrapper-data-container-widget-data-posts{
   padding:15px;
@@ -414,7 +414,7 @@ body.milun-popup-lock{
 /* =====================================================
    SEARCH HEADER
 ===================================================== */
-.pop_up_before_loop.milun-popup-center .search_menu{
+.pop_up_before_loop.milun-popup-center .search_popup{
   display:flex;
   align-items:center;
   gap:10px;
@@ -423,7 +423,7 @@ body.milun-popup-lock{
 }
 
 /* SEARCH INPUT */
-.pop_up_before_loop.milun-popup-center .search-term-menu{
+.pop_up_before_loop.milun-popup-center .search-term-popup{
   width:100%;
   padding:10px 12px;
   border-radius:8px;
@@ -506,7 +506,7 @@ body.milun-popup-lock{
 /* =====================================================
    SEARCH HEADER
 ===================================================== */
-.pop_up_widget.milun-popup-center .search_menu{
+.pop_up_widget.milun-popup-center .search_popup{
   display:flex;
   align-items:center;
   gap:10px;
@@ -515,9 +515,10 @@ body.milun-popup-lock{
 }
 
 /* SEARCH INPUT */
-.pop_up_widget.milun-popup-center .search-term-menu{
+.pop_up_widget.milun-popup-center .search-term-popup{
   width:100%;
   padding:10px 12px;
   border-radius:8px;
   outline:none;
 }
+

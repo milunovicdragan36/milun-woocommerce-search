@@ -93,7 +93,8 @@ if (counts[prop] % 2 == 1)
            url: ajax_object.ajax_url,
            data: {
              action:"select_visibility_sku", 
-             visibility_sku:sku
+             visibility_sku:sku,
+             nonce: ajax_object.nonce
            
            },
 
@@ -164,7 +165,8 @@ if (counts[prop] % 2 == 1)
            url: ajax_object.ajax_url,
            data: {
              action:"select_visibility_title", 
-             visibility_title:title
+             visibility_title:title,
+             nonce: ajax_object.nonce
            
            },
 
@@ -234,7 +236,9 @@ if (counts[prop] % 2 == 1)
            url: ajax_object.ajax_url,
            data: {
              action:"select_visibility_title_of_product", 
-             visibility_title_of_product:title_of_product
+             visibility_title_of_product:title_of_product,
+             nonce: ajax_object.nonce
+
            
            },
 
@@ -304,7 +308,8 @@ if (counts[prop] % 2 == 1)
            url: ajax_object.ajax_url,
            data: {
              action:"select_visibility_woo_user", 
-             visibility_woo_user:user
+             visibility_woo_user:user,
+             nonce: ajax_object.nonce
            
            },
 
@@ -376,7 +381,7 @@ if (counts[prop] % 2 == 1)
            url: ajax_object.ajax_url,
            data: {
              action:"select_woo_type_prod",
-            woo_type_prod:type_prod
+            woo_type_prod:type_prod,
 
 
            
@@ -446,7 +451,8 @@ if (counts[prop] % 2 == 1)
            url: ajax_object.ajax_url,
            data: {
              action:"select_woo_ratings",
-            woo_ratings:rate
+            woo_ratings:rate,
+             nonce: ajax_object.nonce
 
 
            
@@ -518,7 +524,8 @@ if (counts[prop] % 2 == 1)
            url: ajax_object.ajax_url,
            data: {
              action:"select_woo_product",
-            woo_product_id:product_id
+            woo_product_id:product_id,
+             nonce: ajax_object.nonce
 
 
            
@@ -591,7 +598,8 @@ if (counts[prop] % 2 == 1)
            url: ajax_object.ajax_url,
            data: {
              action:"select_woo_category",
-            woo_category_id:category_id
+            woo_category_id:category_id,
+             nonce: ajax_object.nonce
 
 
            
@@ -666,7 +674,8 @@ if (counts[prop] % 2 == 1)
             woo_term_id:term_id,
 
              woo_term_name:name,
-             woo_term_variation:variation
+             woo_term_variation:variation,
+             nonce: ajax_object.nonce
 
 
            

@@ -127,7 +127,7 @@ var customSearchBox =this.searchFieldProductsWidgetFullWidth.val();
 var number_of_words_in_posts_2 = this.number_of_words_in_posts.val();
 var search_post_id_title = jQuery("#search_post_id_title").val();
 var number_of_posts = parseInt(jQuery("#numberofposts").val());
-var post_id = jQuery("#search_post_id").val();
+var post_id = jQuery("#search_post_id_woo").val();
 var search_by_woo_title = jQuery('#search_by_woo_title').val();
 
 
@@ -155,14 +155,15 @@ const url =
   encodeURIComponent(post_id);
 
 jQuery.getJSON(url, function (livesearchposts_1) {
+  console.log(livesearchposts_1);
   if (typeof window.milunShowResultWidgetFullWidth === "function") {
     window.milunShowResultWidgetFullWidth(livesearchposts_1);
   }
   
 if (livesearchposts_1.length==0) {
   jQuery(".data-container-widget_full_width").css("display","block");
-
-    document.getElementsByClassName('data-container-widget_full_width')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
+jQuery(".data-widget_full_width-posts-btn").css("display","none");
+    document.getElementsByClassName('data-container-widget_full_width')[0].innerHTML =liveSearchDataPosts.i18n.not_found_data;
 
 
  

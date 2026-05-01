@@ -1,543 +1,846 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+function milun_get_woo_search_results_two_words( $request ) {
+
 global $wpdb;
- $post_slug = $request['s'];
-$second_word = $request['se'];
+$post_slug   = isset( $request['s'] )  ? sanitize_text_field( wp_unslash( $request['s'] ) )  : '';
+$second_word = isset( $request['se'] ) ? sanitize_text_field( wp_unslash( $request['se'] ) ) : '';
 
-$custom = get_post_meta( esc_attr($request['id']) );
-$datepicker_1 = ( isset( $custom['datepicker_1'.$request['id']][0] ) ) ? $custom['datepicker_1'.$request['id']][0] : '';
-$datepicker_2 = ( isset( $custom['datepicker_2'.$request['id']][0] ) ) ? $custom['datepicker_2'.$request['id']][0] : '';  
+$post_id = isset( $request['id'] ) ? absint( $request['id'] ) : 0;
 
+$custom = get_post_meta( $post_id );
 
+// Datepickers
+$datepicker_1 = isset( $custom[ 'datepicker_1' . $post_id ][0] )
+	? sanitize_text_field( $custom[ 'datepicker_1' . $post_id ][0] )
+	: '';
 
+$datepicker_2 = isset( $custom[ 'datepicker_2' . $post_id ][0] )
+	? sanitize_text_field( $custom[ 'datepicker_2' . $post_id ][0] )
+	: '';
 
+// Password filters
+$show_products_with_and_without_password = sanitize_text_field(
+	get_post_meta( $post_id, 'show_products_with_and_without_password', true )
+);
 
- $show_products_with_and_without_password = esc_attr(get_post_meta( $request['id'],"show_products_with_and_without_password", true));
+$show_products_with_password = sanitize_text_field(
+	get_post_meta( $post_id, 'show_products_with_password', true )
+);
 
-  $show_products_with_password = esc_attr(get_post_meta( $request['id'],"show_products_with_password", true));
-  //Display how many of posts is in a current category
-   $show_products_without_password = esc_attr(get_post_meta( $request['id'],"show_products_without_password", true));
-   //Display how many of posts is in a current category
- //return  "show_products_with_and_without_password - ".$show_products_with_and_without_password. "show_products_with_password ".$show_products_with_password
- //."show_products_without_password ".$show_products_without_password;
- $search_by_woo_title = esc_attr(get_post_meta( $request['id'],"search_by_woo_title", true));
+$show_products_without_password = sanitize_text_field(
+	get_post_meta( $post_id, 'show_products_without_password', true )
+);
 
-   //Display how many of posts is in a current category
-   $search_by_woo_content = esc_attr(get_post_meta( $request['id'],"search_by_woo_content", true));
+// Search modes
+$search_by_woo_title = sanitize_text_field(
+	get_post_meta( $post_id, 'search_by_woo_title', true )
+);
 
-$files_record = [];
+$search_by_woo_content = sanitize_text_field(
+	get_post_meta( $post_id, 'search_by_woo_content', true )
+);
+$files_record = array();
 
-///////****search by woo title ******/////////
+$like_slug   = '%' . $wpdb->esc_like( $post_slug ) . '%';
+$like_second = '%' . $wpdb->esc_like( $second_word ) . '%';
 
-if($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_1!='' && empty($datepicker_2) && $show_products_with_and_without_password = "1" 
- && $show_products_with_password!="1" && $show_products_without_password !="1"
-){
-    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND 
- $wpdb->posts.post_title LIKE %s AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%', '%' . $wpdb->esc_like($second_word) . '%',$datepicker_1, '%' . $wpdb->esc_like($post_slug) . '%', '%' . $wpdb->esc_like($second_word) . '%',$datepicker_1));
+$password_mode = 'all';
 
-}
-  
-
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_1!='' && empty($datepicker_2) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password="1" && $show_products_without_password !="1"
-){
-   
-    // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE $wpdb->posts.post_password!='' AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1));
-
-
-}
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_1!='' && empty($datepicker_2) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password!="1" && $show_products_without_password ="1"
-){
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
-   WHERE $wpdb->posts.post_password='' AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1));
-
-
-}
-///////datepicker 2 is not empty//////////
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_2!='' && empty($datepicker_1) && $show_products_with_and_without_password = "1" 
- && $show_products_with_password!="1" && $show_products_without_password !="1"
-){
-    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2));
-}
-  
-
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_2!='' && empty($datepicker_1) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password="1" && $show_products_without_password !="1"
-){
-   
-    // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE $wpdb->posts.post_password!='' AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
- $wpdb->posts.post_title LIKE %s AND  $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2));
-
-}
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_2!='' && empty($datepicker_1) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password!="1" && $show_products_without_password ="1"
-){
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
-   WHERE $wpdb->posts.post_password='' AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2));
-
-}
-///////datepicker 1 and datepicker 2 are not empty//////////
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_1!='' && $datepicker_2!='' && $show_products_with_and_without_password = "1" 
- && $show_products_with_password!="1" && $show_products_without_password !="1"
-){
-  
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2));
-}
-  
-
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_1!='' && $datepicker_2!='' && $show_products_with_and_without_password != "1" 
- && $show_products_with_password="1" && $show_products_without_password !="1"
-){    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_password!='' AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2));
-
-}
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && $datepicker_2!='' && empty($datepicker_1) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password!="1" && $show_products_without_password ="1"
-){
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_password='' AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2));
-
+if (
+	'1' !== $show_products_with_and_without_password &&
+	'1' === $show_products_with_password &&
+	'1' !== $show_products_without_password
+) {
+	$password_mode = 'with';
+} elseif (
+	'1' !== $show_products_with_and_without_password &&
+	'1' !== $show_products_with_password &&
+	'1' === $show_products_without_password
+) {
+	$password_mode = 'without';
 }
 
-///////datepicker 1 and datepicker 2 are empty//////////
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && empty($datepicker_1) && empty($datepicker_2) && $show_products_with_and_without_password = "1" 
- && $show_products_with_password!="1" && $show_products_without_password !="1"
-){
-    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_title LIKE %s  AND $wpdb->posts.post_title LIKE %s  AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND 
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%', '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%'));
-}
-  
+if (
+	'1' === $search_by_woo_title &&
+	'1' !== $search_by_woo_content &&
+	'' !== $datepicker_1 &&
+	empty( $datepicker_2 )
+) {
 
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && empty($datepicker_1) && empty($datepicker_2) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password="1" && $show_products_without_password !="1"
-){    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_password!='' AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND 
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%', '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%'));
-}
-elseif($search_by_woo_title=="1" && $search_by_woo_content !="1" && empty($datepicker_1) && empty($datepicker_2) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password!="1" && $show_products_without_password ="1"
-){
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_password='' AND $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
- $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_title LIKE %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%', '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%'));
-}
-/////////////////the end of woo title search//////////////////////
+	if ( 'with' === $password_mode ) {
 
-///////****search by woo content ******/////////
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_date > %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )
+				AND post_password != ''",
+				$like_slug,
+				$like_second,
+				$datepicker_1,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
 
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  $datepicker_1!='' && empty($datepicker_2) && $show_products_with_and_without_password = "1" 
- && $show_products_with_password!="1" && $show_products_without_password !="1"
-){
-    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND 
- $wpdb->posts.post_content LIKE %s AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%', '%' . $wpdb->esc_like($second_word) . '%',$datepicker_1, '%' . $wpdb->esc_like($post_slug) . '%', '%' . $wpdb->esc_like($second_word) . '%',$datepicker_1));
+	} elseif ( 'without' === $password_mode ) {
 
-}
-  
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_date > %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )
+				AND post_password = ''",
+				$like_slug,
+				$like_second,
+				$datepicker_1,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
 
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  $datepicker_1!='' && empty($datepicker_2) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password="1" && $show_products_without_password !="1"
-){
-   
-    // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE $wpdb->posts.post_password!='' AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1));
+	} else {
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_date > %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )",
+				$like_slug,
+				$like_second,
+				$datepicker_1,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
+	}
 
-}
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  $datepicker_1!='' && empty($datepicker_2) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password!="1" && $show_products_without_password ="1"
-){
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
-   WHERE $wpdb->posts.post_password='' AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1));
+} elseif (
+	'1' === $search_by_woo_title &&
+	'1' !== $search_by_woo_content &&
+	'' !== $datepicker_2 &&
+	empty( $datepicker_1 )
+) {
 
+	if ( 'with' === $password_mode ) {
 
-}
-///////datepicker 2 is not empty//////////
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  $datepicker_2!='' && empty($datepicker_1) && $show_products_with_and_without_password = "1" 
- && $show_products_with_password!="1" && $show_products_without_password !="1"
-){
-    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2));
-}
-  
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_date < %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )
+				AND post_password != ''",
+				$like_slug,
+				$like_second,
+				$datepicker_2,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
 
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  $datepicker_2!='' && empty($datepicker_1) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password="1" && $show_products_without_password !="1"
-){
-   
-    // phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE $wpdb->posts.post_password!='' AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
- $wpdb->posts.post_content LIKE %s AND  $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2));
+	} elseif ( 'without' === $password_mode ) {
 
-}
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  $datepicker_2!='' && empty($datepicker_1) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password!="1" && $show_products_without_password ="1"
-){
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
-   WHERE $wpdb->posts.post_password='' AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_2));
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_date < %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )
+				AND post_password = ''",
+				$like_slug,
+				$like_second,
+				$datepicker_2,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
 
-}
-///////datepicker 1 and datepicker 2 are not empty//////////
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  $datepicker_1!='' && $datepicker_2!='' && $show_products_with_and_without_password = "1" 
- && $show_products_with_password!="1" && $show_products_without_password !="1"
-){
-    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2));
-}
-  
+	} else {
 
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  $datepicker_1!='' && $datepicker_2!='' && $show_products_with_and_without_password != "1" 
- && $show_products_with_password="1" && $show_products_without_password !="1"
-){    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_password!='' AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2));
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_date < %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )",
+				$like_slug,
+				$like_second,
+				$datepicker_2,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
+	}
 
-}
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  $datepicker_2!='' && empty($datepicker_1) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password!="1" && $show_products_without_password ="1"
-){
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_password='' AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_date > %s AND $wpdb->posts.post_date < %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2, '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%',$datepicker_1,$datepicker_2));
+} elseif (
+	'1' === $search_by_woo_title &&
+	'1' !== $search_by_woo_content &&
+	'' !== $datepicker_1 &&
+	'' !== $datepicker_2
+) {
 
-}
+	if ( 'with' === $password_mode ) {
 
-///////datepicker 1 and datepicker 2 are empty//////////
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  empty($datepicker_1) && empty($datepicker_2) && $show_products_with_and_without_password = "1" 
- && $show_products_with_password!="1" && $show_products_without_password !="1"
-){
-    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_content LIKE %s  AND $wpdb->posts.post_content LIKE %s  AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND 
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%', '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%'));
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_date > %s
+				AND post_date < %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )
+				AND post_password != ''",
+				$like_slug,
+				$like_second,
+				$datepicker_1,
+				$datepicker_2,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
 
-}
-  
+	} elseif ( 'without' === $password_mode ) {
 
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  empty($datepicker_1) && empty($datepicker_2) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password="1" && $show_products_without_password !="1"
-){    
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_password!='' AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password!='' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND 
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%', '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%'));
-}
-elseif($search_by_woo_title!="1" && $search_by_woo_content =="1" &&  empty($datepicker_1) && empty($datepicker_2) && $show_products_with_and_without_password != "1" 
- && $show_products_with_password!="1" && $show_products_without_password ="1"
-){
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery  
-$files_record = $wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
- 
-    
-   WHERE  $wpdb->posts.post_password='' AND $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'  AND $wpdb->posts.post_type = 'product'
-  ||  $wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_password='' AND 
- $wpdb->posts.post_content LIKE %s AND $wpdb->posts.post_content LIKE %s AND
-   $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type != 'sfp_search_post'
-   
-", '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%', '%' . $wpdb->esc_like($post_slug) . '%','%' . $wpdb->esc_like($second_word) . '%'));
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_date > %s
+				AND post_date < %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )
+				AND post_password = ''",
+				$like_slug,
+				$like_second,
+				$datepicker_1,
+				$datepicker_2,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
+
+	} else {
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_date > %s
+				AND post_date < %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )",
+				$like_slug,
+				$like_second,
+				$datepicker_1,
+				$datepicker_2,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
+	}
+
+} elseif (
+	'1' === $search_by_woo_title &&
+	'1' !== $search_by_woo_content &&
+	empty( $datepicker_1 ) &&
+	empty( $datepicker_2 )
+) {
+
+	if ( 'with' === $password_mode ) {
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )
+				AND post_password != ''",
+				$like_slug,
+				$like_second,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
+
+	} elseif ( 'without' === $password_mode ) {
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )
+				AND post_password = ''",
+				$like_slug,
+				$like_second,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
+
+	} else {
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$files_record = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->posts}
+				WHERE post_title LIKE %s
+				AND post_title LIKE %s
+				AND post_status = %s
+				AND post_type != %s
+				AND post_type IN ( %s, %s )",
+				$like_slug,
+				$like_second,
+				'publish',
+				'sfp_search_post',
+				'product',
+				'product_variation'
+			)
+		);
+	}
+
+} elseif (
+	'1' !== $search_by_woo_title &&
+	'1' === $search_by_woo_content
+) {
+
+	if ( $datepicker_1 && ! $datepicker_2 ) {
+
+		if ( 'with' === $password_mode ) {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_password != ''
+					AND post_date > %s",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation',
+					$datepicker_1
+				)
+			);
+
+		} elseif ( 'without' === $password_mode ) {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_password = ''
+					AND post_date > %s",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation',
+					$datepicker_1
+				)
+			);
+
+		} else {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_date > %s",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation',
+					$datepicker_1
+				)
+			);
+		}
+
+	} elseif ( $datepicker_2 && ! $datepicker_1 ) {
+
+		if ( 'with' === $password_mode ) {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_password != ''
+					AND post_date < %s",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation',
+					$datepicker_2
+				)
+			);
+
+		} elseif ( 'without' === $password_mode ) {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_password = ''
+					AND post_date < %s",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation',
+					$datepicker_2
+				)
+			);
+
+		} else {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_date < %s",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation',
+					$datepicker_2
+				)
+			);
+		}
+
+	} elseif ( $datepicker_1 && $datepicker_2 ) {
+
+		if ( 'with' === $password_mode ) {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_password != ''
+					AND post_date > %s
+					AND post_date < %s",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation',
+					$datepicker_1,
+					$datepicker_2
+				)
+			);
+
+		} elseif ( 'without' === $password_mode ) {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_password = ''
+					AND post_date > %s
+					AND post_date < %s",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation',
+					$datepicker_1,
+					$datepicker_2
+				)
+			);
+
+		} else {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_date > %s
+					AND post_date < %s",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation',
+					$datepicker_1,
+					$datepicker_2
+				)
+			);
+		}
+
+	} else {
+
+		if ( 'with' === $password_mode ) {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_password != ''",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation'
+				)
+			);
+
+		} elseif ( 'without' === $password_mode ) {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )
+					AND post_password = ''",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation'
+				)
+			);
+
+		} else {
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$files_record = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->posts}
+					WHERE post_content LIKE %s
+					AND post_content LIKE %s
+					AND post_status = %s
+					AND post_type != %s
+					AND post_type IN ( %s, %s )",
+					$like_slug,
+					$like_second,
+					'publish',
+					'sfp_search_post',
+					'product',
+					'product_variation'
+				)
+			);
+		}
+	}
 }
 /////////////////the end of woo content search//////////////////////
 // for featured images and price
 foreach ( $files_record as $row ) {
-   $row->thumb = $this->miluse_thumb_for_product_or_variation( $row->ID );
-$row->price = wc_get_product( $row->ID )->get_price();
 
-   }
-//ratings
- $ratings =$wpdb->get_results( $wpdb->prepare("SELECT * FROM $wpdb->posts
+	$product = wc_get_product( $row->ID );
 
-        LEFT JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id)
-    LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
-    LEFT JOIN $wpdb->terms ON ($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id) 
-    LEFT JOIN $wpdb->postmeta ON ($wpdb->terms.slug= $wpdb->postmeta.meta_key)
-     
-   
+if ( $product ) {
 
- 
-    WHERE  
-       $wpdb->posts.post_type IN ('product', 'product_variation')  
-     AND $wpdb->postmeta.meta_value = 'woo_ratings51' OR $wpdb->postmeta.meta_value = 'outofstock' AND  $wpdb->posts.post_title  LIKE '%$post_slug%' AND $wpdb->posts.post_type IN ('product', 'product_variation')  
-    "));
-$sku =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
-      LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_value LIKE CONCAT('%', $wpdb->posts.post_name, '%')
+	$price = $product->get_price();
 
-    WHERE meta_key = '_sku' AND meta_value LIKE '%kuhide' AND $wpdb->posts.post_status = 'publish'   AND $wpdb->posts.post_type IN ('product', 'product_variation')
-"));
- 
+	// fallback for variations or empty price
+	if ( $price === '' ) {
+		$parent_id = wp_get_post_parent_id( $row->ID );
+
+		if ( $parent_id ) {
+			$parent = wc_get_product( $parent_id );
+			$price  = $parent ? $parent->get_price() : '';
+		}
+	}
+
+	// 🔥 FINAL fallback (important)
+	if ( $price === '' ) {
+		$price = get_post_meta( $row->ID, '_price', true );
+	}
+
+	$row->price = $price;
+
+} else {
+	$row->price = '';
+}
+
+	// -------- THUMB --------
+	$thumb_id = get_post_thumbnail_id( $row->ID );
+
+	// fallback for variations
+	if ( ! $thumb_id ) {
+		$parent_id = wp_get_post_parent_id( $row->ID );
+
+		if ( $parent_id ) {
+			$thumb_id = get_post_thumbnail_id( $parent_id );
+		}
+	}
+
+	$row->thumb = $thumb_id
+		? wp_get_attachment_image_url( $thumb_id, 'woocommerce_thumbnail' )
+		: '';
+}
+// ratings
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+$ratings = $wpdb->get_results(
+	$wpdb->prepare(
+		"SELECT * FROM $wpdb->posts
+		LEFT JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id)
+		LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
+		LEFT JOIN $wpdb->terms ON ($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id)
+		LEFT JOIN $wpdb->postmeta ON ($wpdb->terms.slug = $wpdb->postmeta.meta_key)
+		WHERE
+			$wpdb->posts.post_type IN (%s, %s)
+			AND $wpdb->postmeta.meta_value = %s
+			OR $wpdb->postmeta.meta_value = %s
+			AND $wpdb->posts.post_title LIKE %s
+			AND $wpdb->posts.post_type IN (%s, %s)",
+		'product',
+		'product_variation',
+		'woo_ratings51',
+		'outofstock',
+		'%' . $wpdb->esc_like( $post_slug ) . '%',
+		'product',
+		'product_variation'
+	)
+);
+$like_meta_value = '%' . $wpdb->esc_like( 'kuhide' ) . '%';
+
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+$sku = $wpdb->get_results(
+	$wpdb->prepare(
+		"
+		SELECT *
+		FROM {$wpdb->posts}
+		LEFT JOIN {$wpdb->postmeta}
+			ON INSTR({$wpdb->postmeta}.meta_value, {$wpdb->posts}.post_name) > 0
+		WHERE {$wpdb->postmeta}.meta_key = %s
+			AND {$wpdb->postmeta}.meta_value LIKE %s
+			AND {$wpdb->posts}.post_status = %s
+			AND {$wpdb->posts}.post_type IN ( %s, %s )
+		",
+		'_sku',
+		$like_meta_value,
+		'publish',
+		'product',
+		'product_variation'
+	)
+);
 
 
-// 1) Find attribute term taxonomies (pa_%)
+// 1) Find attribute term taxonomies (pa_%).
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 $terms = $wpdb->get_results(
-    $wpdb->prepare(
-        "
-        SELECT t.term_id, t.name, t.slug, tt.term_taxonomy_id, tt.taxonomy
-        FROM {$wpdb->terms} t
-        INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_id = t.term_id
-        WHERE tt.taxonomy LIKE %s
-        LIMIT 50
-        ",
-        'pa\_%'
-    )
+	$wpdb->prepare(
+		"
+		SELECT t.term_id, t.name, t.slug, tt.term_taxonomy_id, tt.taxonomy
+		FROM {$wpdb->terms} t
+		INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_id = t.term_id
+		WHERE tt.taxonomy LIKE %s
+		LIMIT %d
+		",
+		$wpdb->esc_like( 'pa_' ) . '%',
+		50
+	)
 );
 
 if ( empty( $terms ) ) {
-    return [];
+	return array();
 }
 
-// collect term_taxonomy_ids
-$tt_ids = array_map( static fn($r) => (int) $r->term_taxonomy_id, $terms );
-$tt_ids = array_values( array_unique( $tt_ids ) );
-
-$placeholders = implode(',', array_fill(0, count($tt_ids), '%d'));
-
-// 2) Fetch products WITH woo_term marker
-$sql = $wpdb->prepare(
-    "
-    SELECT DISTINCT p.*
-    FROM {$wpdb->posts} p
-    INNER JOIN {$wpdb->term_relationships} tr 
-        ON tr.object_id = p.ID
-    INNER JOIN {$wpdb->terms} t
-        ON t.term_id = tr.term_taxonomy_id
-        OR t.term_id = (
-            SELECT term_id 
-            FROM {$wpdb->term_taxonomy} 
-            WHERE term_taxonomy_id = tr.term_taxonomy_id
-        )
-    INNER JOIN {$wpdb->postmeta} pm
-        ON pm.meta_key = t.slug
-       AND pm.meta_value = 'woo_term'
-    WHERE p.post_type = 'product'
-      AND p.post_status = 'publish'
-      AND tr.term_taxonomy_id IN ($placeholders)
-    ORDER BY p.post_title ASC
-    LIMIT 200
-    ",
-    ...$tt_ids
+// 2) Fetch products WITH woo_term marker.
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+$terms_products = $wpdb->get_results(
+	$wpdb->prepare(
+		"
+		SELECT DISTINCT p.*
+		FROM {$wpdb->posts} p
+		INNER JOIN {$wpdb->term_relationships} tr
+			ON tr.object_id = p.ID
+		INNER JOIN {$wpdb->term_taxonomy} tt
+			ON tt.term_taxonomy_id = tr.term_taxonomy_id
+		INNER JOIN {$wpdb->terms} t
+			ON t.term_id = tt.term_id
+		INNER JOIN {$wpdb->postmeta} pm
+			ON pm.meta_key = t.slug
+			AND pm.meta_value = %s
+		WHERE p.post_type = %s
+			AND p.post_status = %s
+			AND tt.taxonomy LIKE %s
+		ORDER BY p.post_title ASC
+		LIMIT %d
+		",
+		'woo_term',
+		'product',
+		'publish',
+		$wpdb->esc_like( 'pa_' ) . '%',
+		200
+	)
 );
 
-$terms_products = $wpdb->get_results( $sql );
+// Product titles.
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+$products_titles = $wpdb->get_results(
+	$wpdb->prepare(
+		"
+		SELECT *
+		FROM {$wpdb->posts}
+		LEFT JOIN {$wpdb->postmeta}
+			ON {$wpdb->postmeta}.meta_value = {$wpdb->posts}.post_title
+		WHERE meta_key LIKE %s
+			AND {$wpdb->posts}.post_status = %s
+			AND {$wpdb->posts}.post_type IN ( %s, %s )
+		",
+		'%' . $wpdb->esc_like( 'hidetitleproduct' ),
+		'publish',
+		'product',
+		'product_variation'
+	)
+);
 
-//product titles
- $products_titles =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts 
-      LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_value = $wpdb->posts.post_title
-
-    WHERE  meta_key LIKE '%hidetitleproduct' AND $wpdb->posts.post_status = 'publish'   AND $wpdb->posts.post_type IN ('product', 'product_variation')
-"));
-//users posts
-$users =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->posts
-      LEFT JOIN $wpdb->users ON $wpdb->posts.post_author = $wpdb->users.ID
-      LEFT JOIN $wpdb->postmeta ON $wpdb->users.user_nicename = $wpdb->postmeta.meta_key
-    
-    WHERE  meta_value LIKE '%hide_woo_user' AND $wpdb->posts.post_status = 'publish'   AND $wpdb->posts.post_type IN ('product', 'product_variation')
-
-
-"));
+// Users posts.
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+$users = $wpdb->get_results(
+	$wpdb->prepare(
+		"
+		SELECT *
+		FROM {$wpdb->posts}
+		LEFT JOIN {$wpdb->users}
+			ON {$wpdb->posts}.post_author = {$wpdb->users}.ID
+		LEFT JOIN {$wpdb->postmeta}
+			ON {$wpdb->users}.user_nicename = {$wpdb->postmeta}.meta_key
+		WHERE meta_value LIKE %s
+			AND {$wpdb->posts}.post_status = %s
+			AND {$wpdb->posts}.post_type IN ( %s, %s )
+		",
+		'%' . $wpdb->esc_like( 'hide_woo_user' ),
+		'publish',
+		'product',
+		'product_variation'
+	)
+);
 
 $ratings          = is_array($ratings) ? $ratings : [];
 $sku              = is_array($sku) ? $sku : [];
@@ -2181,6 +2484,5 @@ foreach($result_2 as $key=>$value){
 
 }
 return array_values($files_record_total_5);
-
 }
-?>
+}?>
