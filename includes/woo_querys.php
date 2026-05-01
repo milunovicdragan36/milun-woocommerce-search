@@ -264,7 +264,6 @@ if (
 			$datepicker_2
 		)
 	);
-
 } elseif (
 	$search_by_woo_title == "1" &&
 	$search_by_woo_content != "1" &&
