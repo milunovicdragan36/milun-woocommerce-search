@@ -187,24 +187,18 @@ wp_enqueue_script( 'shortcode-full-width' );
 wp_enqueue_script( 'widget-full-width' );
 
 
-/*
-     wp_register_script( 'ajax-script-public-woo', plugin_dir_url( __FILE__ ) . '../public/js/public-woo-shortcode.js', array("jquery",'1.12.1_jquery-ui','datepicker' ),'1.0', true );
-    
-   wp_enqueue_script( 'public-woo-shortcode' );
+/* full width shortcode */
+     wp_register_script(
+    'shortcode-full-width',
+    plugin_dir_url( __FILE__ ) . '../public/js/shortcode-full-width.js',
+    array( 'jquery' ),
+    '1.0',
+    true
+);
 
-   // Great for getting Rest Api data on the front end
-   wp_localize_script( 'public-woo-shortcode', 'liveSearchDataPosts',[$translation_array_for_posts,
-            array( 'root_url' => get_rest_url())]);
+wp_enqueue_script( 'shortcode-full-width' );
 
-     wp_localize_script( 'public-woo-shortcode', 'liveSearchDataCategories',[$translation_array_for_categories,
-            array( 'root_url' => get_rest_url())]); 
-          
-
-   wp_localize_script('public-woo-shortcode', 'woourl', array( 'siteurl' => get_option('siteurl') ));
-*/
-
-
-	  // Localize the script with new data
+ 	  // Localize the script with new data
 $translation_array_for_categories = array(
     'search_results' => __( 'Search Results', 'milun-woo-search' ),
     'not_found_data' => __( 'We could not find any categories for your search. You can give it another try with different criteria.', 'milun-woo-search' ),
@@ -215,6 +209,47 @@ $translation_array_for_products = array(
     'not_found_data' => __( 'We could not find any products for your search. You can give it another try with different criteria.', 'milun-woo-search' ),
     'read_more'      => __( 'Read more...', 'milun-woo-search' ),
 );
+  
+
+ // Great for getting Rest Api data on the front end (Posts)
+wp_localize_script(
+    'shortcode-full-width',
+    'liveSearchDataPosts',
+    array(
+        'root_url' => esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_products,
+    )
+);
+
+// Great for getting Rest Api data on the front end (Categories)
+wp_localize_script(
+    'shortcode-full-width',
+    'liveSearchDataCategories',
+    array(
+        'root_url' => esc_url_raw( get_rest_url() ),
+        'i18n'     => $translation_array_for_categories,
+    )
+);
+
+wp_localize_script(
+    'shortcode-full-width',
+    'MilunSearch',
+    [
+        'root_url' => home_url()
+    ]
+);
+
+
+/* full width shortcode settings*/
+     wp_register_script(
+    'shortcode-full-width-settings',
+    plugin_dir_url( __FILE__ ) . '../public/js/shortcode-full-width-settings.js',
+    array( 'jquery' ),
+    '1.0',
+    true
+);
+
+wp_enqueue_script( 'shortcode-full-width-settings' );
 
 // For searching popup
 wp_register_script(
