@@ -3925,22 +3925,32 @@ update_post_meta(
 /* =========================
    PASSWORD FILTERS
 ========================= */
-
+if ( isset( $_POST['show_products_with_and_without_password'] ) ) {
 update_post_meta( $post_id, 'show_products_with_and_without_password', 1 );
+delete_post_meta( $post_id, 'show_products_without_password' );
+delete_post_meta( $post_id, 'show_products_with_password' );
 
+}
+if ( isset( $_POST['show_products_without_password'] ) ) {
 update_post_meta(
 	$post_id,
 	'show_products_without_password',
 	isset( $_POST['show_products_without_password'] ) ? 1 : 0
 );
+delete_post_meta( $post_id, 'show_products_with_and_without_password' );
+delete_post_meta( $post_id, 'show_products_with_password' );
+}
 
+if ( isset( $_POST['show_products_with_password'] ) ) {
 update_post_meta(
 	$post_id,
 	'show_products_with_password',
 	isset( $_POST['show_products_with_password'] ) ? 1 : 0
 );
-
- }
+delete_post_meta( $post_id, 'show_products_with_and_without_password' );
+delete_post_meta( $post_id, 'show_products_without_password' );
+}
+}
 
  
 }
