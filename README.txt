@@ -1,21 +1,22 @@
-=== Searching for Posts ===
-Contributors: drmilun9
+=== Milun Search for WooCommerce ===
+Contributors: milunovicdragan36
 Donate link: https://www.paypal.com/paypalme/DraganMilunovic
 Tags: Searching, Posts, No refresh a page, CPT, Categories 
 Requires at least: 4.7
-Tested up to: 6.1.1
+Tested up to: 6.9
 Requires PHP: 5.6
-Stable tag: trunk
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-	  
+	Short Description: AJAX-powered WooCommerce product search with live results, category filtering, and flexible display positions.
+  
 
 == Description ==
   
   This plugin is useful for searhing posts by different searching criteria, without refreshing a page, by REST API, on this way the speed is much better.
 
-  In custom post type "search post" that is loaded by default with activation of plugin, you could choose different searching criteria for posts. 
+  In custom post type "sfp_search_post" that is loaded by default with activation of plugin, you could choose different searching criteria for posts. 
 
   For example,
 

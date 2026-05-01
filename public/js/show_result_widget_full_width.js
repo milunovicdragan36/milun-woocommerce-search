@@ -1,20 +1,7 @@
 window.milunShowResultWidgetFullWidth = function(livesearchposts_1){
  // console.log(livesearchposts_1);
 
-var livesearchposts_1 = livesearchposts_1;
 
-
-if (livesearchposts_1.length==0) {
-
-    document.getElementsByClassName('no-data-widget_full_width')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
-
-        jQuery('.data-widget_full_width-posts-btn').css('display','none');
-   
-                jQuery('.data-container-widget_full_width').css('display','none');
-
-
-
-}
 
 var load_post_number =  parseInt(jQuery("#numberofpostswoo").val());
 var custom_word_of_number_of_posts = '';   

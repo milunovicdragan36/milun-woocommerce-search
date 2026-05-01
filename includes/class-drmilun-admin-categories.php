@@ -52,55 +52,35 @@ function namespace_get_search_args() {
 
 function namespace_searching_front_woo_categories($request){
  
-  global $wpdb;
- $woo_category_slug       =$request['s']; 
-
-  
-       $woo_categories =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
-  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
-  LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
-
-         WHERE $wpdb->term_taxonomy.taxonomy ='product_cat' AND $wpdb->postmeta.meta_value NOT LIKE '%oo_cat_33%' AND $wpdb->terms.name LIKE '%$woo_category_slug%' 
-    "));
-       
-return  $woo_categories;
-
-
-}
-/*
-
- function namespace_ajax_search_woo_woo_terms_2($request){ 
-  $id = $request['id'];
-   $category_slug = $request['s'];                    
 global $wpdb;
 
-$search_categories_woo = esc_attr(get_post_meta( $id,"search_categories_woo", true));
-if($search_categories_woo=="1"){  
-   $files =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
-  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
-      LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
+$woo_category_slug = isset( $request['s'] )
+	? sanitize_text_field( wp_unslash( $request['s'] ) )
+	: '';
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+$woo_categories = $wpdb->get_results(
+	$wpdb->prepare(
+		"
+		SELECT *
+		FROM {$wpdb->terms}
+		LEFT JOIN {$wpdb->term_taxonomy}
+			ON {$wpdb->terms}.term_id = {$wpdb->term_taxonomy}.term_id
+		LEFT JOIN {$wpdb->postmeta}
+			ON {$wpdb->terms}.term_id = {$wpdb->postmeta}.meta_key
+		WHERE {$wpdb->term_taxonomy}.taxonomy = %s
+			AND {$wpdb->postmeta}.meta_value NOT LIKE %s
+			AND {$wpdb->terms}.name LIKE %s
+		",
+		'product_cat',
+		'%' . $wpdb->esc_like( 'oo_cat_33' ) . '%',
+		'%' . $wpdb->esc_like( $woo_category_slug ) . '%'
+	)
+);
 
-         WHERE $wpdb->term_taxonomy.taxonomy ='product_cat' AND $wpdb->terms.slug LIKE '%$category_slug%'
-    "));
-
-        $totalArray =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
-  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
-      LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
-
-         WHERE  $wpdb->postmeta.meta_value = 'woo_cat_33' AND $wpdb->term_taxonomy.taxonomy ='product_cat' AND $wpdb->postmeta.post_id = '$id' 
-    "));
+return $woo_categories;
 
 
-if (!empty($totalArray)) {
-$result = array_values(array_udiff($files, $totalArray, function ($a, $b) {
-    return strcmp($a->name,$b->name);
-}));
-return $result;
-}else{
-  return $files;
 }
-}
-*/
 
 
 function sfp_search_woo_categories(){
@@ -133,38 +113,67 @@ function namespace_get_search_cat() {
    return $args;
 }
 
+function namespace_searching_woo_categories( $request ) {
 
-function namespace_searching_woo_categories($request){
- 
-  global $wpdb;
- $woo_category_slug       =$request['s']; 
+	global $wpdb;
 
-  
-       $woo_categories =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
-  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
-  LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
+	$woo_category_slug = isset( $request['s'] )
+		? sanitize_text_field( wp_unslash( $request['s'] ) )
+		: '';
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+	$woo_categories = $wpdb->get_results(
+		$wpdb->prepare(
+			"
+			SELECT *
+			FROM {$wpdb->terms}
+			LEFT JOIN {$wpdb->term_taxonomy}
+				ON {$wpdb->terms}.term_id = {$wpdb->term_taxonomy}.term_id
+			LEFT JOIN {$wpdb->postmeta}
+				ON {$wpdb->terms}.term_id = {$wpdb->postmeta}.meta_key
+			WHERE {$wpdb->terms}.slug != %s
+				AND {$wpdb->term_taxonomy}.taxonomy = %s
+				AND IFNULL({$wpdb->postmeta}.meta_value, '') = ''
+				AND {$wpdb->terms}.name LIKE %s
+			",
+			'uncategorized',
+			'product_cat',
+			'%' . $wpdb->esc_like( $woo_category_slug ) . '%'
+		)
+	);
 
-         WHERE $wpdb->terms.slug !='uncategorized' AND $wpdb->term_taxonomy.taxonomy ='product_cat' AND ifnull($wpdb->postmeta.meta_value, '') = '' AND $wpdb->terms.name LIKE '%$woo_category_slug%' 
-    "));
-       
-return  $woo_categories;
-
-
+	return $woo_categories;
 }
-function namespace_searching_empty_woo_categories($request){
-    global $wpdb;
 
- $woo_category_slug       =$request['s']; 
+function namespace_searching_empty_woo_categories( $request ) {
 
-  
-       $empty_woo_categories =$wpdb->get_results( $wpdb->prepare("SELECT * from $wpdb->terms
-  LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id
-  LEFT JOIN $wpdb->postmeta ON $wpdb->terms.term_id = $wpdb->postmeta.meta_key
+	global $wpdb;
 
-         WHERE $wpdb->terms.slug !='uncategorized' AND $wpdb->term_taxonomy.taxonomy ='product_cat' AND $wpdb->postmeta.meta_value LIKE '%oo_cat_33%' AND $wpdb->terms.name LIKE '%$woo_category_slug%' 
-    "));
-       
-return  $empty_woo_categories;
+	$woo_category_slug = isset( $request['s'] )
+		? sanitize_text_field( wp_unslash( $request['s'] ) )
+		: '';
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+	$empty_woo_categories = $wpdb->get_results(
+		$wpdb->prepare(
+			"
+			SELECT *
+			FROM {$wpdb->terms}
+			LEFT JOIN {$wpdb->term_taxonomy}
+				ON {$wpdb->terms}.term_id = {$wpdb->term_taxonomy}.term_id
+			LEFT JOIN {$wpdb->postmeta}
+				ON {$wpdb->terms}.term_id = {$wpdb->postmeta}.meta_key
+			WHERE {$wpdb->terms}.slug != %s
+				AND {$wpdb->term_taxonomy}.taxonomy = %s
+				AND {$wpdb->postmeta}.meta_value LIKE %s
+				AND {$wpdb->terms}.name LIKE %s
+			",
+			'uncategorized',
+			'product_cat',
+			'%' . $wpdb->esc_like( 'oo_cat_33' ) . '%',
+			'%' . $wpdb->esc_like( $woo_category_slug ) . '%'
+		)
+	);
+
+	return $empty_woo_categories;
 }
 }
 

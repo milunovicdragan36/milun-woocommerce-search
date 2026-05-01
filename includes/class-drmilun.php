@@ -62,10 +62,10 @@ class MMSDD_Drmilun {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'MMSDD_Searching_for_Posts_VERSION' ) ) {
-			$this->version = MMSDD_Searching_for_Posts_VERSION;
+		if ( defined( 'MMSDD_Milun_Woocommerce_Search_VERSION' ) ) {
+			$this->version = MMSDD_Milun_Woocommerce_Search_VERSION;
 		} else {
-			$this->version = '1.0.1';
+			$this->version = '1.0.0';
 		}
 		$this->dmsfp_milun_search = 'milun-woo-search';
 
@@ -169,7 +169,7 @@ class MMSDD_Drmilun {
 
 		$plugin_i18n = new MMSDD_Drmilun_i18n();
 
-		$this->loader->dmsfp_add_action( 'plugins_loaded', $plugin_i18n, 'dmsfp_load_plugin_textdomain' );
+		$this->loader->dmsfp_add_action( 'plugins_loaded', $plugin_i18n, 'milun_load_textdomain' );
 
 	}
 

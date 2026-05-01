@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Define the internationalization functionality.
  *
@@ -17,16 +18,14 @@ class MMSDD_Drmilun_i18n {
 	 * Load the plugin text domain for translation.
 	 *
 	 */
-	public function dmsfp_load_plugin_textdomain() {
-
-		load_plugin_textdomain(
-			'milun-woo-search',
-			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
-		);
-
-	}
-
+// phpcs:ignore WordPress.WP.I18n.LoadTextdomain
+function milun_load_textdomain() {
+	load_plugin_textdomain(
+		'milun-woo-search',
+		false,
+		dirname( plugin_basename( __FILE__ ) ) . '/languages'
+	);
+}
 
 
 }

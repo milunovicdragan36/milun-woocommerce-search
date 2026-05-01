@@ -11,7 +11,7 @@
  * @package           MMSDD_Milun_Search
  *
  * @wordpress-plugin
- * Plugin Name:       Milun Woocommerce Search
+ * Plugin Name:       Milun Search for WooCommerce
  * Plugin URI:        
  * Description:       This is the plugin for searching categories, posts and products by different serching criteria
  * Version:           1.0.0
@@ -47,47 +47,37 @@ define( 'MMSDD_Drmilun_VERSION', '1.0.1' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-milun-woo-search-activator.php
  */
-if (!function_exists('dmsfp_activate_MMSDD_Milun_Search_Activator')){
+if ( ! function_exists( 'milun_woo_search_activate' ) ) {
 
-  function dmsfp_activate_MMSDD_Milun_Search_Activator() {
-	require plugin_dir_path( __FILE__ ) . 'includes/class-drmilun-activator.php';
-	MMSDD_Milun_Search_Activator::activate();
-   }
-
+	function milun_woo_search_activate() {
+		require plugin_dir_path( __FILE__ ) . 'includes/class-drmilun-activator.php';
+		MMSDD_Milun_Search_Activator::activate();
+	}
 }
 
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-milun-woo-search-deactivator.php
- */
-if (!function_exists('dmsfp_deactivate_MMSDD_Drmilun_Deactivator')){
+if ( ! function_exists( 'milun_woo_search_deactivate' ) ) {
 
-  function dmsfp_deactivate_MMSDD_Drmilun_Deactivator() {
-	require plugin_dir_path( __FILE__ ) . 'includes/class-drmilun-deactivator.php';
-	MMSDD_Drmilun_Deactivator::deactivate();
-   }
+	function milun_woo_search_deactivate() {
+		require plugin_dir_path( __FILE__ ) . 'includes/class-drmilun-deactivator.php';
+		MMSDD_Drmilun_Deactivator::deactivate();
+	}
 }
 
-register_activation_hook( __FILE__, 'dmsfp_activate_MMSDD_Milun_Search_Activator' );
-register_deactivation_hook( __FILE__, 'dmsfp_deactivate_MMSDD_Drmilun_Deactivator' );
-    
+register_activation_hook( __FILE__, 'milun_woo_search_activate' );
+register_deactivation_hook( __FILE__, 'milun_woo_search_deactivate' );
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-drmilun.php';
 
+if ( ! function_exists( 'milun_woo_search_run' ) ) {
 
-
-if (!function_exists('dmsfp_run_MMSDD_Drmilun')){
-
-	function dmsfp_run_MMSDD_Drmilun() {
-
+	function milun_woo_search_run() {
 		$plugin = new MMSDD_Drmilun();
 		$plugin->dmsfp_run();
-
 	}
-	dmsfp_run_MMSDD_Drmilun();
-
 }
 
+milun_woo_search_run();
+/*
 add_action( 'rest_api_init', 'register_rest_images' );
 
 
@@ -149,5 +139,4 @@ foreach ( $post_types_3  as $post_type ) {
         return $img[0];
     }
     return false;
-}
-
+}*/

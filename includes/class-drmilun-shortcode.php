@@ -29,13 +29,67 @@ add_action('woocommerce_before_shop_loop', [$this,'milun_render_search_form'], 5
 
 }
 function milun_render_search_form() {
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
 
-  
+  $popup_form = '
+      
+
+        <div class="pop_up_popup milun-popup-center">
+            <div class="notification-container dismiss">
+
+             
+                    <div class="search_popup" style="background-color:transparent;">
+
+                      <span class="dashicons dashicons-no-alt closeFilePanel"
+                      id="close-search-flyout-before-title"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+                        <input type="text"
+                               class="search-term-popup" style="border: 1px solid #000000;"
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
+                    </div>
+<div class="wrapper-for-data-popup-posts-btn">
+        <div class="wrapper-data-container-popup-data-posts">
+<div class="data-categories-container-popup"></div>
+<div class="data-container-popup"></div>
+<div class="data-posts-inc-popup"></div>
+
+<div class="no-data-popup"></div>
+                  <div class="data-popup-posts-btn"></div>
+    
+                    </div>
+                 </div>
+            </div>
+        </div>
+
+        <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-title"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
+              role="button"
+              tabindex="0"></span>
+    ';
   $posts = get_posts(['post_type' =>"sfp_search_post"]);
                         
                         
 foreach ($posts as $post) {
-           
+      ?>
+<input type='hidden' id="search_post_id_woo" value="<?php echo  esc_attr($post->ID); ?>" >
+
+<?php 
+
+  $custom = get_post_meta( esc_attr($post->ID) );
+             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
+             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
+             $color = $color_of_background;
+  
+ if ( function_exists('is_shop') && is_shop() ) {
+    $search_post_id = wc_get_page_id('shop');
+    ?>
+<input type='hidden' id="search_post_id_woo" value="<?php echo esc_attr($search_post_id); ?>" >
+
+<?php 
+}      
             $custom = get_post_meta( esc_attr($post->ID) );
             $search_form_before_loop = ( isset( $custom['search_form_before_loop'][0] ) ) ? $custom['search_form_before_loop'][0] : false;
 
@@ -180,45 +234,10 @@ border-top-color:<?php echo esc_attr($color); ?>;
     $full_width_form != '1' &&
     $pop_up_form == '1'
 ) {
- $popup = '
-        <div class="pop_up_before_loop milun-popup-center">
-            <div class="notification-container">
-
-             
-                    <div class="search_before_loop" style="background-color:transparent;">
-
-                      <span class="dashicons dashicons-no-alt closeFilePanel"
-                      id="close-search-flyout-before-title"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-                        <input type="text"
-                               class="search-term-before-loop" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
-                    </div>
-
-        <div class="wrapper-data-container-before-loop-data-posts">
-<div class="data-categories-container-before-loop"></div>
-<div class="data-container-before-loop"></div>
-<div class="data-posts-inc-before-loop"></div>
-
-<div class="data-before-loop-posts-btn"></div>
-<div class="no-data-before-loop"></div>
-                      
-                    </div>
-
-            </div>
-        </div>
-
-        <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
-              role="button"
-              tabindex="0"></span>
-    ';
+ 
 
     // Append popup + icon to the existing menu items
-    echo $popup; 
+    return $popup_form; 
 }else if (
     $search_form_before_loop == '1' &&
     $search_categories_woo == '1' &&
@@ -260,7 +279,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
 </div>
 ';
     // Append popup + icon to the existing menu items
-  echo $before_loop_full_width; 
+  echo esc_html($before_loop_full_width); 
 }
 }}
 
@@ -386,16 +405,21 @@ $meta_value = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_
                              
                        
 foreach ($posts as $post) {
+ ?>
+<input type='hidden' id="search_post_id_woo" value="<?php echo  esc_attr($post->ID); ?>" >
+
+<?php 
 
   $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-             $color = $color_of_background;
+             $color = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
+             
+     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
+           
   
  if ( function_exists('is_shop') && is_shop() ) {
     $search_post_id = wc_get_page_id('shop');
     ?>
-<input type='hidden' id="search_post_id" value="<?php echo $search_post_id; ?>" >
+<input type='hidden' id="search_post_id_woo" value="<?php echo esc_attr($search_post_id); ?>" >
 
 <?php 
 }
@@ -417,9 +441,45 @@ foreach ($posts as $post) {
        
   // return "search_categories =". $search_categories ." searchposts_in_title_after =". $searchposts_in_title_after ." standard_form =". $standard_form ." full_width_form =". $full_width_form;        
 
-   require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
   // target multiple possible menu locations
- 
+  $popup_form = '
+      
+
+        <div class="pop_up_popup milun-popup-center">
+            <div class="notification-container dismiss">
+
+             
+                    <div class="search_popup" style="background-color:transparent;">
+
+                      <span class="dashicons dashicons-no-alt closeFilePanel"
+                      id="close-search-flyout-before-title"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+                        <input type="text"
+                               class="search-term-popup" style="border: 1px solid #000000;"
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
+                    </div>
+<div class="wrapper-for-data-popup-posts-btn">
+        <div class="wrapper-data-container-popup-data-posts">
+<div class="data-categories-container-popup"></div>
+<div class="data-container-popup"></div>
+<div class="data-posts-inc-popup"></div>
+
+<div class="no-data-popup"></div>
+                  <div class="data-popup-posts-btn"></div>
+    
+                    </div>
+                 </div>
+            </div>
+        </div>
+
+        <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-title"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
+              role="button"
+              tabindex="0"></span>
+    ';
     if (
     $search_categories_woo == '1' &&
     $searchposts_in_title_before == '1' &&
@@ -584,51 +644,14 @@ if (
     $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
 
-    $popup = '
-      
-
-        <div class="pop_up_menu milun-popup-center">
-            <div class="notification-container dismiss">
-
-             
-                    <div class="search_menu" style="background-color:transparent;">
-
-                      <span class="dashicons dashicons-no-alt closeFilePanel"
-                      id="close-search-flyout-before-title"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-                        <input type="text"
-                               class="search-term-menu" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
-                    </div>
-
-        <div class="wrapper-data-container-menu-data-posts">
-<div class="data-categories-container-menu"></div>
-<div class="data-container-menu"></div>
-<div class="data-posts-inc-menu"></div>
-
-<div class="data-menu-posts-btn"></div>
-<div class="no-data-menu"></div>
-                      
-                    </div>
-
-            </div>
-        </div>
-
-        <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
-              role="button"
-              tabindex="0"></span>
-    ';
+   
     if (
     !empty($menu_args->theme_location) &&
     in_array($menu_args->theme_location, [$key], true)
 ) { // Append popup + icon to the existing menu items
     // Append popup + icon to the existing menu items
-    return $popup 
-                      .'<p id="wrapper_of_my_menu">'.$items.'</p>';
+    return $popup_form
+                     .$items;
 }
 }
 
@@ -639,51 +662,14 @@ if (
     $full_width_form != '1' &&
     $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
-$popup = '
-      
 
-        <div class="pop_up_menu milun-popup-center">
-            <div class="notification-container dismiss">
-
-             
-                    <div class="search_menu" style="background-color:transparent;">
-
-                      <span class="dashicons dashicons-no-alt closeFilePanel"
-                      id="close-search-flyout-before-title"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-                        <input type="text"
-                               class="search-term-menu" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
-                    </div>
-
-        <div class="wrapper-data-container-menu-data-posts">
-<div class="data-categories-container-menu"></div>
-<div class="data-container-menu"></div>
-<div class="data-posts-inc-menu"></div>
-
-<div class="data-menu-posts-btn"></div>
-<div class="no-data-menu"></div>
-                      
-                    </div>
-
-            </div>
-        </div>
-
-        <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
-              role="button"
-              tabindex="0"></span>
-    ';
     if (
     !empty($menu_args->theme_location) &&
     in_array($menu_args->theme_location, [$key], true)
 ) { // Append popup + icon to the existing menu items
     // Append popup + icon to the existing menu items
     return 
-                      $items.$popup;
+                      $items.$popup_form;
 }
 }
 
@@ -718,10 +704,7 @@ foreach ($posts as $post) {
 <?php
 
                       $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';
-             $background_color_of_load_more_button_menu = ( isset( $custom['background_color_of_load_more_button_menu'][0] ) ) ? $custom['background_color_of_load_more_button_menu'][0] : '#fff';   
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-              $color_for_load_more_text = ( isset( $custom['color_for_load_more_text'][0] ) ) ? $custom['color_for_load_more_text'][0] : '#FFA500';
+             $color = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';
             
  //            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
           
@@ -731,8 +714,6 @@ foreach ($posts as $post) {
                                 
                     //if($searchposts_in_title=="1"){
                       $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
             
 
           
@@ -744,19 +725,72 @@ foreach ($posts as $post) {
  public function add_search_box_2( $atts ) {
     
 ob_start();
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
 
+  $popup_form = '
+      
+
+        <div class="pop_up_popup milun-popup-center">
+            <div class="notification-container dismiss">
+
+             
+                    <div class="search_popup" style="background-color:transparent;">
+
+                      <span class="dashicons dashicons-no-alt closeFilePanel"
+                      id="close-search-flyout-before-title"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+                        <input type="text"
+                               class="search-term-popup" style="border: 1px solid #000000;"
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
+                    </div>
+<div class="wrapper-for-data-popup-posts-btn">
+        <div class="wrapper-data-container-popup-data-posts">
+<div class="data-categories-container-popup"></div>
+<div class="data-container-popup"></div>
+<div class="data-posts-inc-popup"></div>
+
+<div class="no-data-popup"></div>
+                  <div class="data-popup-posts-btn"></div>
+    
+                    </div>
+                 </div>
+            </div>
+        </div>
+
+        <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-title"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
+              role="button"
+              tabindex="0"></span>
+    ';
 
            $posts = get_posts(['post_type' =>"sfp_search_post"]);
                         
                         
 foreach ($posts as $post) {
+         ?>
+<input type='hidden' id="search_post_id_woo" value="<?php echo  esc_attr($post->ID); ?>" >
+
+<?php 
+
+  $custom = get_post_meta( esc_attr($post->ID) );
+             $color = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
            
+  
+ if ( function_exists('is_shop') && is_shop() ) {
+    $search_post_id = wc_get_page_id('shop');
+    ?>
+<input type='hidden' id="search_post_id_woo" value="<?php echo esc_attr($search_post_id); ?>" >
+
+<?php 
+}   
             $custom = get_post_meta( esc_attr($post->ID) );
             $search_form_before_loop = ( isset( $custom['search_form_before_loop'][0] ) ) ? $custom['search_form_before_loop'][0] : false;
 
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-             $color = $color_of_background;
+             $color = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
+           
  
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
 
@@ -772,45 +806,10 @@ foreach ($posts as $post) {
     $full_width_form != '1' &&
     $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
- $popup = '
-        <div class="pop_up_before_loop milun-popup-center">
-            <div class="notification-container">
 
-             
-                    <div class="search_before_loop" style="background-color:transparent;">
-
-                      <span class="dashicons dashicons-no-alt closeFilePanel"
-                      id="close-search-flyout-before-title"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-                        <input type="text"
-                               class="search-term-before-loop" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
-                    </div>
-
-        <div class="wrapper-data-container-before-loop-data-posts">
-<div class="data-categories-container-before-loop"></div>
-<div class="data-container-before-loop"></div>
-<div class="data-posts-inc-before-loop"></div>
-
-<div class="data-before-loop-posts-btn"></div>
-<div class="no-data-before-loop"></div>
-                      
-                    </div>
-
-            </div>
-        </div>
-
-        <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
-              role="button"
-              tabindex="0"></span>
-    ';
 
     // Append popup + icon to the existing menu items
-    echo $popup; 
+    return $popup_form; 
 }else if (
     $search_categories_woo == '1' &&
     $standard_form != '1' &&
@@ -850,10 +849,10 @@ $shortcode_full_width  = '
           tabindex="0"></span>
 ';
     // Append popup + icon to the existing menu items
- echo $shortcode_full_width;
+ return $shortcode_full_width;
 
 }}
-echo ob_get_clean();
+echo wp_kses_post( ob_get_clean() );
 
   
 
@@ -868,594 +867,12 @@ public function miluse_get_rest_featured_image( $object, $field_name, $request) 
     }
     return false;
 }
-function search_box_function( $nav, $args ) {
-global $wpdb;
 
-
-  /*
-    $attribute_taxonomies = $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . "woocommerce_attribute_taxonomies WHERE attribute_name != '' ORDER BY attribute_name ASC;" );
-    set_transient( 'wc_attribute_taxonomies', $attribute_taxonomies );
-
-    $attribute_taxonomies = array_filter( $attribute_taxonomies  ) ;
 
    
 
-$attribute_taxonomies = wc_get_attribute_taxonomies();
-$taxonomy_terms = array();
-
-if ($attribute_taxonomies) :
-    foreach ($attribute_taxonomies as $tax) :
-        if (taxonomy_exists(wc_attribute_taxonomy_name($tax->attribute_name))) :
-            $taxonomy_terms[$tax->attribute_name] = get_terms(wc_attribute_taxonomy_name($tax->attribute_name), 'orderby=name&hide_empty=0');
-   
- endif;
-
-    endforeach;
-
-
-
-
-      foreach ($taxonomy_terms as $value) {
-
-foreach($value as $val){
-
-echo $val->taxonomy;
-};
-
-
-
-
-foreach($value as $val){
-
-echo $val->slug;
-};
-
-}
-
-endif;
-
-
-*/
-
-
-
-
- $posts = get_posts(['post_type'=>'search_post']);
-//$po_id='';
-global $wpdb;
-
-$po_id = $wpdb->get_results("SELECT post_id FROM wp_postmeta WHERE meta_key ='search_post_id_title' AND meta_value !=''");
-$meta_value = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_key ='numberofposts' AND meta_value !=''");
-
-
-if($po_id!=[]){
-?>
-<input type='hidden' 
-id="search_post_id_title" value="<?php echo $po_id[0]->post_id ?>">
-
-<input type='hidden' 
-id="numberofposts" value="<?php echo $meta_value[0]->meta_value ?>">
-<?php  
- $search_categories = esc_attr(get_post_meta( $po_id[0]->post_id,"search_categories", true));
-
- $posts = get_posts(['post_type'=>'search_post']);
-
-global $wpdb;
-//foreach ($posts as $post) {
-  
-
-
- 
-
-           $custom = get_post_meta( esc_attr($po_id[0]->post_id) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             
-            ?>
-  
-                
-              <style type="text/css">
-                .hid{
-                  display: none;
-                }
-                .data-posts,
-                .data-container,
-                .data-categories-container{
-                    background-color:<?php echo $color_of_background; ?>;
-                }
-                .data-categories-container div a,   
-                .data-container div a{
-                  color:<?php echo $color_of_background; ?> !important;
-                }
-              </style>
-             <?php
-
-        $menu = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_key ='formMenus' AND meta_value !=''");
-
-
-
-
-               // $searchposts_in_title =get_post_meta($po_id[0]->post_id,'searchposts_in_title',true);                  
-
-                 //var_dump($searchposts_in_title);
-
-    if( $args->theme_location == $menu[0]->meta_value){
-      $nav = '<li class="menu-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
-                        
-                     // if($search_categories=="1"){
-                       $return = '<div class="data-categories-container hid"></div>';
-                       //}
-                        $return .= '<div class="data-container data-container-2 hid"></div><div class="data-posts"></div><br><div class="data-button"></div>';
-
-                     
-                      return $nav.'<br>'.$return;
-                     
-    
- }
-}
-}
-
-
-
-function qode_adding_a_search_form_to_the_mobile_menu($item_1,$args) {
-
-           $posts = get_posts(['post_type' =>"search_post"]);
-                        
-foreach ($posts as $post) {
-            $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-            ?>
-
-        
-
-             
-<?php
-
-}
-
-?>
-
-           
-                <div class="searching-results">
-
-                   <ul class="searching-form">
-                    
-                     <li>
-                      <?php
-
-
- 
-              $posts = get_posts(['post_type' =>"search_post"]);
-                        
-foreach ($posts as $post) {
-             $search_categories = esc_attr(get_post_meta( $post->ID,"search_categories", true));
-
-                $searchposts_in_title =get_post_meta($post->ID,'searchposts_in_title',true);                  
-                    if($searchposts_in_title=="1"){
-                      $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-             ?>
-                
-              <style type="text/css">
-                .hid{
-                  display: none;
-                }
-                .data-container,
-                .data-categories-container{
-                    background-color:<?php echo $color_of_background; ?>;
-                }
-                .data-categories-container div a,   
-                .data-container div a{
-                  color:<?php echo $color_of_text; ?> !important;
-                }
-              </style>
-
-             <?php
-          
-                       $item_1 .= '<li class="qode-mobile-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
-                        
-                      if($search_categories=="1"){
-                       $item_1 .= '<div class="data-categories-container hid"></div>';
-                       }
-                        $item_1 .= '<div class="data-container hid"></div>';
-
-                     
-                      return $item_1;
-                      }
-                     if($searchposts_in_title!="1"){
-                      
-                      return $item_1;
-                      } 
-                    }
-                       ?>
-                    </li>
-                  
- 
-                   </ul> 
-                  
-                  </div>
-
-              <?php
-  
-  
-
- 
-
-}
-
-
-
-function render_subtitle_search_post($item_1,$args) {
-
-           $posts = get_posts(['post_type' =>"search_post"]);
-                        
-foreach ($posts as $post) {
-            $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-            ?>
-
-        
-
-              <style type="text/css">
-                .hid{
-                  display: none;
-                }
-                .data-container,
-                .data-categories-container{
-                    background-color:<?php echo $color_of_background; ?>;
-                }
-                .data-categories-container div a,   
-                .data-container div a{
-                  color:<?php echo $color_of_text; ?> !important;
-                }
-              </style>
-<?php
-
-}
-
-?>
-
-           
-                <div class="searching-results">
-
-                   <ul class="searching-form">
-                    
-                     <li>
-                      <?php
-
- 
-              $posts = get_posts(['post_type' =>"search_post"]);
-                              
-foreach ($posts as $post) {
-
-             $search_categories = esc_attr(get_post_meta( $post->ID,"search_categories_woo", true));
-
-                $searchposts_in_title =get_post_meta($post->ID,'searchposts_in_title_woo',true);                  
-                    if($searchposts_in_title=="1"){
-                      $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-          
-                       $item_1 .= '<li class="qode-mobile-header-search"><input type="text" class="search-term-woo" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
-                        
-                      if($search_categories=="1"){
-                       $item_1 .= '<div class="data-categories-container hid"></div>';
-                       }
-                        $item_1 .= '<div class="data-container hid"></div>';
-
-                     
-                      return $item_1;
-                      }
-                     if($searchposts_in_title!="1"){
-                      
-                      return $item_1;
-                      } 
-                    }
-                       ?>
-                    </li>
-                  
- 
-                   </ul> 
-                  
-                  </div>
-
-              <?php
-
-}
-
-
-function render_subtitle($items,$args) {
-  global $wpdb;
-     $menu = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_key ='WooFormMenus' AND meta_value !=''");
-
-print_r($menu);
-
-
-               // $searchposts_in_title =get_post_meta($po_id[0]->post_id,'searchposts_in_title',true);                  
-
-                 //var_dump($searchposts_in_title);
-
-    if( $args->theme_location == @$menu[0]->meta_value){
-      $nav = '<li class="menu-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
-                        
-                     // if($search_categories=="1"){
-                       $return = '<div class="data-categories-container hid"></div>';
-                       //}
-                        $return .= '<div class="data-container data-container-2 hid"></div><div class="data-posts"></div><br><div class="data-button"></div>';
-
-                     
-                      return $items.$nav;
-                    }else{
-                      return $items;
-                    }
-           $posts = get_posts(['post_type' =>"woo_search_post"]);
-                      
-foreach ($posts as $post) {
-            $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-            ?>
-
-        
-
-              <style type="text/css">
-                .hid{
-                  display: none;
-                }
-                .data-container,
-                .data-categories-container{
-                    background-color:<?php echo $color_of_background; ?>;
-                }
-                .data-categories-container div a,   
-                .data-container div a{
-                  color:<?php echo $color_of_text; ?> !important;
-                }
-              </style>
-<?php
-
-}
-
-?>
-
-           
-                <div class="searching-results">
-
-                   <ul class="searching-form">
-                    
-                     <li>
-                      <?php
-
- 
-              $posts = get_posts(['post_type' =>"woo_search_post"]);
-                              
-foreach ($posts as $post) {
-
-             $search_categories = esc_attr(get_post_meta( $post->ID,"search_categories_woo", true));
-
-                $searchposts_in_title =get_post_meta($post->ID,'searchposts_in_title_woo',true);                  
-                    //if($searchposts_in_title=="1"){
-                      $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-
-          
-             global $wpdb;
-     $menu = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_key ='WooFormMenus' AND meta_value !=''");
-
-
-
-
-               // $searchposts_in_title =get_post_meta($po_id[0]->post_id,'searchposts_in_title',true);                  
-
-                 //var_dump($searchposts_in_title);
-
-    if( $args->theme_location == @$menu[0]->meta_value){
-      $nav = '<li class="menu-header-search"><input type="text" class="search-term" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
-                        
-                     // if($search_categories=="1"){
-                       $return = '<div class="data-categories-container hid"></div>';
-                       //}
-                        $return .= '<div class="data-container data-container-2 hid"></div><div class="data-posts"></div><br><div class="data-button"></div>';
-
-                     
-                      return $items.$nav;
-     }   
-          /*
-                       $item_1 .= '<li class="qode-mobile-header-search"><input type="text" class="search-term-woo" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/></li><br>';
-                        
-                     // if($search_categories=="1"){
-                       $item_1 .= '<div class="data-categories-container hid"></div>';
-                       //}
-                        $item_1 .= '<div class="data-container hid"></div>';
-
-                     
-            */         // return $item_1;
-                    //  }
-                     
-                    }
-                       ?>
-                    </li>
-                  
- 
-                   </ul> 
-                  
-                  </div>
-
-              <?php
-
-}
-
-    function dmsfp_register_custom_shortcode($atts, $content=null){
-                 
-        $search_categories=""; 
-      
-   extract(shortcode_atts( array('id' => ''), $atts));
-  
-  $return = $content;
-  if($content)
-    $return = '<br>';
-
-
-$search_post_id = esc_attr(get_post_meta( $atts['id'],"search_post", $atts['id']));
-
-$numberofposts = esc_attr(get_post_meta( $atts['id'],"numberofposts", $atts['id']));
-
-?>
-<input type='hidden' id="search_post_id" value="<?php echo $search_post_id; ?>" >
-<input type='hidden' id="numberofposts" value="<?php echo $numberofposts; ?>" >
-
-<?php 
-
-
-
-$search_categories = esc_attr(get_post_meta( $atts['id'],"search_categories", true));
-         $return ='<input type="text" class="search-term-shortcode" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/>';
-
- if($search_categories=="1"){
-
-                       $return .= '<div class="data-categories-container-shortcode hid"></div>';
-                       }
-
-                      $custom = get_post_meta( esc_attr($atts['id']) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-               ?>
-              <style type="text/css">
-                 .hid{
-                  display: none;
-                }
-                 .data-container-shortcode,
-                .data-categories-container-shortcode{
-                    background-color:<?php echo $color_of_background; ?>;
-                }
-                .data-categories-container-shortcode div a,   
-                .data-container-shortcode div a{
-                  color:<?php echo $color_of_text; ?> !important;
-                }
-              </style>
-
-
-            <?php
-
-       
-                
-
-
-                                                 $return .= '<div class="data-container-shortcode hid"></div>';
-                                              
-                                             
-                                            return $return;                                      
-}
-    function woo_register_custom_shortcode(){
-       $posts = get_posts(['post_type' =>"woo_search_post"]);
-//$po_id='';
-global $wpdb;
-
-$po_id = $wpdb->get_results("SELECT post_id FROM wp_postmeta WHERE meta_key ='search_post_id_woo' AND meta_value !=''");
-$meta_value = $wpdb->get_results("SELECT meta_value FROM wp_postmeta WHERE meta_key ='numberofposts' AND meta_value !=''");
-
-?>
-<input type='hidden' 
-id="search_post_id_woo" value="<?php echo $po_id[0]->post_id ?>">
-
-
-<?php                  
-        $search_categories=""; 
-         
-  //     $posts = get_posts(['post_type' =>"woo_search_post"]);
-                        
-foreach ($posts as $post) {
- $search_categories = esc_attr(get_post_meta( $post->ID,"search_categories", true));
- 
-                      $custom = get_post_meta( esc_attr($post->ID) );
-             $color_of_background = ( isset( $custom['color_of_background'][0] ) ) ? $custom['color_of_background'][0] : '#fff';  
-             $color_of_text = ( isset( $custom['color_of_text'][0] ) ) ? $custom['color_of_text'][0] : '#000';
-               ?>
-              <style type="text/css">
-                 .hid{
-                  display: none;
-                }
-                 .data-container-shortcode,
-                .data-categories-container-shortcode{
-                    background-color:<?php echo $color_of_background; ?>;
-                }
-                .data-categories-container-shortcode div a,   
-                .data-container-shortcode div a{
-                  color:<?php echo $color_of_text; ?> !important;
-                }
-              </style>
-
-
-            <?php
                
-      }
 
-
-
-                      $form = '<input type="text" class="search-term-shortcode-woo" style="max-width: 150px"  placeholder="'.__("Search...","milun-woo-search") .'"/>';
-                        
-                      if($search_categories=="1"){
-                       $form .= '<div class="data-categories-container-shortcode hid"></div>';
-                       }
-                        $form .= '<div class="data-container-shortcode hid"></div>';
-
-                     
-                      return $form;
-
-                    
-
-
-              
-                   
-            
-     echo  $categories_search_form;           
-
-$attribute_taxonomies = wc_get_attribute_taxonomies();
-$taxonomy_terms = array();
-
-if ($attribute_taxonomies) :
-    foreach ($attribute_taxonomies as $tax) :
-        if (taxonomy_exists(wc_attribute_taxonomy_name($tax->attribute_name))) :
-            $taxonomy_terms[$tax->attribute_name] = get_terms(wc_attribute_taxonomy_name($tax->attribute_name), 'orderby=name&hide_empty=0');
-   
-         endif;
-
-    endforeach;
-   
-   
- $terms_search_form ='<select class="selectedTerms">';
- 
-
-
-$terms_search_form .= '<option value="">'.__("Select Term","milun-woo-search").'</option>';
- 
-
-
-   foreach ($posts as $post) {
-
-      foreach ($taxonomy_terms as $value) {
-
-
-$searchterms = get_post_meta( $post->ID, "name_term_id_".$value[0]->term_id , true  );            
-        
-                 
-                            if($searchterms=="0"){
-   
-                              
-                            }else{
-                       $terms_search_form .='<option value="'.$value[0]->term_id.'">'.$value[0]->name.'</option>';
-                         }
-}}
-                    
-     
-                          $terms_search_form .='</select>';
-
- 
-echo $terms_search_form;
-endif;
-
-}}
+}
 
 endif;

@@ -1,4 +1,7 @@
-   <style type="text/css">
+ <?php
+ if ( ! defined( 'ABSPATH' ) ) exit;
+ ?>
+ <style type="text/css">
    .my_wrapper,
    .child_before_loop{
 
@@ -107,7 +110,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
 border-right-width: 3px !important;
 border-left-width: 3px !important;
 
-    border-color: <?php echo esc_attr($color_for_load_more_text); ?>!important;
+    border-color: <?php echo esc_attr($color); ?>!important;
 
 border-left-width: 3px !important;
 
@@ -118,43 +121,46 @@ border-style: solid;
 
 }
 .my_wrapper { visibility:hidden; }
-
+                .search_popup,
                 .search_menu{
-  background-color:<?php echo esc_attr($color_for_load_more_text); ?>;
+  background-color:<?php echo esc_attr($color); ?>;
 }
- 
+
+   .search-term-popup,
    .search-term-menu{
      
-border-bottom-color:<?php echo esc_attr($color_for_load_more_text); ?>;
+border-bottom-color:<?php echo esc_attr($color); ?>;
 
 
 
-}              
+}             
+               .wrapper-data-container-popup-data-posts,
                .wrapper-data-container-menu-data-posts{
-    border-color: <?php echo esc_attr($color_for_load_more_text); ?>!important;
- border-top-style: solid !important;
-border-top-width: 3px !important;
-border-top-color:<?php echo esc_attr($color_for_load_more_text); ?>;
+   
     width:100% !important;
 }
-
+                .data-menu-posts-btn, 
                 .data-menu-posts-btn{
-                    background-color:<?php echo esc_attr($color_for_load_more_text); ?> !important;
+                    background-color:<?php echo esc_attr($color); ?> !important;
                     color:black;
 
                 }
+             .search-term-popup,   
              .search-term-menu{
-                border-color: <?php echo esc_attr($color_for_load_more_text); ?>!important;
+                border-color: <?php echo esc_attr($color); ?>!important;
              }
              .line_below_cat_tag,
                 .line_below_post{
-                    border-color:<?php echo esc_attr($color_for_load_more_text); ?>!important;
+                    border-color:<?php echo esc_attr($color); ?>!important;
 
                 }
+             .red_color_no_more_posts_popup,   
+            .background_color_of_load_more_button_popup,    
             .background_color_of_load_more_button_menu{
                                 cursor: pointer;
-  background-color:<?php echo esc_attr($color_for_load_more_text); ?>;
-
+  background-color:<?php echo esc_attr($color); ?>;
+color:white;
+border-radius: 10px;
             }
 
 

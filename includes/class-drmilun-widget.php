@@ -26,13 +26,14 @@ class MILUSE_Drmilun_Widget extends \WP_Widget {
            add_action( "rest_api_init", [$this,'miluse_search_categories'] );
  ////*front end rest api routes*////////////
 add_action( "rest_api_init", [$this,'miluse_search_categories'] );
+/*
 add_action( "rest_api_init", [$this,'namespace_register_search_post_types_no_words_widget'] );
 add_action( "rest_api_init", [$this,'namespace_register_search_post_types_widget'] );
 add_action( "rest_api_init", [$this,'namespace_register_search_post_types_half_sentence_widget'] );
 add_action( "rest_api_init", [$this,'namespace_register_search_post_types_two_words_widget'] );
 add_action( "rest_api_init", [$this,'namespace_register_search_post_types_three_words_widget'] );
 add_action( 'rest_api_init', [$this,'namespace_register_search_route']);
-   
+*/   
 /*for front end categories*/ 
 
 
@@ -47,7 +48,7 @@ add_action( 'rest_api_init', [$this,'namespace_register_user_empty_search']);
 /*****meta data of post types*////
  add_action( 'rest_api_init', [$this,'namespace_register_admin_meta_data_of_post_types']);
 add_action( 'rest_api_init', [$this,'namespace_register_admin_meta_data_empty_of_post_types']);
-add_action('rest_api_init', [$this,'register_rest_images' ]);
+//add_action('rest_api_init', [$this,'register_rest_images' ]);
 
 
 
@@ -208,7 +209,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
               $pop_up_form = esc_attr(get_post_meta( $post->ID,"pop_up_form",true));
  
    ?>
-<input type='hidden' id="search_post_id" value="<?php echo esc_attr($post->ID); ?>">
+<input type='hidden' id="search_post_id_woo" value="<?php echo esc_attr($post->ID); ?>">
 <input type='hidden' id="search_by_title" value="<?php echo esc_attr($search_by_title); ?>" >
 <input type='hidden' id="search_by_content" value="<?php echo esc_attr($search_by_content); ?>" >
 <input type='hidden' id="search_categories" value="<?php echo esc_attr($search_categories); ?>" >
@@ -227,7 +228,7 @@ border-top-color:<?php echo esc_attr($color); ?>;
               
            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/style.php';
            ?>
-<input type='hidden' id="search_post_id" value="<?php echo esc_attr($post->ID); ?>">
+<input type='hidden' id="search_post_id_woo" value="<?php echo esc_attr($post->ID); ?>">
 <input type='hidden' id="search_by_title" value="<?php echo esc_attr($search_by_title); ?>" >
 <input type='hidden' id="search_by_content" value="<?php echo esc_attr($search_by_content); ?>" >
 
@@ -245,13 +246,14 @@ border-top-color:<?php echo esc_attr($color); ?>;
 }
    $search_categories_woo = esc_attr(get_post_meta( @$post->ID,"search_categories_woo", true)); 
  
- $popup = '
+ $popup_form = '
+      
 
-        <div class="pop_up_for_widget">
+        <div class="pop_up_popup milun-popup-center">
             <div class="notification-container dismiss">
 
              
-                    <div class="search_widget" style="background-color:transparent;">
+                    <div class="search_popup" style="background-color:transparent;">
 
                       <span class="dashicons dashicons-no-alt closeFilePanel"
                       id="close-search-flyout-before-title"
@@ -259,25 +261,25 @@ border-top-color:<?php echo esc_attr($color); ?>;
                       role="button"
                       tabindex="0"></span>
                         <input type="text"
-                               class="search-term-widget" style="border: 1px solid #000000;"
+                               class="search-term-popup" style="border: 1px solid #000000;"
                                placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
                     </div>
+<div class="wrapper-for-data-popup-posts-btn">
+        <div class="wrapper-data-container-popup-data-posts">
+<div class="data-categories-container-popup"></div>
+<div class="data-container-popup"></div>
+<div class="data-posts-inc-popup"></div>
 
-        <div class="wrapper-data-container-widget-data-posts">
-
-<div class="data-container-widget"></div>
-<div class="data-posts-inc-widget"></div>
-
-<div class="data-widget-posts-btn"></div>
-<div class="no-data-widget"></div>
-                      
+<div class="no-data-popup"></div>
+                  <div class="data-popup-posts-btn"></div>
+    
                     </div>
-
+                 </div>
             </div>
         </div>
 
         <span class="dashicons dashicons-search"
-              id="pop_up_search_widget"
+              id="open-search-flyout-before-title"
               aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
               role="button"
               tabindex="0"></span>
@@ -323,60 +325,18 @@ $form = '';
     $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
   
- $popup = '
-        <div id="for-searching-5"></div>
+ 
 
-        <div class="pop_up_widget milun-popup-center">
-            <div class="notification-container dismiss">
+    echo wp_kses_post( $args['before_widget'] ?? '' );
 
-             
-                    <div class="search_widget" style="background-color:transparent;">
+echo wp_kses_post( $args['before_title'] ?? '' ) .
+	'<div class="my_wrapper_widget">
+		<p><b>' . esc_html( $title ?? '' ) . '</b></p>
+		' . wp_kses_post( $popup_form ) . '
+	</div>' .
+	wp_kses_post( $args['after_title'] ?? '' );
 
-                      <span class="dashicons dashicons-no-alt closeFilePanel"
-                      id="close-search-flyout-before-title"
-                      aria-label="Close Search"
-                      role="button"
-                      tabindex="0"></span>
-                      
-                          <input type="text"
-                               class="search-term-widget" style="border: 1px solid #000000;"
-                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
-                       </div>
-
-        <div class="wrapper-data-container-widget-data-posts">
-<div class="data-categories-container-widget"></div>
-<div class="data-container-widget"></div>
-<div class="data-posts-inc-widget"></div>
-
-<div class="data-widget-posts-btn"></div>
-<div class="no-data-widget"></div>
-                      
-                    </div>
-
-            </div>
-        </div>
-
-        <span class="dashicons dashicons-search"
-              id="open-search-flyout-before-title"
-              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
-              role="button"
-              tabindex="0"></span>
-    ';
-
-   
-
-      echo esc_attr(@$args['before_widget']);
-    //if ( @$title ) {
-      echo esc_attr(@$args['before_title']) .'<div class="my_wrapper_widget">
-                        <p><b>'.esc_attr(@$title).'</b></p>
-                       
-                      '.$popup
-                      . esc_attr(@$args['after_title']);
-   // }
-
-    
-
-    echo esc_attr(@$args['after_widget']); 
+echo wp_kses_post( $args['after_widget'] ?? '' );
  
                       
  }
@@ -387,18 +347,20 @@ $form = '';
     $pop_up_form == '1' &&  is_shop() || is_product_category() || is_product_tag()    ){              
 
 
-                        echo esc_attr(@$args['before_widget']);
-    //if ( @$title ) {
-      echo esc_attr(@$args['before_title']) .'<div class="my_wrapper_widget">
-                        <p><b>'.esc_attr(@$title).'</b></p>
-                       
-                      '.$popup
-                      . esc_attr(@$args['after_title']);
-   // }
+                       // Append popup + icon to the existing menu items
 
-    
+echo wp_kses_post( $args['before_widget'] ?? '' );
 
-    echo esc_attr(@$args['after_widget']);  
+echo wp_kses_post( $args['before_title'] ?? '' );
+
+echo '<div class="my_wrapper_widget">
+        <p><b>' . esc_html( $title ?? '' ) . '</b></p>
+        ' . wp_kses_post( $popup_form ) . '
+      </div>';
+
+echo wp_kses_post( $args['after_title'] ?? '' );
+
+echo wp_kses_post( $args['after_widget'] ?? '' );
     
  }else if(
   
@@ -440,19 +402,20 @@ $form = '';
           role="button"
           tabindex="0"></span>
 ';
-    // Append popup + icon to the existing menu items
-                        echo esc_attr(@$args['before_widget']);
-    //if ( @$title ) {
-      echo esc_attr(@$args['before_title']) .'<div class="my_wrapper_widget">
-                        <p><b>'.esc_attr(@$title).'</b></p>
-                       
-                      '.$widget_full_width
-                      . esc_attr(@$args['after_title']);
-   // }
+// Append popup + icon to the existing menu items
 
-    
+echo wp_kses_post( $args['before_widget'] ?? '' );
 
-    echo esc_attr(@$args['after_widget']);  
+echo wp_kses_post( $args['before_title'] ?? '' );
+
+echo '<div class="my_wrapper_widget">
+        <p><b>' . esc_html( $title ?? '' ) . '</b></p>
+        ' . wp_kses_post( $widget_full_width ) . '
+      </div>';
+
+echo wp_kses_post( $args['after_title'] ?? '' );
+
+echo wp_kses_post( $args['after_widget'] ?? '' );
     
  }
               
@@ -502,48 +465,8 @@ $form = '';
     return $instance;
   }
 
-function register_rest_images(){
-    $args = array(
-   'public'   => true,
-   '_builtin' => false,
-);
-
-$output = 'names'; // 'names' or 'objects' (default: 'names')
-$operator = 'and'; // 'and' or 'or' (default: 'and')
-
-$post_types = get_post_types( $args, $output, $operator );
-
-//if ( ! empty ( $post_types ) ) { // If there are any custom public post types.
-
-    foreach ( $post_types  as $post_type ) {
-        if($post_type == "miluse_search_post" || $post_type == "woo_search_post" || $post_type == "product" || $post_type == "product_variation"){
-//        return;
-      }else{
-
-        if($post_type=='posts'){
-            $post_type="post";
-        }
-    register_rest_field( array($post_type),
-        'fimg_url',
-        array(
-            'get_callback'    => 'miluse_get_rest_featured_image',
-            'update_callback' => null,
-            'schema'          => null,
-        )
-    );
-
-}
-}
-}
 
 
-function miluse_get_rest_featured_image( $object, $field_name, $request ) {
-    if( $object['featured_media'] ){
-        $img = wp_get_attachment_image_src( $object['featured_media'], 'app-thumb' );
-        return $img[0];
-    }
-    return false;
-}
 /*
  function namespace_register_admin_search_post_types(){
    register_rest_route('namespace/v11', '/search_post_types/(?P<s>[a-zA-Z0-9-]+)/', [
@@ -980,55 +903,12 @@ return $user_empty_with_first_character;
   wp_reset_postdata();
 
 }
- function return_post_types_no_words_widget($request){
-
-  $post_slug =$request['s']; 
-
-
-
-$premium_file = include("querys_search_post_no_words.php");
-return $premium_file;  
-  wp_reset_postdata();
- 
-
-  }
-
-
- function return_post_types_widget($request){
-
-  $post_slug =$request['s']; 
-
-
-
-$premium_file = include("querys_search_post.php");
-return $premium_file;  
-  wp_reset_postdata();
- 
-
-  }
-
- function return_post_types_two_words_widget($request){
-
-$post_slug =$request['s']; 
-$post_slug_second_word =$request['se'];
-
-$premium_file = include("post_types_two_words.php");
-return $premium_file;  
-   wp_reset_postdata();
-
-
-  }
-  function return_post_types_three_words_widget($request){
 
 
 
 
-$premium_file = include("post_types_three_words.php");
-return $premium_file;  
-   wp_reset_postdata();
 
 
-  }
   
  function namespace_ajax_search_3($request){ 
 

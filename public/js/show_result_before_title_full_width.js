@@ -5,8 +5,7 @@ var livesearchposts_1 = livesearchposts_1;
 
 
 if (livesearchposts_1.length==0) {
-
-    document.getElementsByClassName('no-data-before_title_full_width')[0].innerHTML =liveSearchDataPosts[0].not_found_data;
+    document.getElementsByClassName('no-data-before_title_full_width')[0].innerHTML =liveSearchDataPosts.i18n.not_found_data;
 
         jQuery('.data-before_title_full_width-posts-btn').css('display','none');
    
