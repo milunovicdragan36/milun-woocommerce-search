@@ -3418,35 +3418,51 @@ $files = $wpdb->get_results(
 <form>
 	<div>
 		<h4><?php esc_html_e( 'Click on author you want to exclude', 'milun-woo-search' ); ?></h4>
-		<input type="text" class="search-woo_users" placeholder="Search users"/>
+
+		<input
+			type="text"
+			class="search-woo_users"
+			placeholder="<?php echo esc_attr__( 'Search users', 'milun-woo-search' ); ?>"
+		/>
 
 		<div class="terms-container" contenteditable="true">
-			<?php foreach ( $users as $term ) {
+			<?php foreach ( $users as $term ) : ?>
+				<?php if ( 'nickname' === $term->meta_key ) : ?>
 
-				if ( $term->meta_key == 'nickname' ) {
-
-					$double_woo_user = get_post_meta( get_the_ID(), $term->meta_value, $term->meta_value . '%ide_woo_user' );
-					?>
-			<div class="admin-container">
-
-				<div class="woo_users">
-					<div id='exampleFormControlSelect2' <?php echo esc_attr( $double_woo_user == $term->meta_value . 'hide_woo_user' ? "style='background-color:pink; color:grey;'" : "style='background-color:white; color:grey;'" ); ?> onclick='myWooUserFunction(<?php echo esc_attr( '"' . $term->meta_value . '"' ); ?>);'><?php echo esc_html( preg_replace( '/hide_woo_user$/', '', $term->meta_value ) ); ?></div>
-				</div>
 					<?php
+					$double_woo_user = get_post_meta(
+						get_the_ID(),
+						$term->meta_value,
+						true
+					);
 
-				}
-			}
-			?>
-		<div class="woo_user"></div>
-		<div class="woo_user_empty"></div>
-		<div class="no_woo_users"></div>
+					$is_hidden = ( $double_woo_user === $term->meta_value . 'hide_woo_user' );
 
+					$style = $is_hidden
+						? 'background-color:pink; color:grey;'
+						: 'background-color:white; color:grey;';
+					?>
+
+					<div class="admin-container">
+						<div class="woo_users">
+							<div
+								id="exampleFormControlSelect2"
+								style="<?php echo esc_attr( $style ); ?>"
+								onclick="myWooUserFunction('<?php echo esc_js( $term->meta_value ); ?>');"
+							>
+								<?php echo esc_html( preg_replace( '/hide_woo_user$/', '', $term->meta_value ) ); ?>
+							</div>
+						</div>
+					</div>
+
+				<?php endif; ?>
+			<?php endforeach; ?>
+
+			<div class="woo_user"></div>
+			<div class="woo_user_empty"></div>
+			<div class="no_woo_users"></div>
+		</div>
 	</div>
-</div>
-
-	</div>
-	</div>
-
 </form>
 
 <?php
