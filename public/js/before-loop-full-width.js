@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
     var $panel = $('.notification-container_before_loop_full_width');
-    var $open = $('#open-before-loop_full_width');
+    var $open = $('#open-search-flyout-before-loop_full_width');
     var $close = $('#close-search-flyout-before-loop_full_width');
     var $input = $('.search-term-before_loop_full_width');
 

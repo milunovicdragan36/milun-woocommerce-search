@@ -246,10 +246,46 @@ border-radius: 10px;
 
 }
 
-                
-               .search_before_loop_full_width{
-  background-color:<?php echo esc_attr($color); ?>;
+
+     
+               .wrapper-data-container-before_loop_full_width-data-posts{
+    border-color: <?php echo esc_attr($color); ?>!important;
+
+     border-top-style: solid !important;
+border-top-width: 3px !important;
+border-top-color:<?php echo esc_attr($color); ?>;
+
+    width:100% !important;
+
+
 }
+
+               
+                
+            
+                    
+               
+            .background_color_of_load_more_button_before_title_full_width{
+                                cursor: pointer;
+  background-color:<?php echo esc_attr($color); ?>;
+    border-radius: 10px;
+
+            }
+
+          
+               </style>
+ <style type="text/css">
+
+            
+        
+
+               
+   #open-search-flyout-before-loop_full_width{
+      color:<?php echo esc_attr($color); ?>!important;
+
+}
+
+    
 
      
                .wrapper-data-container-before_loop_full_width-data-posts{
@@ -292,32 +328,8 @@ border-top-color:<?php echo esc_attr($color); ?>;
     border-radius: 10px;
 
             }
-
-          
-               </style>
- <style type="text/css">
-
+.closeFilePanel_full_width{
+    color:<?php echo esc_attr($color); ?>!important;
+}    
             
-        
-     
-               .wrapper-data-container-before-loop-data-posts{
-    border-color: <?php echo esc_attr($color); ?>!important;
-
-     border-top-style: solid !important;
-border-top-width: 3px !important;
-border-top-color:<?php echo esc_attr($color); ?>;
-
-    width:100% !important;
-
-
-}
-
-               
-           
-            
-                    
-               
-           
-
-          
-               </style>
+    </style>
