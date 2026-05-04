@@ -15,7 +15,6 @@ class Live_Search_Categories{
      this.searchWooCategories = jQuery(".search-woo_categories");
      this.searchField = jQuery(".search-terms");
      this.searchSku = jQuery(".search-sku");
-     this.searchUsers = jQuery(".search-users");
      this.searchWooUsers = jQuery(".search-woo_users");
      this.search_type_of_product = jQuery(".search-type_of_product");
      this.search_custom_post_types = jQuery(".search-custom_post_types");
@@ -256,7 +255,6 @@ this.searchCategories.on('keyup',this.getResultsCategories.bind(this));
 this.searchWooCategories.on('keyup',this.getResultsWooCategories.bind(this));
 this.searchTerm.on('keyup',this.getResultsTerm.bind(this));
 this.searchSku.on('keyup',this.getResultsSku.bind(this));
-this.searchUsers.on('keyup',this.getResultsUsers.bind(this));
 this.searchWooUsers.on('keyup',this.getResultsWooUsers.bind(this));
 this.search_type_of_product.on('keyup',this.getResultsType_of_product.bind(this));
 this.search_custom_post_types.on('keyup',this.getResultsCustom_post_types.bind(this));
@@ -290,18 +288,24 @@ this.search_title_of_product.on('keyup',this.getResultsSearch_title_of_product.b
        var WooPostID =$this.WooPostID.val();
 
 
-    jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/search_post_titles_of_products/'+customSearchBox,function(title_of_product){
+  jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/search_post_titles_of_products/'+customSearchBox,function(title_of_product){
    jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/search_empty_post_titles_of_products/'+ customSearchBox,function(title_of_product_empty){
-
 
 
 
 
    let title_of_product_unique = [...new Map(title_of_product.map((m) => [m.post_title, m])).values()];
 
+   title_of_product_unique = title_of_product_unique.filter(
+     item => !title_of_product_empty.some(
+       emptyItem => emptyItem.meta_value === item.post_title
+     )
+   );
+
 
 
 if(title_of_product_unique.length != 0){
+console.log(title_of_product_unique);
        jQuery('.title_of_product').css("display",'block');
 
      var result_1 = title_of_product_unique.map(item=>`<div onclick="hideTitleProductFunction('`+item.post_title.replace(/[^\w\s]/gi, '')
@@ -310,20 +314,21 @@ if(title_of_product_unique.length != 0){
 +
   `</div>`).join("");
 
+            document.getElementsByClassName('title_of_product')[0].innerHTML =result_1;
+
 
 }
 
 
 
- 
-
    
 
 if(title_of_product_empty.length != 0){
+  console.log(title_of_product_empty);
  jQuery('.title_of_product_empty').css("display",'block');
  var result_2 = title_of_product_empty.map(item=> `<div onclick="hideTitleProductFunction('`+item.meta_key.replace(/[^\w\s]/gi, '')
 +`')" class='pink'>`+
-  item.meta_key
+  item.meta_value
 +
   `</div>`).join("");
 
@@ -331,37 +336,7 @@ if(title_of_product_empty.length != 0){
      
      
 }
-var arr1 = title_of_product.map(item=>item.post_title.replace(/[^\w\s]/gi, ''));
-var arr2 = title_of_product_empty.map(item=>item.meta_key);
 
-
-
-let res = arr1.filter((e) => !arr2.includes(e));
-
-if(res.length != 0){
-       jQuery('.title_of_post').css("display",'block');
-
-     var result_11 = res.map(item=>`<div onclick="hideTitleProductFunction('`+item.replace(/[^\w\s]/gi, '')
-+`')" class='white'>`+
-  item
-+
-  `</div>`).join("");
- 
-
-
-
- 
-            document.getElementsByClassName('title_of_product')[0].innerHTML =result_11;
-
-
-}
-
- 
-
-
-
- 
-        //    document.getElementsByClassName('title_of_post')[0].innerHTML =result_1;
 
 
 if(title_of_product_unique.length == 0  && title_of_product_empty.length == 0){
@@ -738,15 +713,15 @@ if(products_sku.length != 0){
 
    
 
-if(products_sku_empty.length != 0){
- var result_2 = products_sku_empty.map(item=> `<div onclick="hideSkuFunction('`+item.meta_key+`')" class='pink'>`+
-  item.meta_key+
-  `</div>`).join("");
-      jQuery('.sku_results_empty').css("display",'block');
+if (products_sku_empty.length != 0) {
+  var result_2 = products_sku_empty.map(item => 
+    `<div onclick="hideSkuFunction('${item.meta_key}')" class='pink'>` +
+      item.meta_value.replace('skuhide', '') +
+    `</div>`
+  ).join("");
 
-             document.getElementsByClassName('sku_results_empty')[0].innerHTML =result_2;
-     
-     
+  jQuery('.sku_results_empty').css("display", 'block');
+  document.getElementsByClassName('sku_results_empty')[0].innerHTML = result_2;
 }
 
 if(products_sku.length == 0  && products_sku_empty.length == 0){
@@ -763,91 +738,7 @@ jQuery('.no_skus').css("display",'block');
 
  });
  }          
- getResultsUsers(){
  
-  var $this =this;
-   
-       jQuery('.user').css("display",'none');
-        jQuery('.user_empty').css("display",'none');
-      jQuery('.users').css("display",'none');
-
-
-    
-      var customSearchBox =  $this.searchUsers.val();
-       
-//alert(customSearchBox);
-    
-       var WooPostID =$this.WooPostID.val();
-
-
-    jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v10/user/'+customSearchBox,function(user){
-   jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v10/user_empty/'+ customSearchBox,function(user_empty){
-
-
-console.log(user);
-console.log(user_empty);
-
-   let user_unique = [...new Map(user.map((m) => [m.user_login, m])).values()];
-
-
-
-
-// let unique_2 = [...new Map(unique_1.map((m) => [m.term_id, m])).values()];
-
-
-//var unique_4 = unique_1.filter(item =>item.term_id != unique_1.map(item=>item.term_id));
-//console.log(unique_2);
-
-
-if(user_unique.length != 0){
-       jQuery('.user').css("display",'block');
-
-     var result_1 = user_unique.map(item=>`<div onclick="myUserFunction('`+item.user_login
-+`')" class='white'>`+
-  item.user_login
-+
-  `</div>`).join("");
-  console.log(result_1);
-
-
-
- 
-            document.getElementsByClassName('user')[0].innerHTML =result_1;
-
-
-}
-
-
-
-//}
-
-
- 
-
-   
-
-if(user_empty.length != 0){
- jQuery('.user_empty').css("display",'block');
- var result_2 = user_empty.map(item=> `<div onclick="myUserFunction('`+item.user_login
-+`')" class='pink'>`+
-  item.user_login
-+
-  `</div>`).join("");
-             document.getElementsByClassName('user_empty')[0].innerHTML =result_2;
-     
-     
-}
-
-if(products_sku.length == 0  && products_sku_empty.length == 0){
-jQuery('.no_skus').css("display",'block');
-                     document.getElementsByClassName('no_skus')[0].innerHTML =liveSearchDataCategories[0].no_search_results;
-
-}  
-});
-
- });
-
- }  
 
 
  getResultsWooUsers(){
@@ -873,13 +764,17 @@ jQuery('.no_skus').css("display",'block');
 
 
 
-
    let woo_user_unique = [...new Map(woo_user.map((m) => [m.user_login, m])).values()];
+
+   woo_user_unique = woo_user_unique.filter(
+     item => !woo_user_empty.some(emptyItem => emptyItem.user_login === item.user_login)
+   );
 
 
 
 
 if(woo_user_unique.length != 0){
+
        jQuery('.woo_user').css("display",'block');
 
      var result_1 = woo_user_unique.map(item=>`<div onclick="myWooUserFunction('`+item.user_login
@@ -887,7 +782,6 @@ if(woo_user_unique.length != 0){
   item.user_login
 +
   `</div>`).join("");
-  console.log(result_1);
 
 
 
@@ -899,15 +793,8 @@ if(woo_user_unique.length != 0){
 
 
 
-//}
-
-
- 
-
-   
-
 if(woo_user_empty.length != 0){
- jQuery('.woo_user_empty').css("display",'block');
+  jQuery('.woo_user_empty').css("display",'block');
  var result_2 = woo_user_empty.map(item=> `<div onclick="myWooUserFunction('`+item.user_login
 +`')" class='pink'>`+
   item.user_login
@@ -1217,7 +1104,10 @@ console.log(result_2);
     jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v10/visibility_of_product/'+customSearchBox,function(visibility_of_product){
    jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespacewoo/v10/visibility_of_product_empty/'+ customSearchBox,function(visibility_of_product_empty){
 
-
+// remove duplicates (same slug) from visibility_of_product
+visibility_of_product = visibility_of_product.filter(item1 =>
+    !visibility_of_product_empty.some(item2 => item2.slug === item1.slug)
+);
 
 if(visibility_of_product.length != 0){
       jQuery('.visibility_of_product').css("display",'block');
@@ -1227,7 +1117,6 @@ if(visibility_of_product.length != 0){
   item.slug
 +
   `</div>`).join("");
-  console.log(result_1);
 
 
 
@@ -1253,7 +1142,6 @@ if(visibility_of_product_empty.length != 0){
   item.slug
 +
   `</div>`).join("");
-console.log(result_2);
              document.getElementsByClassName('visibility_of_product_empty')[0].innerHTML =result_2;
      
      

@@ -964,18 +964,21 @@ $post_titles = $wpdb->get_results(
 function namespace_ajax_search_empty_post_titles_of_products( $request ) {
 	$post_slug = isset( $request['s'] ) ? (string) $request['s'] : '';
 
-	global $wpdb;
+global $wpdb;
+
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-	$post_title_empty = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT $wpdb->postmeta.meta_key FROM $wpdb->postmeta
-			WHERE $wpdb->postmeta.meta_value = %s
-			AND $wpdb->postmeta.meta_key LIKE %s",
-			'hidetitleproduct',
-			'%' . $wpdb->esc_like( $post_slug ) . '%'
-		)
-	);
-	return $post_title_empty;
+$post_title_empty = $wpdb->get_results(
+	$wpdb->prepare(
+		"SELECT * 
+		FROM $wpdb->postmeta
+		WHERE $wpdb->postmeta.meta_key LIKE %s
+		AND $wpdb->postmeta.meta_value LIKE %s",
+		'%' . $wpdb->esc_like( 'hidetitleproduct' ) . '%',
+		'%' . $wpdb->esc_like( $post_slug ) . '%'
+	)
+);
+
+return $post_title_empty;
 }
 
 function namespace_ajax_search_post_titles_of_products_two_words( $request ) {
@@ -1671,7 +1674,7 @@ $user_first_character = $wpdb->get_results(
 
 	$user_empty_with_first_character = array();
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-$user_empty = $wpdb->get_results(
+$users = $wpdb->get_results(
 		$wpdb->prepare(
 			"SELECT * FROM $wpdb->users
 			LEFT JOIN $wpdb->postmeta ON $wpdb->users.user_login = $wpdb->postmeta.meta_key
@@ -1825,44 +1828,78 @@ function namespace_ajax_search_empty_type_of_product( $request ) {
 }
 
 function namespace_ajax_search_visibility_of_product( $request ) {
-	global $wpdb;
+global $wpdb;
 
-	$visibility_of_product_slug = isset( $request['s'] ) ? (string) $request['s'] : '';
-	$visibility_of_product_slug_like = '%' . $wpdb->esc_like( $visibility_of_product_slug ) . '%';
+$visibility_of_product_slug      = isset( $request['s'] ) ? sanitize_text_field( wp_unslash( $request['s'] ) ) : '';
+$visibility_of_product_slug_like = '%' . $wpdb->esc_like( $visibility_of_product_slug ) . '%';
+
+$allowed_slugs = array(
+	'outofstock',
+	'rated-1',
+	'rated-2',
+	'rated-3',
+	'rated-4',
+	'rated-5',
+);
+
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+$files = $wpdb->get_results(
+	$wpdb->prepare(
+		"
+		SELECT DISTINCT t.slug
+		FROM {$wpdb->posts} p
+		LEFT JOIN {$wpdb->term_relationships} tr
+			ON p.ID = tr.object_id
+		LEFT JOIN {$wpdb->term_taxonomy} tt
+			ON tr.term_taxonomy_id = tt.term_taxonomy_id
+		LEFT JOIN {$wpdb->terms} t
+			ON tt.term_id = t.term_id
+		WHERE tt.taxonomy = %s
+		AND t.slug LIKE %s
+		ORDER BY t.slug ASC
+		",
+		'product_visibility',
+		$visibility_of_product_slug_like
+	)
+);
+
+$result = array_map(
+	function ( $x ) {
+		return $x->slug;
+	},
+	$files
+);
+
+$res = array_unique( $result );
+
+$matched_slugs = array();
+
+foreach ( $res as $va ) {
+	if ( in_array( $va, $allowed_slugs, true ) ) {
+		$matched_slugs[] = $va;
+	}
+}
+
+if ( empty( $matched_slugs ) ) {
+	return array();
+}
+
+$placeholders = implode( ',', array_fill( 0, count( $matched_slugs ), '%s' ) );
+
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 $visibility_of_product = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT * FROM $wpdb->terms
-			LEFT JOIN $wpdb->postmeta ON $wpdb->terms.slug = $wpdb->postmeta.meta_key
-			WHERE $wpdb->terms.slug LIKE %s AND $wpdb->terms.slug = %s
-			AND IFNULL($wpdb->postmeta.meta_value, '') = ''
-			|| $wpdb->terms.slug LIKE %s AND $wpdb->terms.slug = %s
-			AND IFNULL($wpdb->postmeta.meta_value, '') = ''
-			|| $wpdb->terms.slug LIKE %s AND $wpdb->terms.slug = %s
-			AND IFNULL($wpdb->postmeta.meta_value, '') = ''
-			|| $wpdb->terms.slug LIKE %s AND $wpdb->terms.slug = %s
-			AND IFNULL($wpdb->postmeta.meta_value, '') = ''
-			|| $wpdb->terms.slug LIKE %s AND $wpdb->terms.slug = %s
-			AND IFNULL($wpdb->postmeta.meta_value, '') = ''
-			|| $wpdb->terms.slug LIKE %s AND $wpdb->terms.slug = %s
-			AND IFNULL($wpdb->postmeta.meta_value, '') = ''",
-			$visibility_of_product_slug_like,
-			'rated-1',
-			$visibility_of_product_slug_like,
-			'rated-2',
-			$visibility_of_product_slug_like,
-			'rated-3',
-			$visibility_of_product_slug_like,
-			'rated-4',
-			$visibility_of_product_slug_like,
-			'rated-5',
-			$visibility_of_product_slug_like,
-			'outofstock'
-		),
-		ARRAY_A
-	);
+	$wpdb->prepare(
+		"
+		SELECT *
+		FROM {$wpdb->terms}
+		WHERE slug IN ($placeholders)
+		",
+		$matched_slugs
+	),
+	ARRAY_A
+);
 
-	return $visibility_of_product;
+return $visibility_of_product;
 }
 
 function namespace_ajax_search_empty_visibility_of_product( $request ) {
@@ -3280,7 +3317,7 @@ onclick='myWooCategoryFunction(<?php echo esc_attr( $category->term_id ); ?>);'>
 </p>
 
 <?php
-
+/*
 		global $wpdb;
 
 		$attributes = wc_get_attribute_taxonomies();
@@ -3346,6 +3383,7 @@ onclick='myWooCategoryFunction(<?php echo esc_attr( $category->term_id ); ?>);'>
 	</div>
 			<?php
 		}
+			*/
 		?>
 
 <h4><?php esc_html_e( 'Click on term you want to exclude', 'milun-woo-search' ); ?></h4>
@@ -3386,12 +3424,10 @@ $files = $wpdb->get_results(
 			} else {
 
 				$double_woo_rated = get_post_meta( get_the_ID(), $va, 'woo_ratings51' );
-
 				if ( $va == 'outofstock' || $va == 'rated-1' || $va == 'rated-2' || $va == 'rated-3' || $va == 'rated-4' || $va == 'rated-5' ) {
-
 					?>
 <div class="visibility_of_products">
-	<div <?php echo $double_woo_rated == 'woo_ratings51' ? "style='background-color:pink; color:grey;'" : "style='background-color:white; color:grey;'"; ?>
+	<div <?php echo $double_woo_rated == 'woo_ratings51' ? "style='background-color:pink; color:white;'" : "style='background-color:white; color:black;'"; ?>
 		onclick='myWooRatingsFunction(<?php echo esc_attr( '"' . $va . '"' ); ?>)'><?php echo esc_html( $va ); ?></div>
 </div>
 					<?php
@@ -3439,8 +3475,8 @@ $files = $wpdb->get_results(
 					$is_hidden = ( $double_woo_user === $term->meta_value . 'hide_woo_user' );
 
 					$style = $is_hidden
-						? 'background-color:pink; color:grey;'
-						: 'background-color:white; color:grey;';
+						? 'background-color:pink; color:white;'
+						: 'background-color:white; color:black;';
 					?>
 
 					<div class="admin-container">

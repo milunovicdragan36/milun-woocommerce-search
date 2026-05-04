@@ -1,4 +1,4 @@
-/*
+
 #wpfooter{
 	position: relative !important;
 }
@@ -7,8 +7,8 @@
 }
 
 .pink{
-	background-color: pink;
-	color: white;
+	background-color: pink !important;
+	color: white !important;
 }
 
 .white{
@@ -17,7 +17,7 @@
 }
 /*#milunsearch_bottom {height: 900px; border:2px solid #333; padding:10px;}
 #milunsearch_hide_show{height: 500px; border:2px solid #333; padding:10px;}*/
-/*
+
 div.admin-container{       
 	max-height: 120px !important;
 	overflow: auto;
@@ -36,7 +36,7 @@ div.admin-container{
  }
  .milun-plugin-menu{
   display: none !important;
-}*/ 
+} 
 /*no jumping*/
 /* Keep menu stable */
 .before_title_full_width {
