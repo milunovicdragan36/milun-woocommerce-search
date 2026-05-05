@@ -3757,46 +3757,36 @@ $new_value = [];
    global $wpdb;
  // if( isset( $_POST[ 'prfx_nonce' ] ) && wp_verify_nonce( sanitize_text_field(wp_unslash($_POST[ 'prfx_nonce' ])), basename( __FILE__ ) ) ){ 
 
-                  $locations = get_theme_mod( 'nav_menu_locations' );
-  if($locations){ 
- foreach ($locations as $key =>$value){
+$locations = get_theme_mod( 'nav_menu_locations' );
 
+if ( ! empty( $locations ) ) {
+	foreach ( $locations as $key => $value ) {
 
-if(isset($_POST[ "searchposts_in_title_after_".$key ]) ) {
-  
- update_post_meta( $post_id, 'searchposts_in_title_after_'.$key,1);
+		$after_key         = 'searchposts_in_title_after_' . $key;
+		$before_key        = 'searchposts_in_title_before_' . $key;
+		$remove_after_key  = 'remove_searchposts_in_title_after_' . $key;
+		$remove_before_key = 'remove_searchposts_in_title_before_' . $key;
 
+		if ( isset( $_POST[ $after_key ] ) ) {
+			update_post_meta( $post_id, $after_key, 1 );
+		} else {
+			update_post_meta( $post_id, $after_key, false );
+		}
 
+		if ( isset( $_POST[ $remove_after_key ] ) ) {
+			update_post_meta( $post_id, $after_key, false );
+		}
 
+		if ( isset( $_POST[ $before_key ] ) ) {
+			update_post_meta( $post_id, $before_key, 1 );
+		} else {
+			update_post_meta( $post_id, $before_key, false );
+		}
 
-}else{
-    update_post_meta( $post_id, 'searchposts_in_title_after_'.$key,false);
- 
-}
-
-if(isset($_POST[ "remove_searchposts_in_title_after_".$key ]) ) {
-  
- update_post_meta( $post_id, 'searchposts_in_title_after_'.$key,false);
-
-
-}
-
-
-if(isset($_POST[ "searchposts_in_title_before_".$key ]) ) {
-  
-update_post_meta( $post_id, 'searchposts_in_title_before_'.$key,1);
-
-
-}else{
-  update_post_meta( $post_id, 'searchposts_in_title_before_'.$key,false);  
-} 
-if(isset($_POST[ "remove_searchposts_in_title_before_".$key ]) ) {
-  
- update_post_meta( $post_id, 'remove_searchposts_in_title_before_'.$key,false);
-
-
-}                
-}
+		if ( isset( $_POST[ $remove_before_key ] ) ) {
+			update_post_meta( $post_id, $before_key, false );
+		}
+	}
 }
 
 
