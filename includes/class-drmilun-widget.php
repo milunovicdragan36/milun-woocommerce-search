@@ -320,19 +320,40 @@ $widget_full_width = '
 $form = '';
     if (
     $search_categories_woo == '1' &&
-    $standard_form != '1' &&
     $full_width_form != '1' &&
     $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
 ) {
   
  
 
-    echo wp_kses_post( $args['before_widget'] ?? '' );
+$allowed_html = array(
+	'div' => array(
+		'class' => true,
+		'style' => true,
+	),
+	'span' => array(
+		'class'      => true,
+		'id'         => true,
+		'aria-label' => true,
+		'role'       => true,
+		'tabindex'   => true,
+	),
+	'input' => array(
+		'type'        => true,
+		'class'       => true,
+		'style'       => true,
+		'placeholder' => true,
+	),
+	'p' => array(),
+	'b' => array(),
+);
+
+echo wp_kses_post( $args['before_widget'] ?? '' );
 
 echo wp_kses_post( $args['before_title'] ?? '' ) .
 	'<div class="my_wrapper_widget">
 		<p><b>' . esc_html( $title ?? '' ) . '</b></p>
-		' . wp_kses_post( $popup_form ) . '
+		' . wp_kses( $popup_form, $allowed_html ) . '
 	</div>' .
 	wp_kses_post( $args['after_title'] ?? '' );
 
@@ -342,7 +363,6 @@ echo wp_kses_post( $args['after_widget'] ?? '' );
  }
  else if(
  $search_categories_woo != '1' &&
-    $standard_form != '1' &&
     $full_width_form != '1' &&
     $pop_up_form == '1' &&  is_shop() || is_product_category() || is_product_tag()    ){              
 
@@ -365,7 +385,6 @@ echo wp_kses_post( $args['after_widget'] ?? '' );
  }else if(
   
  $search_categories_woo == '1' &&
-    $standard_form != '1' &&
     $full_width_form == '1' &&
     $pop_up_form != '1' &&  is_shop() || is_product_category() || is_product_tag()    ){              
  $widget_full_width = '
@@ -402,16 +421,37 @@ echo wp_kses_post( $args['after_widget'] ?? '' );
           role="button"
           tabindex="0"></span>
 ';
-// Append popup + icon to the existing menu items
+$allowed_html = array(
+	'div' => array(
+		'class' => true,
+		'style' => true,
+	),
+	'span' => array(
+		'class'      => true,
+		'id'         => true,
+		'aria-label' => true,
+		'role'       => true,
+		'tabindex'   => true,
+	),
+	'input' => array(
+		'type'        => true,
+		'class'       => true,
+		'id'          => true,
+		'style'       => true,
+		'placeholder' => true,
+	),
+	'p' => array(),
+	'b' => array(),
+);
 
 echo wp_kses_post( $args['before_widget'] ?? '' );
 
 echo wp_kses_post( $args['before_title'] ?? '' );
 
 echo '<div class="my_wrapper_widget">
-        <p><b>' . esc_html( $title ?? '' ) . '</b></p>
-        ' . wp_kses_post( $widget_full_width ) . '
-      </div>';
+	<p><b>' . esc_html( $title ?? '' ) . '</b></p>
+	' . wp_kses( $widget_full_width, $allowed_html ) . '
+</div>';
 
 echo wp_kses_post( $args['after_title'] ?? '' );
 

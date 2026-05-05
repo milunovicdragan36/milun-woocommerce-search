@@ -3136,10 +3136,10 @@ if ( class_exists( 'WooCommerce' ) ) {
 		?>
 
 <p>
-	<label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="full_width_form" value="1" <?php checked( esc_attr( $sanitized_checkbox_full_width_form ), 1 ); ?>><?php esc_html_e( 'Full width form', 'milun-woo-search' ); ?></label>
+	<label style="font-size:15px;"><input class="form-for-display" onchange="shape_of_form(this)" type="checkbox" name="full_width_form" value="1" <?php checked( esc_attr( $sanitized_checkbox_full_width_form ), 1 ); ?>><?php esc_html_e( 'Full width form', 'milun-woo-search' ); ?></label>
 </p>
 <p>
-	<label style="font-size:15px;"><input class="form" onchange="shape_of_form(this)" type="checkbox" name="pop_up_form" value="1" <?php checked( esc_attr( $sanitized_checkbox_pop_up_form ), 1 ); ?>><?php esc_html_e( 'Pop up form', 'milun-woo-search' ); ?></label>
+	<label style="font-size:15px;"><input class="form-for-display" onchange="shape_of_form(this)" type="checkbox" name="pop_up_form" value="1" <?php checked( esc_attr( $sanitized_checkbox_pop_up_form ), 1 ); ?>><?php esc_html_e( 'Pop up form', 'milun-woo-search' ); ?></label>
 </p>
 <?php
 
@@ -3955,24 +3955,26 @@ if ( isset( $_POST['full_width_form'] ) ) {
 	update_post_meta( $post_id, 'pop_up_form', 1 );
 
 } else {
-	update_post_meta( $post_id, 'full_width_form', 1 );
+	update_post_meta( $post_id, 'pop_up_form', 1 );
 }
 
 /* =========================
    SEARCH OPTIONS
 ========================= */
+if ( isset( $_POST['search_by_woo_title'] ) ) {
 
-update_post_meta(
-	$post_id,
-	'search_by_woo_title',
-	isset( $_POST['search_by_woo_title'] ) ? 1 : 0
-);
+	delete_post_meta( $post_id, 'search_by_woo_content' );
+	update_post_meta( $post_id, 'search_by_woo_title', 1 );
 
-update_post_meta(
-	$post_id,
-	'search_by_woo_content',
-	isset( $_POST['search_by_woo_content'] ) ? 1 : 0
-);
+} elseif ( isset( $_POST['search_by_woo_content'] ) ) {
+
+	delete_post_meta( $post_id, 'search_by_woo_title' );
+	update_post_meta( $post_id, 'search_by_woo_content', 1 );
+
+} else {
+	update_post_meta( $post_id, 'search_by_woo_title', 1 );
+}
+
 
 /* =========================
    PASSWORD FILTERS
