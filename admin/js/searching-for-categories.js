@@ -1,3 +1,14 @@
+function shape_of_form(el) {
+    var $checkboxes = jQuery('.form-for-display');
+
+    if (jQuery(el).is(':checked')) {
+        $checkboxes.not(el).prop('checked', false);
+    } else {
+        if ($checkboxes.filter(':checked').length === 0) {
+            jQuery(el).prop('checked', true);
+        }
+    }
+}
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");
     for (var i = 0; i < cbs.length; i++) {

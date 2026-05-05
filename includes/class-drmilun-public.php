@@ -283,11 +283,11 @@ wp_localize_script(
 );
 
 wp_localize_script(
-    'popup-public',
-    'MilunSearch',
-    [
-        'root_url' => home_url()
-    ]
+	'popup-public',
+	'MilunSearch',
+	array(
+		'root_url' => esc_url_raw( home_url( '/' ) ),
+	)
 );
 
 // For full width search form before title 
