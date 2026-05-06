@@ -866,6 +866,8 @@ function namespace_ajax_search_post_titles_of_products_no_words( $request ) {
         'wp_global_styles'
     )
 );
+return $post_titles;
+/*
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	$post_title_empty = $wpdb->get_results(
 		$wpdb->prepare(
@@ -892,28 +894,31 @@ function namespace_ajax_search_post_titles_of_products_no_words( $request ) {
 		return $result;
 	} else {
 		return $post_titles;
-	}
+	}*/
 }
 
 function namespace_ajax_search_empty_post_titles_of_products_no_words( $request ) {
 
-	global $wpdb;
-	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-	$post_title_empty = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT $wpdb->postmeta.meta_key FROM $wpdb->postmeta
-			WHERE $wpdb->postmeta.meta_value = %s",
-			'hidetitleproduct'
-		)
-	);
-	return $post_title_empty;
+global $wpdb;
+
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+$post_title_empty = $wpdb->get_results(
+	$wpdb->prepare(
+		"SELECT {$wpdb->postmeta}.meta_value
+		FROM {$wpdb->postmeta}
+		WHERE {$wpdb->postmeta}.meta_key LIKE %s",
+		'%' . $wpdb->esc_like( 'hidetitleproduct' ) . '%'
+	)
+);
+
+return $post_title_empty;
 }
 
 function namespace_ajax_search_post_titles_of_products( $request ) {
-
+global $wpdb;
 	$post_slug = isset( $request['s'] ) ? (string) $request['s'] : '';
 
-	global $wpdb;
+	
 
 	$post_slug_like = '%' . $wpdb->esc_like( $post_slug ) . '%';
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -962,17 +967,18 @@ $post_titles = $wpdb->get_results(
 }
 
 function namespace_ajax_search_empty_post_titles_of_products( $request ) {
-	$post_slug = isset( $request['s'] ) ? (string) $request['s'] : '';
+
+$post_slug = isset( $request['s'] ) ? (string) $request['s'] : '';
 
 global $wpdb;
 
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 $post_title_empty = $wpdb->get_results(
 	$wpdb->prepare(
-		"SELECT * 
-		FROM $wpdb->postmeta
-		WHERE $wpdb->postmeta.meta_key LIKE %s
-		AND $wpdb->postmeta.meta_value LIKE %s",
+		"SELECT {$wpdb->postmeta}.meta_value
+		FROM {$wpdb->postmeta}
+		WHERE {$wpdb->postmeta}.meta_key LIKE %s
+		AND {$wpdb->postmeta}.meta_value LIKE %s",
 		'%' . $wpdb->esc_like( 'hidetitleproduct' ) . '%',
 		'%' . $wpdb->esc_like( $post_slug ) . '%'
 	)
@@ -983,78 +989,87 @@ return $post_title_empty;
 
 function namespace_ajax_search_post_titles_of_products_two_words( $request ) {
 
-	$post_slug             = isset( $request['s'] ) ? sanitize_text_field( wp_unslash( $request['s'] ) ) : '';
+$post_slug = isset( $request['s'] ) ? sanitize_text_field( wp_unslash( $request['s'] ) ) : '';
 $post_slug_second_word = isset( $request['se'] ) ? sanitize_text_field( wp_unslash( $request['se'] ) ) : '';
 
 global $wpdb;
 
-$post_slug_like        = '%' . $wpdb->esc_like( $post_slug ) . '%';
+$post_slug_like = '%' . $wpdb->esc_like( $post_slug ) . '%';
 $post_slug_second_like = '%' . $wpdb->esc_like( $post_slug_second_word ) . '%';
+
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 $post_titles = $wpdb->get_results(
 	$wpdb->prepare(
 		"
 		SELECT *
 		FROM {$wpdb->posts}
-		WHERE post_status = %s
+		WHERE post_title LIKE %s
+		AND post_title LIKE %s
+		AND post_status = %s
 		AND post_type IN ( %s, %s )
-		AND post_title LIKE %s
-		AND post_title LIKE %s
 		",
+		$post_slug_like,
+		$post_slug_second_like,
 		'publish',
 		'product',
-		'product_variation',
-		$post_slug_like,
-		$post_slug_second_like
+		'product_variation'
 	)
 );
+
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-	$post_title_empty = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT * FROM $wpdb->posts
-			LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_key = $wpdb->posts.post_title
-			WHERE $wpdb->posts.post_status = %s
-			AND $wpdb->postmeta.meta_value = %s",
-			'publish',
-			'hidetitleproduct'
+$post_title_empty = $wpdb->get_results(
+	$wpdb->prepare(
+		"SELECT * FROM $wpdb->posts
+		LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.meta_key = $wpdb->posts.post_title
+		WHERE $wpdb->posts.post_status = %s
+		AND $wpdb->postmeta.meta_value = %s",
+		'publish',
+		'hidetitleproduct'
+	)
+);
+
+if ( ! empty( $post_title_empty ) ) {
+
+	$result = array_values(
+		array_udiff(
+			$post_titles,
+			$post_title_empty,
+			function ( $a, $b ) {
+				return strcmp( $a->post_title, $b->post_title );
+			}
 		)
 	);
 
-	if ( ! empty( $post_title_empty ) ) {
+	return $result;
 
-		$result = array_values(
-			array_udiff(
-				$post_titles,
-				$post_title_empty,
-				function ( $a, $b ) {
-					return strcmp( $a->post_title, $b->post_title );
-				}
-			)
-		);
-		return $result;
-	} else {
-		return $post_titles;
-	}
+} else {
+
+	return $post_titles;
+
+}
 }
 
 function namespace_ajax_search_empty_post_titles_of_products_two_words( $request ) {
-	$post_slug             = isset( $request['s'] ) ? (string) $request['s'] : '';
-	$post_slug_second_word = isset( $request['se'] ) ? (string) $request['se'] : '';
+	$post_slug = isset( $request['s'] ) ? (string) $request['s'] : '';
+$post_slug_second_word = isset( $request['se'] ) ? (string) $request['se'] : '';
 
-	global $wpdb;
+global $wpdb;
+
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-	$post_title_empty = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT $wpdb->postmeta.meta_key FROM $wpdb->postmeta
-			WHERE $wpdb->postmeta.meta_value = %s
-			AND $wpdb->postmeta.meta_key LIKE %s
-			AND $wpdb->postmeta.meta_key LIKE %s",
-			'hidetitleproduct',
-			'%' . $wpdb->esc_like( $post_slug ) . '%',
-			'%' . $wpdb->esc_like( $post_slug_second_word ) . '%'
-		)
-	);
-	return $post_title_empty;
+$post_title_empty = $wpdb->get_results(
+	$wpdb->prepare(
+		"SELECT {$wpdb->postmeta}.meta_value
+		FROM {$wpdb->postmeta}
+		WHERE {$wpdb->postmeta}.meta_key LIKE %s
+		AND {$wpdb->postmeta}.meta_value LIKE %s
+		AND {$wpdb->postmeta}.meta_value LIKE %s",
+		'%' . $wpdb->esc_like( 'hidetitleproduct' ) . '%',
+		'%' . $wpdb->esc_like( $post_slug ) . '%',
+		'%' . $wpdb->esc_like( $post_slug_second_word ) . '%'
+	)
+);
+
+return $post_title_empty;
 }
 
 function namespace_ajax_search_post_titles_of_products_three_words( $request ) {
@@ -1118,34 +1133,33 @@ $post_titles = $wpdb->get_results(
 }
 
 function namespace_ajax_search_empty_post_titles_of_products_three_words( $request ) {
-	$post_slug             = isset( $request['s'] ) ? (string) $request['s'] : '';
-	$post_slug_second_word = isset( $request['se'] ) ? (string) $request['se'] : '';
-	$post_slug_third_word  = isset( $request['ses'] ) ? (string) $request['ses'] : '';
+$post_slug = isset( $request['s'] ) ? (string) $request['s'] : '';
+$post_slug_second_word = isset( $request['se'] ) ? (string) $request['se'] : '';
+$post_slug_third_word = isset( $request['ses'] ) ? (string) $request['ses'] : '';
 
-	global $wpdb;
+global $wpdb;
+
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-	$post_title_empty = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT $wpdb->postmeta.meta_key FROM $wpdb->postmeta
-			WHERE $wpdb->postmeta.meta_value = %s
-			AND $wpdb->postmeta.meta_key LIKE %s
-			AND $wpdb->postmeta.meta_key LIKE %s
-			AND $wpdb->postmeta.meta_key LIKE %s",
-			'hidetitleproduct',
-			'%' . $wpdb->esc_like( $post_slug ) . '%',
-			'%' . $wpdb->esc_like( $post_slug_second_word ) . '%',
-			'%' . $wpdb->esc_like( $post_slug_third_word ) . '%'
-		)
-	);
-	return $post_title_empty;
+$post_title_empty = $wpdb->get_results(
+	$wpdb->prepare(
+		"SELECT {$wpdb->postmeta}.meta_value
+		FROM {$wpdb->postmeta}
+		WHERE {$wpdb->postmeta}.meta_key LIKE %s
+		AND {$wpdb->postmeta}.meta_value LIKE %s
+		AND {$wpdb->postmeta}.meta_value LIKE %s
+		AND {$wpdb->postmeta}.meta_value LIKE %s",
+		'%' . $wpdb->esc_like( 'hidetitleproduct' ) . '%',
+		'%' . $wpdb->esc_like( $post_slug ) . '%',
+		'%' . $wpdb->esc_like( $post_slug_second_word ) . '%',
+		'%' . $wpdb->esc_like( $post_slug_third_word ) . '%'
+	)
+);
+
+return $post_title_empty;
 }
 
 
 
-
-
-
-////////////////////////AI//////////////////////////
 function namespace_ajax_search_post_types( $request ) {
 
 	$post_slug = isset( $request['s'] ) ? (string) $request['s'] : '';
