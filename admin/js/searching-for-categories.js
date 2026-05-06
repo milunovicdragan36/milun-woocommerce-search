@@ -302,6 +302,7 @@ this.search_title_of_product.on('keyup',this.getResultsSearch_title_of_product.b
   jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/search_post_titles_of_products/'+customSearchBox,function(title_of_product){
    jQuery.getJSON(liveSearchDataCategories[1].root_url+'namespace/v11/search_empty_post_titles_of_products/'+ customSearchBox,function(title_of_product_empty){
 
+  console.log(title_of_product_empty);  
 
 
 
@@ -332,12 +333,11 @@ console.log(title_of_product_unique);
 
 
 
-   
 
 if(title_of_product_empty.length != 0){
   console.log(title_of_product_empty);
  jQuery('.title_of_product_empty').css("display",'block');
- var result_2 = title_of_product_empty.map(item=> `<div onclick="hideTitleProductFunction('`+item.meta_key.replace(/[^\w\s]/gi, '')
+ var result_2 = title_of_product_empty.map(item=> `<div onclick="hideTitleProductFunction('`+item.meta_key
 +`')" class='pink'>`+
   item.meta_value
 +
