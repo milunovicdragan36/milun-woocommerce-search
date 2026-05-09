@@ -10,7 +10,7 @@ if( ! class_exists('MMSDD_Drmilun_Search_Post') ) :
  *
  * @package    MMSDD_Drmilun_Shortcode
  * @subpackage MMSDD_Drmilun_Shortcode/admin
- * @author     Dragan Milunovic <drmilun9@gmail.com>
+ * @author     Dragan Milunovic <milunovicdragan36@gmail.com>
  */
 class MMSDD_Drmilun_Search_Post{
   public function __construct(){
@@ -42,8 +42,8 @@ function sfp_block_creating_new_search_forms( $caps, $cap, $user_id, $args ) {
  function sfp_register_add_new_search_menu() {
 
       add_menu_page(
-        __( 'Milun Search Woo', 'milun-woo-search' ),
-        __( 'MilunSearch Woo', 'milun-woo-search' ),
+        __( 'Search Woo', 'milun-woo-search' ),
+        __( 'Search Woo', 'milun-woo-search' ),
         'edit_pages',
         'sfp-search-ai',                 // IMPORTANT: custom slug (not post-new.php)
         [$this, 'sfp_render_search_router'],   // callback that redirects

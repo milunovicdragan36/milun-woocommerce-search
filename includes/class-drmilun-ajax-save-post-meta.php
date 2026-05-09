@@ -11,7 +11,7 @@ if( ! class_exists('MMSDD_Drmilun_Ajax_Save_Post_Meta') ) :
  *
  * @package    MMSDD_Drmilun_Ajax_Save_Post_Meta
  * @subpackage MMSDD_Drmilun_Ajax_Save_Post_Meta/includes
- * @author     Dragan Milunovic <drmilun9@gmail.com>
+ * @author     Dragan Milunovic <milunovicdragan36@gmail.com>
  */
 
 class MMSDD_Drmilun_Ajax_Save_Post_Meta{

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since      1.0.0
  * @package    MMSDD_Drmilun_i18n
  * @subpackage MMSDD_Drmilun_i18n/includes
- * @author     Dragan Milunovic <drmilun9@gmail.com>
+ * @author     Dragan Milunovic <milunovicdragan36@gmail.com>
  */
 class MMSDD_Drmilun_i18n {
 

@@ -10,7 +10,7 @@ if( ! class_exists('MMSDD_Search_Post_Meta') ) :
  *
  * @package    MMSDD_Drmilun_Meta
  * @subpackage MMSDD_Drmilun_Meta/includes
- * @author     Dragan Milunovic <drmilun9@gmail.com>
+ * @author     Dragan Milunovic <milunovicdragan36@gmail.com>
  */
 
 class MMSDD_Drmilun_Meta{
@@ -3176,45 +3176,74 @@ if ( class_exists( 'WooCommerce' ) ) {
 <p>
 		<?php $id = get_the_ID(); ?>
 
-		<?php
-		$search_post_id_woo = esc_attr( get_post_meta( get_the_ID(), 'search_post_id_woo', true ) );
-		?>
+<?php
+$search_post_id_woo = get_post_meta( get_the_ID(), 'search_post_id_woo', true );
+?>
 <input type="hidden" id="search_post_id_woo" name="search_post_id_woo" value="<?php echo esc_attr( $search_post_id_woo ); ?>">
-		<?php
-		$numberofpostswoo = esc_attr( get_post_meta( get_the_ID(), 'numberofpostswoo', true ) );
-		?>
+
+<?php
+$numberofpostswoo = get_post_meta( get_the_ID(), 'numberofpostswoo', true );
+$numberofpostswoo = '' !== $numberofpostswoo ? absint( $numberofpostswoo ) : 8;
+?>
 
 <p>
-	<label for="numberofpostswoo"><?php esc_html_e( 'Select number of products (between 1 and 15) to show: ', 'milun-woo-search' ); ?></label>
-	<input type="number" id="numberofpostswoo" name="numberofpostswoo"
+	<label for="numberofpostswoo">
+		<?php esc_html_e( 'Select number of products (between 1 and 15) to show: ', 'milun-woo-search' ); ?>
+	</label>
+
+	<input
+		type="number"
+		id="numberofpostswoo"
+		name="numberofpostswoo"
 		value="<?php echo esc_attr( $numberofpostswoo ); ?>"
-		min="1" max="15">
+		min="1"
+		max="15"
+	>
 </p>
-<br>
-		<?php
-		global $wpdb;
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		//$meta_value_word = $wpdb->get_results("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key ='numberofwordsinposts' AND meta_value !=''");
-		$numberofwordsinposts = esc_attr( get_post_meta( get_the_ID(), 'numberofwordsinposts', true ) );
 
-		?>
+<br>
+
+<?php
+$numberofwordsinposts = get_post_meta( get_the_ID(), 'numberofwordsinposts', true );
+$numberofwordsinposts = '' !== $numberofwordsinposts ? absint( $numberofwordsinposts ) : 7;
+?>
+
 <p>
-	<label style="font-size:15px;"><input type="number" id="numberofwordsinposts" name="numberofwordsinposts" min="7" max="30" value="<?php echo esc_attr( $numberofwordsinposts ); ?>"
-><?php esc_html_e( 'Number of words to show in posts', 'milun-woo-search' ); ?></label>
+	<label style="font-size:15px;" for="numberofwordsinposts">
+		<input
+			type="number"
+			id="numberofwordsinposts"
+			name="numberofwordsinposts"
+			min="7"
+			max="30"
+			value="<?php echo esc_attr( $numberofwordsinposts ); ?>"
+		>
+		<?php esc_html_e( 'Number of words to show in posts', 'milun-woo-search' ); ?>
+	</label>
 </p>
 
-		<?php
+<?php
+$color_of_background = get_post_meta( get_the_ID(), 'color_of_background', true );
 
-		$custom = get_post_meta( esc_attr( $post->ID ) );
+$color_of_background = $color_of_background
+	? sanitize_hex_color( $color_of_background )
+	: '#dd9933';
+?>
 
-		$color_of_background = isset( $custom['color_of_background'][0] ) ? $custom['color_of_background'][0] : '#fff';
-		?>
-<label for="color_of_background"><?php esc_html_e( 'Color for background of posts: ', 'milun-woo-search' ); ?></label>
+<label for="color_of_background">
+	<?php esc_html_e( 'Color for background of posts: ', 'milun-woo-search' ); ?>
+</label>
 
-<input id="color_of_background" class="background_color_of_article" type="text" name="color_of_background" value="<?php echo esc_attr( $color_of_background ); ?>"/>
+<input
+	id="color_of_background"
+	class="background_color_of_article"
+	type="text"
+	name="color_of_background"
+	value="<?php echo esc_attr( $color_of_background ); ?>"
+/>
+
 <br>
 <br>
-
 <?php
 		$search_categories_woo              = esc_attr( get_post_meta( get_the_ID(), 'search_categories_woo', true ) );
 		$sanitized_checkbox_category_count_2 = $search_categories_woo == 1 ? $this->dmsfp_prefix_sanitize_input( $search_categories_woo, 1 ) : '';
@@ -3857,17 +3886,21 @@ update_post_meta(
    NUMERIC FIELDS
 ========================= */
 
-update_post_meta(
-	$post_id,
-	'numberofpostswoo',
-	isset( $_POST['numberofpostswoo'] ) ? absint( $_POST['numberofpostswoo'] ) : 8
-);
+if ( isset( $_POST['numberofpostswoo'] ) ) {
+	update_post_meta(
+		$post_id,
+		'numberofpostswoo',
+		absint( wp_unslash( $_POST['numberofpostswoo'] ) )
+	);
+}
 
-update_post_meta(
-	$post_id,
-	'numberofwordsinposts',
-	isset( $_POST['numberofwordsinposts'] ) ? absint( $_POST['numberofwordsinposts'] ) : 7
-);
+if ( isset( $_POST['numberofwordsinposts'] ) ) {
+	update_post_meta(
+		$post_id,
+		'numberofwordsinposts',
+		absint( wp_unslash( $_POST['numberofwordsinposts'] ) )
+	);
+}
 
 /* =========================
    WOOCOMMERCE ATTRIBUTES
@@ -3918,12 +3951,13 @@ if ( class_exists( 'WooCommerce' ) ) {
    COLOR
 ========================= */
 
-$color_of_background = isset( $_POST['color_of_background'] )
-	? sanitize_hex_color( wp_unslash( $_POST['color_of_background'] ) )
-	: '#fff';
+if ( isset( $_POST['color_of_background'] ) ) {
+	$color_of_background = sanitize_hex_color( wp_unslash( $_POST['color_of_background'] ) );
 
-update_post_meta( $post_id, 'color_of_background', $color_of_background );
-
+	if ( $color_of_background ) {
+		update_post_meta( $post_id, 'color_of_background', $color_of_background );
+	}
+}
 /* =========================
    DATE FIELDS
 ========================= */
@@ -3988,7 +4022,7 @@ update_post_meta( $post_id, 'show_products_with_and_without_password', 1 );
 delete_post_meta( $post_id, 'show_products_without_password' );
 delete_post_meta( $post_id, 'show_products_with_password' );
 
-}
+}else
 if ( isset( $_POST['show_products_without_password'] ) ) {
 update_post_meta(
 	$post_id,
@@ -3997,7 +4031,7 @@ update_post_meta(
 );
 delete_post_meta( $post_id, 'show_products_with_and_without_password' );
 delete_post_meta( $post_id, 'show_products_with_password' );
-}
+} else
 
 if ( isset( $_POST['show_products_with_password'] ) ) {
 update_post_meta(
@@ -4007,6 +4041,9 @@ update_post_meta(
 );
 delete_post_meta( $post_id, 'show_products_with_and_without_password' );
 delete_post_meta( $post_id, 'show_products_without_password' );
+}else{
+	update_post_meta( $post_id, 'show_products_with_and_without_password', 1 );
+
 }
 }
 

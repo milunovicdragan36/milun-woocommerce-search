@@ -1,3 +1,6 @@
+jQuery(document).ready(function ($) {
+	jQuery('.background_color_of_article').wpColorPicker();
+});
 function woo_cbPassword(obj) {
     var cbs = document.getElementsByClassName("woo_password");
     for (var i = 0; i < cbs.length; i++) {

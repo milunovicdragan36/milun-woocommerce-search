@@ -9,7 +9,7 @@ if( ! class_exists('MMSDD_Drmilun_Shortcode') ) :
  *
  * @package     MMSDD_Drmilun_Shortcode
  * @subpackage  MMSDD_Drmilun_Shortcode/includes
- * @author      Dragan <drmilun9@gmail.com>
+ * @author      Dragan <milunovicdragan36@gmail.com>
  */
 class MMSDD_Drmilun_Shortcode{
     

@@ -9,7 +9,7 @@ if( ! class_exists('MMSDD_Milun_Search_Activator') ) :
  *
  * @package    MMSDD_Milun_Search
  * @subpackage MMSDD_Milun_Search/includes
- * @author     Dragan Milunovic <drmilun9@gmail.com>
+ * @author     Dragan Milunovic <milunovicdragan36@gmail.com>
  */
 class MMSDD_Milun_Search_Activator {
 
