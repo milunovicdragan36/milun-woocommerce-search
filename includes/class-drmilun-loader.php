@@ -14,7 +14,7 @@ if( ! class_exists('MMSDD_Drmilun_Loader') ) :
  *
  * @package    MMSDD_Drmilun_Loader
  * @subpackage MMSDD_Drmilun_Loader/includes
- * @author     Dragan Milunovic <drmilun9@gmail.com>
+ * @author     Dragan Milunovic <milunovicdragan36@gmail.com>
  */
 class MMSDD_Drmilun_Loader {
 
