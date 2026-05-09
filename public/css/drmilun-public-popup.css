@@ -12,7 +12,7 @@
 .wrapper-data-container-popup-data-posts{
   background-color: #fff;
  height: auto;
- max-height: 500px !important;
+ max-height: 500px;
   
 }
 .data-container-popup{
@@ -45,10 +45,12 @@
 .wrapper-for-data-popup-posts-btn {
     position: relative;
     height: 100%;
-    bottom: 50px;
+    bottom: 0px;
     z-index: -9999;
 
 }
+
+
 
 .data-popup-posts-btn {
     position: absolute;
@@ -57,6 +59,51 @@
     width: 100%;
     text-align: center;
 }
-.data-categories-container-popup{
-    margin-top: 20px;
+/* Tablets */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+
+    .data-popup-posts-btn {
+        bottom: 30px;
+        
+    }
+  .notification-container{
+    margin-bottom: 80px;
+  }  
+    .data-container-popup {
+        padding-bottom: 100px;
+    }
+
 }
+
+/* Mobile only */
+@media screen and (max-width: 767px) {
+
+    .data-popup-posts-btn {
+       
+        bottom: 0px;
+        
+    }
+ .notification-container{
+    margin-bottom: 140px;
+  }  
+}
+
+
+.data-categories-container-popup{
+    margin-top: 0px;
+}
+
+
+   .wrapper-data-container-popup-data-posts {
+        max-height: 70vh;
+        overflow-y: auto;
+        padding-bottom: 0;
+
+    }
+
+    .data-popup-posts-btn {
+        bottom: 0px;
+
+        
+    }
+ 

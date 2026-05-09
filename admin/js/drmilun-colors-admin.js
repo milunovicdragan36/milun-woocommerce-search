@@ -59,7 +59,6 @@ var b = [];
 
  function hideSkuFunction(sku){
 
-  alert(sku);
 
     a.push(sku);
  
@@ -131,7 +130,6 @@ var b = [];
 
  function hideTitleFunction(title){
 
-  alert(title);
 
     a.push(title);
  
@@ -202,7 +200,6 @@ var b = [];
 
  function hideTitleProductFunction(title_of_product){
 
-  alert(title_of_product);
 
     a.push(title_of_product);
  
@@ -274,7 +271,6 @@ var b = [];
 
 
  function myWooUserFunction(user){
-  alert(user);
 
     a.push(user);
  
@@ -349,7 +345,6 @@ var b = [];
 
 function myWooTypeProdFunction(type_prod ){
 
-alert(type_prod);
 
     a.push(type_prod);
 
@@ -419,7 +414,6 @@ var b = [];
 
 function myWooRatingsFunction(rate ){
 
-alert(rate);
 
     a.push(rate);
 
@@ -492,7 +486,6 @@ var b = [];
 
 function myWooProductFunction(product_id ){
 
-alert(product_id);
 
     a.push(product_id);
 
