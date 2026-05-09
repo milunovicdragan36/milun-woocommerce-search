@@ -42,13 +42,13 @@ function sfp_block_creating_new_search_forms( $caps, $cap, $user_id, $args ) {
  function sfp_register_add_new_search_menu() {
 
       add_menu_page(
-        __( 'Search Woo', 'milun-woo-search' ),
-        __( 'Search Woo', 'milun-woo-search' ),
+        __( 'Milun Search Woo', 'milun-woo-search' ),
+        __( 'MilunSearch Woo', 'milun-woo-search' ),
         'edit_pages',
         'sfp-search-ai',                 // IMPORTANT: custom slug (not post-new.php)
         [$this, 'sfp_render_search_router'],   // callback that redirects
         'dashicons-search',
-        5
+        58
     );
 }
 

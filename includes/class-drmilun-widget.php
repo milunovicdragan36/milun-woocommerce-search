@@ -284,6 +284,43 @@ border-top-color:<?php echo esc_attr($color); ?>;
               role="button"
               tabindex="0"></span>
     ';
+$popup_form_without_categories = '
+      
+
+        <div class="pop_up_popup milun-popup-center">
+            <div class="notification-container dismiss">
+
+             
+                    <div class="search_popup" style="background-color:transparent;">
+
+                      <span class="dashicons dashicons-no-alt closeFilePanel"
+                      id="close-search-flyout-before-title"
+                      aria-label="Close Search"
+                      role="button"
+                      tabindex="0"></span>
+                        <input type="text"
+                               class="search-term-popup" style="border: 1px solid #000000;"
+                               placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
+                    </div>
+<div class="wrapper-for-data-popup-posts-btn">
+        <div class="wrapper-data-container-popup-data-posts">
+<div class="data-container-popup"></div>
+<div class="data-posts-inc-popup"></div>
+
+<div class="no-data-popup"></div>
+                  <div class="data-popup-posts-btn"></div>
+    
+                    </div>
+                 </div>
+            </div>
+        </div>
+
+        <span class="dashicons dashicons-search"
+              id="open-search-flyout-before-title"
+              aria-label="' . esc_attr__( 'Search', 'milun-woo-search' ) . '"
+              role="button"
+              tabindex="0"></span>
+    ';    
 $widget_full_width = '
     <div class="widget_full_width">
         <div class="notification-container_widget_full_width">
@@ -317,77 +354,7 @@ $widget_full_width = '
           tabindex="0"></span>
 ';
 
-$form = '';
-    if (
-    $search_categories_woo == '1' &&
-    $full_width_form != '1' &&
-    $pop_up_form == '1' && is_shop() || is_product_category() || is_product_tag()
-) {
-  
- 
-
-$allowed_html = array(
-	'div' => array(
-		'class' => true,
-		'style' => true,
-	),
-	'span' => array(
-		'class'      => true,
-		'id'         => true,
-		'aria-label' => true,
-		'role'       => true,
-		'tabindex'   => true,
-	),
-	'input' => array(
-		'type'        => true,
-		'class'       => true,
-		'style'       => true,
-		'placeholder' => true,
-	),
-	'p' => array(),
-	'b' => array(),
-);
-
-echo wp_kses_post( $args['before_widget'] ?? '' );
-
-echo wp_kses_post( $args['before_title'] ?? '' ) .
-	'<div class="my_wrapper_widget">
-		<p><b>' . esc_html( $title ?? '' ) . '</b></p>
-		' . wp_kses( $popup_form, $allowed_html ) . '
-	</div>' .
-	wp_kses_post( $args['after_title'] ?? '' );
-
-echo wp_kses_post( $args['after_widget'] ?? '' );
- 
-                      
- }
- else if(
- $search_categories_woo != '1' &&
-    $full_width_form != '1' &&
-    $pop_up_form == '1' &&  is_shop() || is_product_category() || is_product_tag()    ){              
-
-
-                       // Append popup + icon to the existing menu items
-
-echo wp_kses_post( $args['before_widget'] ?? '' );
-
-echo wp_kses_post( $args['before_title'] ?? '' );
-
-echo '<div class="my_wrapper_widget">
-        <p><b>' . esc_html( $title ?? '' ) . '</b></p>
-        ' . wp_kses_post( $popup_form ) . '
-      </div>';
-
-echo wp_kses_post( $args['after_title'] ?? '' );
-
-echo wp_kses_post( $args['after_widget'] ?? '' );
-    
- }else if(
-  
- $search_categories_woo == '1' &&
-    $full_width_form == '1' &&
-    $pop_up_form != '1' &&  is_shop() || is_product_category() || is_product_tag()    ){              
- $widget_full_width = '
+$widget_full_width_without_categories = '
     <div class="widget_full_width">
         <div class="notification-container_widget_full_width">
             <div class="search_widget_full_width" style="background-color:transparent;">
@@ -400,12 +367,10 @@ echo wp_kses_post( $args['after_widget'] ?? '' );
 
                 <input type="text"
                        class="search-term-widget_full_width"
-                       style="border: 1px solid #000000;"
                        placeholder="' . esc_attr__( 'Search...', 'milun-woo-search' ) . '" />
             </div>
 
             <div class="wrapper-data-container-widget_full_width-data-posts">
-                <div class="data-categories-container-menu"></div>
                 <div class="data-container-widget_full_width"></div>
                 <div class="data-posts-inc-widget_full_width"></div>
                 <div class="data-widget_full_width-posts-btn"></div>
@@ -413,7 +378,6 @@ echo wp_kses_post( $args['after_widget'] ?? '' );
             </div>
         </div>
     </div>
-
 
     <span class="dashicons dashicons-search"
               id="open-widget_full_width"
@@ -436,13 +400,84 @@ $allowed_html = array(
 	'input' => array(
 		'type'        => true,
 		'class'       => true,
-		'id'          => true,
 		'style'       => true,
 		'placeholder' => true,
 	),
 	'p' => array(),
 	'b' => array(),
 );
+
+
+$form = '';
+    if (
+    $search_categories_woo == '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_shop() || $search_categories_woo == '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_product() || $search_categories_woo == '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_product_category() || $search_categories_woo == '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_product_tag()
+) {
+  
+ 
+
+
+
+echo wp_kses_post( $args['before_widget'] ?? '' );
+
+echo wp_kses_post( $args['before_title'] ?? '' ) .
+	'<div class="my_wrapper_widget">
+		<p><b>' . esc_html( $title ?? '' ) . '</b></p>
+		' . wp_kses( $popup_form, $allowed_html ) . '
+	</div>' .
+	wp_kses_post( $args['after_title'] ?? '' );
+
+echo wp_kses_post( $args['after_widget'] ?? '' );
+ 
+                      
+ } else if (
+    $search_categories_woo != '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_shop() || $search_categories_woo != '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_product() || $search_categories_woo != '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_product_category() || $search_categories_woo != '1' &&
+    $full_width_form != '1' &&
+    $pop_up_form == '1' && is_product_tag()
+) {
+  
+ 
+
+
+
+echo wp_kses_post( $args['before_widget'] ?? '' );
+
+echo wp_kses_post( $args['before_title'] ?? '' ) .
+	'<div class="my_wrapper_widget">
+		<p><b>' . esc_html( $title ?? '' ) . '</b></p>
+		' . wp_kses( $popup_form_without_categories, $allowed_html ) . '
+	</div>' .
+	wp_kses_post( $args['after_title'] ?? '' );
+
+echo wp_kses_post( $args['after_widget'] ?? '' );
+ 
+                      
+ }else if(
+  
+ $search_categories_woo == '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' &&  is_shop() || $search_categories_woo == '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' && is_product() || $search_categories_woo == '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' && is_product_category() || $search_categories_woo == '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' && is_product_tag()             
+    ){
+
 
 echo wp_kses_post( $args['before_widget'] ?? '' );
 
@@ -451,6 +486,33 @@ echo wp_kses_post( $args['before_title'] ?? '' );
 echo '<div class="my_wrapper_widget">
 	<p><b>' . esc_html( $title ?? '' ) . '</b></p>
 	' . wp_kses( $widget_full_width, $allowed_html ) . '
+</div>';
+
+echo wp_kses_post( $args['after_title'] ?? '' );
+
+echo wp_kses_post( $args['after_widget'] ?? '' );
+    
+ }else if(
+  
+ $search_categories_woo != '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' &&  is_shop() || $search_categories_woo != '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' &&  is_product() || $search_categories_woo != '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' &&  is_product_category() || $search_categories_woo != '1' &&
+    $full_width_form == '1' &&
+    $pop_up_form != '1' &&  is_product_tag()             
+    ){
+
+
+echo wp_kses_post( $args['before_widget'] ?? '' );
+
+echo wp_kses_post( $args['before_title'] ?? '' );
+
+echo '<div class="my_wrapper_widget">
+	<p><b>' . esc_html( $title ?? '' ) . '</b></p>
+	' . wp_kses( $widget_full_width_without_categories, $allowed_html ) . '
 </div>';
 
 echo wp_kses_post( $args['after_title'] ?? '' );
