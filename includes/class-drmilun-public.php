@@ -208,6 +208,7 @@ $translation_array_for_products = array(
     'search_results' => __( 'Search Results', 'milun-woo-search' ),
     'not_found_data' => __( 'We could not find any products for your search. You can give it another try with different criteria.', 'milun-woo-search' ),
     'read_more'      => __( 'Read more...', 'milun-woo-search' ),
+    'site_url'        => home_url( '/' ),
 );
   
 
@@ -455,6 +456,16 @@ wp_register_script(
 );
 
 wp_enqueue_script( 'show-result-popup' );
+
+
+// Pass WooCommerce currency to JS
+wp_localize_script(
+    'show-result-popup',
+    'milunPopupData',
+    array(
+        'currency_symbol' => get_woocommerce_currency_symbol(),
+    )
+);
 
 
 // For searching in widget

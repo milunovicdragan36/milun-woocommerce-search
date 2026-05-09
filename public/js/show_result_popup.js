@@ -27,12 +27,12 @@ jQuery(function() {
 
 });
 jQuery('.data-container-popup-inc').css('display','none');
-   document.getElementsByClassName('data-container-popup')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?'<div class="title">'+
-    item.post_title+ `
-<div class='body'><img src=`+item.thumb +` class='milun-search-thumb'>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
+   document.getElementsByClassName('data-container-popup')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?`
+<img src=`+item.thumb +` class='milun-search-thumb'><div class='body'><div class="title" style="font-weight: bold;">`+
+    item.post_title+`</div><div class="price">`+milunPopupData.currency_symbol + item.price+`</div>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href="${liveSearchDataPosts[0].site_url}product/${item.post_name}"> `+
  liveSearchDataPosts[0].read_more+`</a></div><br>`
     
- : item.post_title == undefined ? ``:`<div class="title">`+item.post_title+`</div><div class='body'>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
+ : item.post_title == undefined ? ``:`<div class="title" style="font-weight: bold;">`+item.post_title+`</div><div class='body'><div class="price">`+milunPopupData.currency_symbol + item.price+`</div>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href="${liveSearchDataPosts[0].site_url}product/${item.post_name}"> `+
  liveSearchDataPosts[0].read_more+`</a></div><br>`
  ).join(" ")
 ;
@@ -91,12 +91,12 @@ jQuery(function() {
 
 
 
-    document.getElementsByClassName('data-container-popup')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?  '<div class="title">'+
-    item.post_title+ `
-<div class='body'><img src=`+item.thumb +` class='milun-search-thumb'>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
+    document.getElementsByClassName('data-container-popup')[0].innerHTML =livesearchposts_2.map(item =>item.thumb ?  
+     `
+<img src=`+item.thumb +` class='milun-search-thumb'><div class='body'><div class="title" style="font-weight: bold;">`+item.post_title+`</div><div class="price">`+milunPopupData.currency_symbol + item.price+`</div>` + item.post_content.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href="${liveSearchDataPosts[0].site_url}product/${item.post_name}"> `+
  liveSearchDataPosts[0].read_more+`</a></div><br>`
 
- : item.post_title.rendered == undefined ? ``:`<div class="title 2">`+item.post_title.rendered+`</div><div class='body'>` + item.post_content.rendered.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href=`+liveSearchDataCategories[1].root_url+'/'+item.slug+`> `+
+ : item.post_title.rendered == undefined ? ``:`<div class="title 2" style="font-weight: bold;">`+item.post_title.rendered+`</div><div class="price">`+milunPopupData.currency_symbol + item.price+`</div><div class='body'>` + item.post_content.rendered.split(/\s+/,number_of_words_in_posts_2).join(" ")+`<a class='red_color' href="${liveSearchDataPosts[0].site_url}product/${item.post_name}"> `+
  liveSearchDataPosts[0].read_more+`</a></div><br>`
  ).join(" ")+`<input type="hidden" style="display:none;" class="counter" value="0"/>`;
 

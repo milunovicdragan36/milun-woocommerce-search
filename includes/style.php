@@ -17,7 +17,7 @@ border-style: solid;
 .dashicons-search{
     cursor: pointer;
 }
-        
+#open-search-flyout-before-loop_full_width,        
 #open-search-flyout-before-title_full_width,
 #open-search-flyout-after-title_full_width,
 #open-before-loop_full_width,
