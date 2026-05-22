@@ -1,7 +1,7 @@
 === Milun Search for WooCommerce ===
 Contributors: milunovicdragan36
 Donate link: https://www.paypal.com/paypalme/DraganMilunovic
-Tags: Searching, Posts, No refresh a page, CPT, Categories 
+Tags: woocommerce, ajax search, product search, live search, woocommerce search
 Requires at least: 4.7
 Tested up to: 6.9
 Requires PHP: 5.6
@@ -9,51 +9,31 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-	Short Description: AJAX-powered WooCommerce product search with live results, category filtering, and flexible display positions.
-  
-
 == Description ==
-  
-  This plugin is useful for searhing posts by different searching criteria, without refreshing a page, by REST API, on this way the speed is much better.
 
-  In custom post type "sfp_search_post" that is loaded by default with activation of plugin, you could choose different searching criteria for posts. 
+Milun Search for WooCommerce is an AJAX-powered WooCommerce search plugin that allows customers to search products and categories instantly without page refresh.
 
-  For example,
+The plugin provides live search results, flexible search form positions, popup search forms, shortcode support, widget support, and WooCommerce REST API integration.
 
-  you are able to choose would you like to search posts by only typing one letter that is placed in title or content of a post or you could search for posts by Categories or custom post types or you are able to combine all of these elements. 
+== Features ==
 
+* Live AJAX product search
+* WooCommerce category search
+* Search without page reload
+* Popup search forms
+* Full-width search forms
+* Shortcode support
+* Widget support
+* Mobile responsive design
+* Product thumbnails and prices
+* Flexible search positioning
 
 == Installation ==
-
-
-1. Upload `milun-search.zip` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Place echo do_shortcode("[milun_search]");
-   in your template or search for widget that is called "Search Widget".
-
-== Frequently Asked Questions ==
-
-= Does this searching form is able to search for custom post types as well as custom taxonomies  ? =
-
-Yes.
-
-This plugin makes precise and easy searching for posts as well as custom post types
-
-== Screenshots ==
-
-1. First screenshot represents one searching form on admin side.
-2. Second screenshot displays shortcode of one searching form.
-3. Third screenshot displays shortcode of one searching form in shortcode widget.
-4. Forth screenshot shows the final version of serching form looking from user experience.
+1. Upload the plugin folder to `/wp-content/plugins/`.
+2. Activate the plugin via the 'Plugins' menu in WordPress.
+3. Click on "Update" button and your searching form is ready to use.
 
 == Changelog ==
-
 = 1.0.0 =
-* A change since the previous version.
-
-
-== Upgrade Notice ==
-
-= 1.0.0 =
-Smaller bugs are permanently removed.
+* Initial release.
 
