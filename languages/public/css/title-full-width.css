@@ -1,0 +1,275 @@
+/* Prevent horizontal shift caused by flyout */
+html,
+body {
+    overflow-x: hidden;
+}
+
+/* Lock scrolling when search is open */
+html.milun-search-open,
+body.milun-search-open {
+    overflow: hidden !important;
+    height: 100% !important;
+    overscroll-behavior: none;
+}
+
+/* Strong scroll lock (desktop + mobile) */
+body.milun-search-open {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+
+    /* IMPORTANT: prevents layout jump when scrollbar disappears */
+    top: 0; /* JS will override this dynamically */
+}
+
+/* Ensure the flyout is positioned relative to the open icon */
+.title_full_width {
+    position: relative;
+    overflow: visible;
+}
+
+.notification-container_title_full_width {
+    position: fixed;
+    top: 0;
+    left: 0; 
+
+    width: 100vw;
+    max-width: 100vw;
+
+    min-height: 100px;
+    max-height: 70vh;
+    overflow-y: auto;
+
+    background: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+
+    border-radius: 8px;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+z-index: 999999 !important;
+    opacity: 0;
+    visibility: hidden;
+
+    transition: left 0.6s ease, opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.notification-container_title_full_width.active {
+    opacity: 1;
+    visibility: visible;
+    transition: left 0.6s ease, opacity 0.3s ease, visibility 0s linear 0s;
+}
+
+/*
+@media (max-width: 768px) {
+  
+     .notification-container_title_full_width {
+            z-index: 999999; 
+
+        position: fixed;
+            bottom: 0; 
+
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;              
+        max-width: 100%;
+        height: 100vh;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        transform: translateX(-100%); 
+        border-radius: 0;
+            margin-bottom: 20px; 
+
+    }
+
+    .notification-container_title_full_width.active {
+        transform: translateX(0);    
+
+    }
+
+    .search_title_full_width {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 50px 20px 0 10px;
+        width: 80% !important;
+        box-sizing: border-box;
+    }
+
+    .search-term-title_full_width {
+        flex: 1;
+        min-width: 0;
+        width: 0;
+        max-width: 80% !important;
+        box-sizing: border-box;
+    }
+    .data-container-title_full_width{
+        max-width:80% !important;
+    }
+
+
+}
+    */
+/* Open icon 
+#open-search-flyout-before-title_full_width {
+    cursor: pointer;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+}
+*/
+
+/* Search row */
+.search_before_title_full_width {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background-color: transparent;
+}
+
+/* Close icon */
+.closeFilePanel_full_width{
+  padding-right: 20px;
+  padding-top: 10px;
+font-size: 30px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+.closeFilePanel_full_width:hover{
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Remove black hover if theme adds it */
+.closeFilePanel_title_full_width:hover,
+.closeFilePanel_title_full_width:focus,
+#open-search-flyout-title_full_width:hover,
+#open-search-flyout-title_full_width:focus {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Input */
+.search-term-title_full_width {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+/* Results wrapper */
+.wrapper-data-container-title_full_width-data-posts {
+    margin-top: 18px;
+    width: 100%;
+}
+
+/* Inner result containers */
+.data-categories-container-menu,
+.data-container-title_full_width,
+.data-posts-inc-title_full_width,
+.data-title_full_width-posts-btn,
+.no-data-title_full_width {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Lock whole page scroll when open */
+html.milun-search-open,
+body.milun-search-open {
+    overflow: hidden !important;
+    height: 100% !important;
+    overscroll-behavior: none;
+}
+
+body.milun-search-open {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+}
+.red_color{
+    color:red !important;
+}
+
+/*/////////for spinner///////*/
+.loadinggif{
+   padding-right: 60px !important;
+    background-image: url("../images/animated_loader_gif_20.gif");
+    background-repeat: no-repeat;
+    background-position: right 30px center;
+    background-size: 18px 18px;
+}
+
+.closeFilePanel{
+  padding-right: 20px;
+  padding-top: 10px;
+font-size: 30px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+.closeFilePanel:hover{
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+
+.search_title_full_width {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+  .wrapper-data-container-title_full_width-data-posts {
+        max-height: 56.5vh;
+        overflow-y: auto;
+        padding-bottom: 0;
+        width: 100%;
+        z-index: 999999 !important;
+
+
+    }
+
+    .data-popup-posts-btn {
+        bottom: 0px;
+
+        
+    }
+    .data-container-title_full_width .search-title,
+.data-container-title_full_width .search-price,
+.data-container-title_full_width .content_title_full_width {
+    display: block !important;
+    color: #000 !important;
+    
+}
+   .data-container-title_full_width .search-title{
+    font-weight: bold;
+}
+
+.data-container-title_full_width img.milun-search-thumb {
+    width: 100px !important;
+    height: 80px !important;
+    object-fit: cover;
+    float: left;
+    margin-right: 10px;
+}
+.data-container-title_full_width .body {
+    max-height: 80px !important;
+   
+}

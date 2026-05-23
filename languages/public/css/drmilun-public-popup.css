@@ -1,0 +1,136 @@
+
+ /*added to protect transparency of search bar section*/
+/* === SEARCH PANEL === */
+/* Force all parents to be fully opaque (opacity cannot be overridden from child) */
+/* Make the overlay layer actually sit above the whole page */
+.pop_up_popup{
+  z-index: 99998 !important;
+}
+
+/* Inner parts solid too */
+.data-container-popup,
+.wrapper-data-container-popup-data-posts{
+  background-color: #fff;
+ height: auto;
+ max-height: 500px;
+  
+}
+.data-container-popup{
+  margin-top: 30px;
+  
+}
+.wrapper-data-container-popup-data-posts{
+
+  overflow: hidden; /* prevent scroll */
+}
+
+.notification-container {
+    position: relative; /* VERY IMPORTANT */
+}
+#close-search-flyout-before-title {
+    position: absolute;
+    top: 10px;
+    right: 12%;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+
+
+.wrapper-for-data-popup-posts-btn {
+    position: relative;
+    height: 100%;
+    bottom: 0px;
+    z-index: -9999;
+
+}
+
+
+
+.data-popup-posts-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+/* Tablets */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+
+    .data-popup-posts-btn {
+        bottom: 30px;
+        
+    }
+  .notification-container{
+    margin-bottom: 80px;
+  }  
+    .data-container-popup {
+        padding-bottom: 100px;
+    }
+
+}
+
+/* Mobile only */
+@media screen and (max-width: 767px) {
+
+    .data-popup-posts-btn {
+       
+        bottom: 0px;
+        
+    }
+ .notification-container{
+    margin-bottom: 140px;
+  }  
+}
+
+
+.data-categories-container-popup{
+    margin-top: 0px;
+}
+
+
+   .wrapper-data-container-popup-data-posts {
+        max-height: 70vh;
+        overflow-y: auto;
+        padding-bottom: 0;
+
+    }
+
+    .data-popup-posts-btn {
+        bottom: 0px;
+
+        
+    }
+.data-container-popup img.milun-search-thumb {
+    width: 100px !important;
+    height: 80px !important;
+    object-fit: cover;
+    float: left;
+    margin-right: 10px;
+}
+.data-container-popup .body {
+    height: 80px !important;
+   
+}
+    .data-container-popup .search-title,
+.data-container-popup .search-price,
+.data-container-popup .content_popup {
+    display: block !important;
+    color: #000 !important;
+    
+}
+   .data-container-popup .search-title{
+    font-weight: bold;
+}
+
+.data-container-popup img.milun-search-thumb {
+    width: 100px !important;
+    height: 80px !important;
+    object-fit: cover;
+    float: left;
+    margin-right: 10px;
+}
+.data-container-popup .body {
+    max-height: 80px !important;
+   
+}
