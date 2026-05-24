@@ -15,6 +15,9 @@ Milun Search for WooCommerce is an AJAX-powered WooCommerce search plugin that a
 
 The plugin provides live search results, flexible search form positions, popup search forms, shortcode support, widget support, and WooCommerce REST API integration.
 
+Published on TemplateMonster:
+https://www.templatemonster.com/authors/milunovicdragan36/
+
 == Features ==
 
 * Live AJAX product search
